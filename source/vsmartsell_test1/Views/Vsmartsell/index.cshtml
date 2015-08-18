@@ -1,0 +1,288 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .a {
+    }
+</style>
+<head>
+    <script src="~/Scripts/jquery.session.js"></script>
+    <link href="~/Script/dao.css" rel="stylesheet" />
+    <link href="~/Scripts/style.css" rel="stylesheet" />    
+    <link href="~/Scripts/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Scripts/datatables.css" rel="stylesheet" />
+    <script src="~/Scripts/angular.min.js"></script>
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+</head>
+@*<div class="sk-circle">
+    <div class="sk-circle1 sk-child"></div>
+    <div class="sk-circle2 sk-child"></div>
+    <div class="sk-circle3 sk-child"></div>
+    <div class="sk-circle4 sk-child"></div>
+    <div class="sk-circle5 sk-child"></div>
+    <div class="sk-circle6 sk-child"></div>
+    <div class="sk-circle7 sk-child"></div>
+    <div class="sk-circle8 sk-child"></div>
+    <div class="sk-circle9 sk-child"></div>
+    <div class="sk-circle10 sk-child"></div>
+    <div class="sk-circle11 sk-child"></div>
+    <div class="sk-circle12 sk-child"></div>
+</div>*@
+<body class="page-header-fixed bg-1" ng-app="IndexApp" ng-controller="indexcontrol">
+    <div class="container-fluid main-content">
+        <div class="page-title">
+            
+        </div>
+        <!-- DataTables Example -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="widget-container fluid-height clearfix">
+
+
+                    <div class="widget-content padded clearfix">
+                        <div id="dataTable1_length" class="dataTables_length"><h2>Thông tin danh sách khách hàng</h2></div>
+
+                        <div class="dataTables_filter" id="dataTable1_filter">
+
+                            <a class="btn btn-success" href="http://localhost:3469/vsmartsell/create"><i class="fa fa-user"></i>Create</a>
+                            @*<label>Search: <input type="text" aria-controls="dataTable1"></label>*@
+                        </div>
+                        <table class="table table-bordered table-striped" id="dataTable1">
+                            <thead>
+                                <tr>
+                                    
+                                    <th style="text-align:left; width:200px;">
+                                        Tên khách hàng
+                                    </th>
+                                    <th>
+                                        Số điện thoại
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        Loại khách hàng
+                                    </th>
+                                    <th>
+                                        Loại cước
+                                    </th>
+                                    <th>
+                                        Ngày đăng kí
+                                    </th>
+                                    <th>
+                                        Ngày hết hạn
+                                    </th>
+                                    <th>
+                                        Tên cửa hàng
+                                    </th>
+                                    <th>
+                                        Địa chỉ
+                                    </th>
+                                    <th>
+                                        Người hỗ trợ
+                                    </th>
+                                    <th>
+                                        Thao tác
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                <tr hidden ng-repeat="m in ListKH | filter:{Archive:'False'} | offset: currentPage*itemsPerPage | limitTo: itemsPerPage" id="item" name="{{m.MaKH}}">
+
+
+                                    <td hidden id="{{ m.MaKH }}"></td>
+                                    <td>
+                                        <a href="http://localhost:3469/vsmartsell/details/{{m.MaKH}}" style="word-wrap:break-word">{{m.TenKH}}</a>
+                                    </td>
+                                    <td>
+                                        {{m.Phone}}
+                                    </td>
+                                    <td>
+                                        {{m.Email}}
+                                    </td>
+                                    <td>
+                                        {{m.LoaiKH}}
+                                    </td>
+                                    <td>
+                                        {{m.LoaiGoi}}
+                                    </td>
+                                    <td>
+                                        {{todate(m.NgayDangKy)}}
+                                    </td>
+                                    <td>
+                                        {{todate(m.NgayHetHan)}}
+                                    </td>
+                                    <td>
+                                        {{m.TenCH}}
+                                    </td>
+                                    <td>
+                                        {{m.DiaChi}}
+                                    </td>
+                                    <td>
+                                        {{m.HoTro}}
+                                    </td>
+                                    <td style="width:130px;">
+                                                <a class="btn btn-xs btn-success" href="http://localhost:3469/vsmartsell/details/{{m.MaKH}}">
+                                                    <i class="glyphicon glyphicon-pencil">
+                                                    </i> sua
+                                                </a>
+                                            <button class="btn btn-xs btn-danger">
+                                                <p hidden value="{{m.MaKH}}"></p>
+                                                <i class="glyphicon glyphicon-trash">
+                                                </i> xoa
+                                            </button>
+                                    </td>
+                                </tr>
+
+
+
+
+                            </tbody>
+
+                        </table>
+
+                        <div>
+                            <div class="pagination">
+                                    <a class="btn btn-primary" ng-class="prevPageDisabled()">
+                                        <div ng-click="prevPage()">Prev</div>
+                                    </a>
+                                    <span id="soluongpage">
+                                        @for (var i = 1; i <= ViewBag.numpage; i++ )
+                                        {
+                                            <a class="btn btn-primary">@i</a>
+                                        }
+                                    </span>
+                                    <a class="btn btn-primary" ng-class="nextPageDisabled()">
+                                        <div ng-click="nextPage()">Next</div>
+                                    </a>
+                                
+                            </div>
+                            @*<ul id="soluongpage" class="pagination">
+
+                        </ul>*@
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="well">
+                            <h2>Thông tin sử dụng phần mềm</h2>
+                            <p>
+                                Tổng số lượng người dùng :
+                            </p>
+                            <p>
+                                Số lượng người dùng mỗi ngày :
+                            </p>
+                            <p>
+                                Số lượng người dùng > 3 ngày mỗi tuần :
+                            </p>
+                            <p>
+                                Số lượng người dùng < 3 ngày mỗi tuần :
+                            </p>
+                            <p>
+                                Trang được sử dụng nhiều nhất :
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- end DataTables Example -->
+    </div>
+</body>
+
+@section Scripts {
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    var app = angular.module("IndexApp", [])
+    app.filter('offset', function () {
+        return function (input, start) {
+            start = parseInt(start, 10);
+            return input.slice(start);
+        };
+    });
+    $('tr').removeAttr('hidden');
+    app.controller('indexcontrol', function ($scope, $http) {
+        $scope.itemsPerPage = 10;
+        $scope.currentPage = 0;
+        $scope.items = [];
+
+        for (var i = 0; i < 50; i++) {
+            $scope.items.push({
+                id: i, name: "name " + i, description: "description " + i
+            });
+        }
+
+        $scope.prevPage = function () {
+            if ($scope.currentPage > 0) {
+                $scope.currentPage--;
+            }
+        };
+
+        $scope.prevPageDisabled = function () {
+            return $scope.currentPage === 0 ? "disabled" : "";
+        };
+
+        $scope.pageCount = function () {
+            return Math.ceil($scope.items.length / $scope.itemsPerPage) - 1;
+        };
+
+        $scope.nextPage = function () {
+            if ($scope.currentPage < $scope.pageCount()) {
+                $scope.currentPage++;
+            }
+        };
+
+        $scope.nextPageDisabled = function () {
+            return $scope.currentPage === $scope.pageCount() ? "disabled" : "";
+        };
+
+        var loadingIcon = '<div class="sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div>'
+        //$('#dataTable1').find('thead').hide();
+        //$('#dataTable1').find('tbody').hide();
+        $('#dataTable1').append(loadingIcon);
+
+        $http.get("/vsmartsell/GetListKH").success(function (response) {
+            var tam = response.ListKH.length;
+
+            $scope.pageChangeHandler = function (num) {
+                console.log('meals page changed to ' + num);
+            };
+
+            function OtherController($scope) {
+                $scope.pageChangeHandler = function (num) {
+                    console.log('going to page ' + num);
+                };
+            }
+            var listKH = response.ListKH;
+            $scope.ListKH = listKH;
+            //$('#dataTable1').find('thead').show();
+            //$('#dataTable1').find('tbody').find('tr').removeAttr('hidden');
+            $('.sk-circle').remove();
+        });
+
+        $scope.todate = function (strdate) {
+            var newdate = new Date(parseInt(strdate.substr(6)));
+            var todate = ('0' + newdate.getDate()).slice(-2) + '-' + ('0' + (newdate.getMonth() + 1)).slice(-2) + '-' + newdate.getFullYear();
+            return todate;
+        };
+
+        $('body').on('click', '.btn-danger', function () {
+            var strconfirm = confirm("Are you sure you want to delete?");
+            if (strconfirm == true) {
+                var tam = parseInt($(this).find('p').attr('value'));
+                $.post("http://localhost:3469/vsmartsell/EditArchive", { id: tam }, function (data) {
+                    if (data)
+                    { location.reload() }
+                });
+            }
+            
+        })
+    });
+
+   
+</script>
+}

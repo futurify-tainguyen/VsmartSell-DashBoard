@@ -1,0 +1,403 @@
+﻿@model vsmartsell_test1.Models.KhachHang
+@{
+    ViewBag.Title = "Customer's details";
+                Layout = "~/Views/Shared/_Layout.cshtml";
+                var a = new SelectList(ViewBag.listgoi);
+                var b = a.ToList();
+            }
+<style>
+    body a {
+                color: white}
+            a:hover {
+    color: #666666;
+    text-decoration: none; }
+
+  .nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  color: #555 !important;
+  cursor: default;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+}
+
+</style>
+<head>
+    <link href="~/Scripts/style.css" rel="stylesheet" />
+    <link href="~/Scripts/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Script/bootstrap.css" rel="stylesheet" />
+    <link href="~/Scripts/summernote.css" rel="stylesheet" />
+    <link href="~/Scripts/font-awesome.css" rel="stylesheet" />
+    <script src="~/Scripts/angular.min.js"></script>
+    <link href="~/Script/dao.css" rel="stylesheet" />
+    <link href="~/Scripts/font-awesome.min.css" rel="stylesheet" />
+</head>
+@*<body ng-app="Index3" ng-controller="index3control">*@
+<body class="page-header-fixed bg-1" ng-app="IndexApp" ng-controller="indexcontrol">
+
+    <div class="row">
+        <!-- Trigger the modal with a button -->
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog" style="margin-left: -255px;">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                        <h4 class="modal-title">Thanh toán tiền</h4>
+                    </div>
+                  
+                    <div class="modal-footer" style="margin-top:0px">
+
+
+                        <div class="col-md-10">
+                            <div class="form-group col-md-12">
+                                <label class="control-label col-md-4">Autoclose</label>
+                                <div class="col-md-8">
+                                    <div class="input-group date datepicker" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
+                                        <input class="form-control" type="text"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label col-md-4">Ngày thanh toán</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" placeholder="" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label col-md-4" for="disabledInput">Mã giao dịch</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="disabledInput" placeholder="" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label col-md-4">Thời hạn</label>
+                                <div class="col-md-8">
+                                    <select class="form-control"><option value="Category 1">1 tháng</option><option value="Category 2">3 tháng</option><option value="Category 3">6 tháng</option><option value="Category 4">Trả hết</option></select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label col-md-4">Cước phí</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                       <input class="form-control" type="text"><span class="input-group-addon">/tháng</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label col-md-4">Thành tiền</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input class="form-control" disabled type="text"><span class="input-group-addon">VNĐ</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label col-md-4">Tiền giảm</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text"><span class="input-group-addon">VNĐ</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label col-md-4" for="disabledInput">Tổng tiền</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="disabledInput" placeholder="" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label col-md-4">Thanh toán</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" placeholder="" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label col-md-4">Ghi chú</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" placeholder="" type="text">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-8" style="float:right">
+                            <button type="button" class="btn btn-primary"  >
+                                <i class="fa fa-shopping-cart"></i>
+                                <span class="" id="cartnotice">Thanh Toán</span>
+                            </button>
+                            <button class="btn btn-danger" data-dismiss="modal" >
+                            <i class="fa fa-trash-o"></i>Hủy
+                            </button>
+                        </div>  
+
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="col-lg-12">
+                <div class="widget-container fluid-height clearfix">
+                    <div class="heading tabs" style="background:rgb(200, 200, 200)">
+                        <i class="fa fa-sitemap" style="color:white"></i><strong style="color:white">Detail</strong>
+                        <ul class="nav nav-tabs pull-right" data-tabs="tabs" id="tabs">
+                            <li class="">
+                                <a data-toggle="tab" href="#tab1"><i class="fa fa-info-circle"></i><span><strong>Thông tin khách hàng</strong></span></a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#tab2"><i class="fa fa-info-circle"></i><span><strong>Thông tin gói cước</strong></span></a>
+                            </li>
+                            <li class="active">
+                                <a data-toggle="tab" href="#tab3"><i class="fa fa-calendar"></i><span><strong>Lịch sử giao dịch khách hàng</strong></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content padded" id="my-tab-content" style="background:rgb(251, 251, 248);">
+                        <div class="tab-pane" id="tab1" style="font-size:20px;line-height: 50px;height: 376px;">
+                            @*<h3>
+                                    Overview
+                                </h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet auctor purus, non imperdiet sapien dapibus non. Phasellus pretium rutrum elit in cursus. Donec ullamcorper nec massa vel mattis. Curabitur eros metus, dapibus quis est et, dapibus imperdiet dolor.
+                                </p>*@
+                            <ul>
+                                
+                                <div class="col-lg-6"><strong>Tên khách hàng :</strong>
+                                    @Html.TextBoxFor(model => model.TenKH, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-offset-6"><strong>Số điện thoại :</strong>
+                                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-6"><strong>Loại khách hàng :</strong>
+                                @Html.TextBoxFor(model => model.LoaiKH, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-offset-6"><strong>Email :</strong>
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-6"><strong>Người hỗ trợ :</strong>
+                                @Html.TextBoxFor(model => model.HoTro, new { @class = "form-control" })
+                                </div>
+                                <div hidden class="col-lg-6"><strong>Mã khách hàng :</strong>
+                                @Html.TextBoxFor(model => model.MaKH, new { @class = "form-control" })
+                                </div>
+                                <div hidden class="col-lg-6"><strong> Tình trạng :</strong>
+                                @Html.TextBoxFor(model => model.Archive, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-offset-6"><strong>Ngày đăng kí :</strong>
+                                    @Html.TextBoxFor(model => model.NgayDangKy, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                                </div>
+                                <div class="col-lg-12"><strong>Địa chỉ :</strong>
+                                    @Html.TextBoxFor(model => model.DiaChi, new { @class = "form-control" })
+                                @*<button  class="btn btn-success" style="float:right"><i class="fa fa-cog"></i><a href="http://localhost:3469/Vsmartsell/">Cập nhật</a></button>*@
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-11 col-md-10">
+                                        <input type="submit" value="cập nhật" class="btn btn-success" />
+                                        
+                                    </div>
+                                </div>
+
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="tab2" style="font-size: 20px;line-height:50px">
+                            @*<h3>
+                                    Profile
+                                </h3>
+                                <strong>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet auctor purus, non imperdiet sapien dapibus non. Phasellus pretium rutrum elit in cursus. Donec ullamcorper nec massa vel mattis. Curabitur eros metus, dapibus quis est et, dapibus imperdiet dolor.
+                                </strong>*@
+                            <div class="widget-content padded clearfix">
+                                <div class="col-lg-6"><strong>Gói sử dụng : </strong>
+                          
+                                @Html.DropDownListFor(model => model.LoaiGoi, new SelectList(ViewBag.listgoi), new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-6">
+                                    <strong>Ngày bắt đầu :</strong>
+                                    @Html.TextBoxFor(model => model.NgayDangKy, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                                </div>
+                                <div class="col-lg-6"><strong>Giá gói sử dụng :</strong>
+                                <input disabled  id="giatien" type="text" class="form-control" value="{{GiaTien}}"></div>
+                                
+                                
+                                
+                                <div class="col-lg-6"><strong>Ngày hết hạn :</strong>
+                                   @Html.TextBoxFor(model => model.NgayHetHan, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                                    </div>
+                                <div class="col-lg-12"><strong>Ghi chú :</strong> 
+                                @Html.TextBoxFor(model => model.Note, new { @class = "form-control" })
+                                    @*<div class="col-lg-12">
+                                        <div class="widget-container fluid-height">
+      
+                                            <div class="widget-content padded">
+                                                <div id="summernote" style="display: none;">
+                                                    Edit this text
+                                                </div><div class="note-editor">
+                                                    <div class="note-dialog"><div class="note-image-dialog modal" aria-hidden="false"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true" tabindex="-1">Ă—</button><h4>Insert Image</h4></div><div class="modal-body"><div class="row-fluid"><div class="note-dropzone span12">Drag an image here</div><div>or if you prefer...</div><input class="note-image-input" type="file"></div></div></div></div></div><div class="note-link-dialog modal" aria-hidden="false"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true" tabindex="-1">Ă—</button><h4>Edit Link</h4></div><div class="modal-body"><div class="row-fluid"><div class="form-group"><label>Text to display</label><span class="note-link-text form-control input-xlarge uneditable-input"></span></div><div class="form-group"><label>To what URL should this link go?</label><input class="note-link-url form-control span12" type="text"></div></div></div><div class="modal-footer"><button href="#" class="btn btn-primary note-link-btn disabled" disabled="disabled">Link</button></div></div></div></div><div class="note-help-dialog modal fade" aria-hidden="false"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="modal-background"><a class="modal-close pull-right" data-dismiss="modal" aria-hidden="true" tabindex="-1">Close</a><div class="title">Keyboard shortcuts</div><table class="note-shortcut-layout"><tbody><tr><td><table class="note-shortcut"><thead><tr><th></th><th>Action</th></tr></thead><tbody><tr><td>âŒ˜ + Z</td><td>Undo</td></tr><tr><td>âŒ˜ + â‡§ + Z</td><td>Redo</td></tr><tr><td>âŒ˜ + ]</td><td>Indent</td></tr><tr><td>âŒ˜ + [</td><td>Outdent</td></tr><tr><td>âŒ˜ + K</td><td>Insert Link</td></tr><tr><td>âŒ˜ + ENTER</td><td>Insert Horizontal Rule</td></tr></tbody></table></td><td><table class="note-shortcut"><thead><tr><th></th><th>Text formatting</th></tr></thead><tbody><tr><td>âŒ˜ + B</td><td>Toggle Bold</td></tr><tr><td>âŒ˜ + I</td><td>Toggle Italic</td></tr><tr><td>âŒ˜ + U</td><td>Toggle Underline</td></tr><tr><td>âŒ˜ + â‡§ + S</td><td>Toggle Strike</td></tr><tr><td>âŒ˜ + \</td><td>Remove Font Style</td></tr></tbody></table></td></tr><tr><td><table class="note-shortcut"><thead><tr><th></th><th>Document Style</th></tr></thead><tbody><tr><td>âŒ˜ + NUM0</td><td>Normal Text</td></tr><tr><td>âŒ˜ + NUM1</td><td>Heading 1</td></tr><tr><td>âŒ˜ + NUM2</td><td>Heading 2</td></tr><tr><td>âŒ˜ + NUM3</td><td>Heading 3</td></tr><tr><td>âŒ˜ + NUM4</td><td>Heading 4</td></tr><tr><td>âŒ˜ + NUM5</td><td>Heading 5</td></tr><tr><td>âŒ˜ + NUM6</td><td>Heading 6</td></tr></tbody></table></td><td><table class="note-shortcut"><thead><tr><th></th><th>Paragraph formatting</th></tr></thead><tbody><tr><td>âŒ˜ + â‡§ + L</td><td>Align Left</td></tr><tr><td>âŒ˜ + â‡§ + E</td><td>Align Center</td></tr><tr><td>âŒ˜ + â‡§ + R</td><td>Align Right</td></tr><tr><td>âŒ˜ + â‡§ + J</td><td>Justify Full</td></tr><tr><td>âŒ˜ + â‡§ + NUM7</td><td>Ordered List</td></tr><tr><td>âŒ˜ + â‡§ + NUM8</td><td>Unordered List</td></tr></tbody></table></td></tr></tbody></table><p class="text-center"><a href="//hackerwins.github.io/summernote/" target="_blank">Summernote v0.3</a> Â· <a href="//github.com/HackerWins/summernote" target="_blank">Project</a> Â· <a href="//github.com/HackerWins/summernote/issues" target="_blank">Issues</a></p></div></div></div></div></div></div><div class="note-handle"><div class="note-control-selection" style="display: none;"><div class="note-control-selection-bg"></div><div class="note-control-holder note-control-nw"></div><div class="note-control-holder note-control-ne"></div><div class="note-control-holder note-control-sw"></div><div class="note-control-sizing note-control-se"></div><div class="note-control-selection-info"></div></div></div><div class="note-popover"><div class="note-link-popover popover bottom in" style="display: none;"><div class="arrow"></div><div class="popover-content note-link-content"><a href="http://www.google.com" target="_blank">www.google.com</a>&nbsp;&nbsp;<div class="note-insert btn-group"><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-event="showLinkDialog" tabindex="-1" data-original-title="Edit"><i class="fa fa-edit"></i></button><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-event="unlink" tabindex="-1" data-original-title="Unlink"><i class="fa fa-unlink"></i></button></div></div></div><div class="note-image-popover popover bottom in" style="display: none;"><div class="arrow"></div><div class="popover-content note-image-content"><div class="btn-group"><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-event="resize" data-value="1" tabindex="-1" data-original-title="Resize Full"><i class="fa fa-resize-full"></i></button><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-event="resize" data-value="0.5" tabindex="-1" data-original-title="Resize Half">Â½</button><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-event="resize" data-value="0.33" tabindex="-1" data-original-title="Resize Thrid">â…“</button><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-event="resize" data-value="0.25" tabindex="-1" data-original-title="Resize Quarter">Â¼</button></div><div class="btn-group"><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-event="float" data-value="left" tabindex="-1" data-original-title="Float Left"><i class="fa fa-align-left"></i></button><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-event="float" data-value="right" tabindex="-1" data-original-title="Float Right"><i class="fa fa-align-right"></i></button><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-event="float" data-value="none" tabindex="-1" data-original-title="Float None"><i class="fa fa-reorder"></i></button></div></div></div></div><div class="note-toolbar btn-toolbar"><div class="note-style btn-group"><button type="button" class="btn btn-default-outline btn-sm btn-small dropdown-toggle" title="" data-toggle="dropdown" tabindex="-1" data-original-title="Style"><i class="fa fa-magic"></i> <span class="caret"></span></button><ul class="dropdown-menu"><li><a data-event="formatBlock" data-value="p">Normal</a></li><li><a data-event="formatBlock" data-value="blockquote"><blockquote>Quote</blockquote></a></li><li><a data-event="formatBlock" data-value="pre">Code</a></li><li><a data-event="formatBlock" data-value="h1"><h1>Header 1</h1></a></li><li><a data-event="formatBlock" data-value="h2"><h2>Header 2</h2></a></li><li><a data-event="formatBlock" data-value="h3"><h3>Header 3</h3></a></li><li><a data-event="formatBlock" data-value="h4"><h4>Header 4</h4></a></li><li><a data-event="formatBlock" data-value="h5"><h5>Header 5</h5></a></li><li><a data-event="formatBlock" data-value="h6"><h6>Header 6</h6></a></li></ul></div><div class="note-style btn-group"><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-shortcut="Ctrl+B" data-mac-shortcut="âŒ˜+B" data-event="bold" tabindex="-1" data-original-title="Bold (Ctrl+B)"><i class="fa fa-bold"></i></button><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-shortcut="Ctrl+I" data-mac-shortcut="âŒ˜+I" data-event="italic" tabindex="-1" data-original-title="Italic (Ctrl+I)"><i class="fa fa-italic"></i></button><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-shortcut="Ctrl+U" data-mac-shortcut="âŒ˜+U" data-event="underline" tabindex="-1" data-original-title="Underline (Ctrl+U)"><i class="fa fa-underline"></i></button><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-shortcut="Ctrl+\" data-mac-shortcut="âŒ˜+\" data-event="removeFormat" tabindex="-1" data-original-title="Remove Font Style (Ctrl+\)"><i class="fa fa-eraser"></i></button></div><div class="note-fontsize btn-group"><button type="button" class="btn btn-default-outline btn-sm btn-small dropdown-toggle" data-toggle="dropdown" title="" tabindex="-1" data-original-title="Font Size"><span class="note-current-fontsize">14</span> <b class="caret"></b></button><ul class="dropdown-menu"><li><a data-event="fontSize" data-value="8" class=""><i class="fa fa-ok"></i> 8</a></li><li><a data-event="fontSize" data-value="9" class=""><i class="fa fa-ok"></i> 9</a></li><li><a data-event="fontSize" data-value="10" class=""><i class="fa fa-ok"></i> 10</a></li><li><a data-event="fontSize" data-value="11" class=""><i class="fa fa-ok"></i> 11</a></li><li><a data-event="fontSize" data-value="12" class=""><i class="fa fa-ok"></i> 12</a></li><li><a data-event="fontSize" data-value="14" class="checked"><i class="fa fa-ok"></i> 14</a></li><li><a data-event="fontSize" data-value="18" class=""><i class="fa fa-ok"></i> 18</a></li><li><a data-event="fontSize" data-value="24" class=""><i class="fa fa-ok"></i> 24</a></li><li><a data-event="fontSize" data-value="36" class=""><i class="fa fa-ok"></i> 36</a></li></ul></div><div class="note-color btn-group"><button type="button" class="btn btn-default-outline btn-sm btn-small note-recent-color" title="" data-event="color" data-value="{&quot;foreColor&quot;:&quot;black&quot;,&quot;backColor&quot;:&quot;yellow&quot;}" tabindex="-1" data-original-title="Recent Color"><i class="fa fa-font" style="color:black;background-color:yellow;"></i></button><button type="button" class="btn btn-default-outline btn-sm btn-small dropdown-toggle" title="" data-toggle="dropdown" tabindex="-1" data-original-title="More Color"><span class="caret"></span></button><ul class="dropdown-menu"><li><div class="btn-group"><div class="note-palette-title">BackColor</div><div class="note-color-palette" data-target-event="backColor"><div><button type="button" class="note-color-btn" style="background-color:#000000;" data-event="backColor" data-value="#000000" title="" data-toggle="button" tabindex="-1" data-original-title="#000000"></button><button type="button" class="note-color-btn" style="background-color:#424242;" data-event="backColor" data-value="#424242" title="" data-toggle="button" tabindex="-1" data-original-title="#424242"></button><button type="button" class="note-color-btn" style="background-color:#636363;" data-event="backColor" data-value="#636363" title="" data-toggle="button" tabindex="-1" data-original-title="#636363"></button><button type="button" class="note-color-btn" style="background-color:#9C9C94;" data-event="backColor" data-value="#9C9C94" title="" data-toggle="button" tabindex="-1" data-original-title="#9C9C94"></button><button type="button" class="note-color-btn" style="background-color:#CEC6CE;" data-event="backColor" data-value="#CEC6CE" title="" data-toggle="button" tabindex="-1" data-original-title="#CEC6CE"></button><button type="button" class="note-color-btn" style="background-color:#EFEFEF;" data-event="backColor" data-value="#EFEFEF" title="" data-toggle="button" tabindex="-1" data-original-title="#EFEFEF"></button><button type="button" class="note-color-btn" style="background-color:#EFF7F7;" data-event="backColor" data-value="#EFF7F7" title="" data-toggle="button" tabindex="-1" data-original-title="#EFF7F7"></button><button type="button" class="note-color-btn" style="background-color:#FFFFFF;" data-event="backColor" data-value="#FFFFFF" title="" data-toggle="button" tabindex="-1" data-original-title="#FFFFFF"></button></div><div><button type="button" class="note-color-btn" style="background-color:#FF0000;" data-event="backColor" data-value="#FF0000" title="" data-toggle="button" tabindex="-1" data-original-title="#FF0000"></button><button type="button" class="note-color-btn" style="background-color:#FF9C00;" data-event="backColor" data-value="#FF9C00" title="" data-toggle="button" tabindex="-1" data-original-title="#FF9C00"></button><button type="button" class="note-color-btn" style="background-color:#FFFF00;" data-event="backColor" data-value="#FFFF00" title="" data-toggle="button" tabindex="-1" data-original-title="#FFFF00"></button><button type="button" class="note-color-btn" style="background-color:#00FF00;" data-event="backColor" data-value="#00FF00" title="" data-toggle="button" tabindex="-1" data-original-title="#00FF00"></button><button type="button" class="note-color-btn" style="background-color:#00FFFF;" data-event="backColor" data-value="#00FFFF" title="" data-toggle="button" tabindex="-1" data-original-title="#00FFFF"></button><button type="button" class="note-color-btn" style="background-color:#0000FF;" data-event="backColor" data-value="#0000FF" title="" data-toggle="button" tabindex="-1" data-original-title="#0000FF"></button><button type="button" class="note-color-btn" style="background-color:#9C00FF;" data-event="backColor" data-value="#9C00FF" title="" data-toggle="button" tabindex="-1" data-original-title="#9C00FF"></button><button type="button" class="note-color-btn" style="background-color:#FF00FF;" data-event="backColor" data-value="#FF00FF" title="" data-toggle="button" tabindex="-1" data-original-title="#FF00FF"></button></div><div><button type="button" class="note-color-btn" style="background-color:#F7C6CE;" data-event="backColor" data-value="#F7C6CE" title="" data-toggle="button" tabindex="-1" data-original-title="#F7C6CE"></button><button type="button" class="note-color-btn" style="background-color:#FFE7CE;" data-event="backColor" data-value="#FFE7CE" title="" data-toggle="button" tabindex="-1" data-original-title="#FFE7CE"></button><button type="button" class="note-color-btn" style="background-color:#FFEFC6;" data-event="backColor" data-value="#FFEFC6" title="" data-toggle="button" tabindex="-1" data-original-title="#FFEFC6"></button><button type="button" class="note-color-btn" style="background-color:#D6EFD6;" data-event="backColor" data-value="#D6EFD6" title="" data-toggle="button" tabindex="-1" data-original-title="#D6EFD6"></button><button type="button" class="note-color-btn" style="background-color:#CEDEE7;" data-event="backColor" data-value="#CEDEE7" title="" data-toggle="button" tabindex="-1" data-original-title="#CEDEE7"></button><button type="button" class="note-color-btn" style="background-color:#CEE7F7;" data-event="backColor" data-value="#CEE7F7" title="" data-toggle="button" tabindex="-1" data-original-title="#CEE7F7"></button><button type="button" class="note-color-btn" style="background-color:#D6D6E7;" data-event="backColor" data-value="#D6D6E7" title="" data-toggle="button" tabindex="-1" data-original-title="#D6D6E7"></button><button type="button" class="note-color-btn" style="background-color:#E7D6DE;" data-event="backColor" data-value="#E7D6DE" title="" data-toggle="button" tabindex="-1" data-original-title="#E7D6DE"></button></div><div><button type="button" class="note-color-btn" style="background-color:#E79C9C;" data-event="backColor" data-value="#E79C9C" title="" data-toggle="button" tabindex="-1" data-original-title="#E79C9C"></button><button type="button" class="note-color-btn" style="background-color:#FFC69C;" data-event="backColor" data-value="#FFC69C" title="" data-toggle="button" tabindex="-1" data-original-title="#FFC69C"></button><button type="button" class="note-color-btn" style="background-color:#FFE79C;" data-event="backColor" data-value="#FFE79C" title="" data-toggle="button" tabindex="-1" data-original-title="#FFE79C"></button><button type="button" class="note-color-btn" style="background-color:#B5D6A5;" data-event="backColor" data-value="#B5D6A5" title="" data-toggle="button" tabindex="-1" data-original-title="#B5D6A5"></button><button type="button" class="note-color-btn" style="background-color:#A5C6CE;" data-event="backColor" data-value="#A5C6CE" title="" data-toggle="button" tabindex="-1" data-original-title="#A5C6CE"></button><button type="button" class="note-color-btn" style="background-color:#9CC6EF;" data-event="backColor" data-value="#9CC6EF" title="" data-toggle="button" tabindex="-1" data-original-title="#9CC6EF"></button><button type="button" class="note-color-btn" style="background-color:#B5A5D6;" data-event="backColor" data-value="#B5A5D6" title="" data-toggle="button" tabindex="-1" data-original-title="#B5A5D6"></button><button type="button" class="note-color-btn" style="background-color:#D6A5BD;" data-event="backColor" data-value="#D6A5BD" title="" data-toggle="button" tabindex="-1" data-original-title="#D6A5BD"></button></div><div><button type="button" class="note-color-btn" style="background-color:#E76363;" data-event="backColor" data-value="#E76363" title="" data-toggle="button" tabindex="-1" data-original-title="#E76363"></button><button type="button" class="note-color-btn" style="background-color:#F7AD6B;" data-event="backColor" data-value="#F7AD6B" title="" data-toggle="button" tabindex="-1" data-original-title="#F7AD6B"></button><button type="button" class="note-color-btn" style="background-color:#FFD663;" data-event="backColor" data-value="#FFD663" title="" data-toggle="button" tabindex="-1" data-original-title="#FFD663"></button><button type="button" class="note-color-btn" style="background-color:#94BD7B;" data-event="backColor" data-value="#94BD7B" title="" data-toggle="button" tabindex="-1" data-original-title="#94BD7B"></button><button type="button" class="note-color-btn" style="background-color:#73A5AD;" data-event="backColor" data-value="#73A5AD" title="" data-toggle="button" tabindex="-1" data-original-title="#73A5AD"></button><button type="button" class="note-color-btn" style="background-color:#6BADDE;" data-event="backColor" data-value="#6BADDE" title="" data-toggle="button" tabindex="-1" data-original-title="#6BADDE"></button><button type="button" class="note-color-btn" style="background-color:#8C7BC6;" data-event="backColor" data-value="#8C7BC6" title="" data-toggle="button" tabindex="-1" data-original-title="#8C7BC6"></button><button type="button" class="note-color-btn" style="background-color:#C67BA5;" data-event="backColor" data-value="#C67BA5" title="" data-toggle="button" tabindex="-1" data-original-title="#C67BA5"></button></div><div><button type="button" class="note-color-btn" style="background-color:#CE0000;" data-event="backColor" data-value="#CE0000" title="" data-toggle="button" tabindex="-1" data-original-title="#CE0000"></button><button type="button" class="note-color-btn" style="background-color:#E79439;" data-event="backColor" data-value="#E79439" title="" data-toggle="button" tabindex="-1" data-original-title="#E79439"></button><button type="button" class="note-color-btn" style="background-color:#EFC631;" data-event="backColor" data-value="#EFC631" title="" data-toggle="button" tabindex="-1" data-original-title="#EFC631"></button><button type="button" class="note-color-btn" style="background-color:#6BA54A;" data-event="backColor" data-value="#6BA54A" title="" data-toggle="button" tabindex="-1" data-original-title="#6BA54A"></button><button type="button" class="note-color-btn" style="background-color:#4A7B8C;" data-event="backColor" data-value="#4A7B8C" title="" data-toggle="button" tabindex="-1" data-original-title="#4A7B8C"></button><button type="button" class="note-color-btn" style="background-color:#3984C6;" data-event="backColor" data-value="#3984C6" title="" data-toggle="button" tabindex="-1" data-original-title="#3984C6"></button><button type="button" class="note-color-btn" style="background-color:#634AA5;" data-event="backColor" data-value="#634AA5" title="" data-toggle="button" tabindex="-1" data-original-title="#634AA5"></button><button type="button" class="note-color-btn" style="background-color:#A54A7B;" data-event="backColor" data-value="#A54A7B" title="" data-toggle="button" tabindex="-1" data-original-title="#A54A7B"></button></div><div><button type="button" class="note-color-btn" style="background-color:#9C0000;" data-event="backColor" data-value="#9C0000" title="" data-toggle="button" tabindex="-1" data-original-title="#9C0000"></button><button type="button" class="note-color-btn" style="background-color:#B56308;" data-event="backColor" data-value="#B56308" title="" data-toggle="button" tabindex="-1" data-original-title="#B56308"></button><button type="button" class="note-color-btn" style="background-color:#BD9400;" data-event="backColor" data-value="#BD9400" title="" data-toggle="button" tabindex="-1" data-original-title="#BD9400"></button><button type="button" class="note-color-btn" style="background-color:#397B21;" data-event="backColor" data-value="#397B21" title="" data-toggle="button" tabindex="-1" data-original-title="#397B21"></button><button type="button" class="note-color-btn" style="background-color:#104A5A;" data-event="backColor" data-value="#104A5A" title="" data-toggle="button" tabindex="-1" data-original-title="#104A5A"></button><button type="button" class="note-color-btn" style="background-color:#085294;" data-event="backColor" data-value="#085294" title="" data-toggle="button" tabindex="-1" data-original-title="#085294"></button><button type="button" class="note-color-btn" style="background-color:#311873;" data-event="backColor" data-value="#311873" title="" data-toggle="button" tabindex="-1" data-original-title="#311873"></button><button type="button" class="note-color-btn" style="background-color:#731842;" data-event="backColor" data-value="#731842" title="" data-toggle="button" tabindex="-1" data-original-title="#731842"></button></div><div><button type="button" class="note-color-btn" style="background-color:#630000;" data-event="backColor" data-value="#630000" title="" data-toggle="button" tabindex="-1" data-original-title="#630000"></button><button type="button" class="note-color-btn" style="background-color:#7B3900;" data-event="backColor" data-value="#7B3900" title="" data-toggle="button" tabindex="-1" data-original-title="#7B3900"></button><button type="button" class="note-color-btn" style="background-color:#846300;" data-event="backColor" data-value="#846300" title="" data-toggle="button" tabindex="-1" data-original-title="#846300"></button><button type="button" class="note-color-btn" style="background-color:#295218;" data-event="backColor" data-value="#295218" title="" data-toggle="button" tabindex="-1" data-original-title="#295218"></button><button type="button" class="note-color-btn" style="background-color:#083139;" data-event="backColor" data-value="#083139" title="" data-toggle="button" tabindex="-1" data-original-title="#083139"></button><button type="button" class="note-color-btn" style="background-color:#003163;" data-event="backColor" data-value="#003163" title="" data-toggle="button" tabindex="-1" data-original-title="#003163"></button><button type="button" class="note-color-btn" style="background-color:#21104A;" data-event="backColor" data-value="#21104A" title="" data-toggle="button" tabindex="-1" data-original-title="#21104A"></button><button type="button" class="note-color-btn" style="background-color:#4A1031;" data-event="backColor" data-value="#4A1031" title="" data-toggle="button" tabindex="-1" data-original-title="#4A1031"></button></div></div></div><div class="btn-group"><div class="note-palette-title">FontColor</div><div class="note-color-palette" data-target-event="foreColor"><div><button type="button" class="note-color-btn" style="background-color:#000000;" data-event="foreColor" data-value="#000000" title="" data-toggle="button" tabindex="-1" data-original-title="#000000"></button><button type="button" class="note-color-btn" style="background-color:#424242;" data-event="foreColor" data-value="#424242" title="" data-toggle="button" tabindex="-1" data-original-title="#424242"></button><button type="button" class="note-color-btn" style="background-color:#636363;" data-event="foreColor" data-value="#636363" title="" data-toggle="button" tabindex="-1" data-original-title="#636363"></button><button type="button" class="note-color-btn" style="background-color:#9C9C94;" data-event="foreColor" data-value="#9C9C94" title="" data-toggle="button" tabindex="-1" data-original-title="#9C9C94"></button><button type="button" class="note-color-btn" style="background-color:#CEC6CE;" data-event="foreColor" data-value="#CEC6CE" title="" data-toggle="button" tabindex="-1" data-original-title="#CEC6CE"></button><button type="button" class="note-color-btn" style="background-color:#EFEFEF;" data-event="foreColor" data-value="#EFEFEF" title="" data-toggle="button" tabindex="-1" data-original-title="#EFEFEF"></button><button type="button" class="note-color-btn" style="background-color:#EFF7F7;" data-event="foreColor" data-value="#EFF7F7" title="" data-toggle="button" tabindex="-1" data-original-title="#EFF7F7"></button><button type="button" class="note-color-btn" style="background-color:#FFFFFF;" data-event="foreColor" data-value="#FFFFFF" title="" data-toggle="button" tabindex="-1" data-original-title="#FFFFFF"></button></div><div><button type="button" class="note-color-btn" style="background-color:#FF0000;" data-event="foreColor" data-value="#FF0000" title="" data-toggle="button" tabindex="-1" data-original-title="#FF0000"></button><button type="button" class="note-color-btn" style="background-color:#FF9C00;" data-event="foreColor" data-value="#FF9C00" title="" data-toggle="button" tabindex="-1" data-original-title="#FF9C00"></button><button type="button" class="note-color-btn" style="background-color:#FFFF00;" data-event="foreColor" data-value="#FFFF00" title="" data-toggle="button" tabindex="-1" data-original-title="#FFFF00"></button><button type="button" class="note-color-btn" style="background-color:#00FF00;" data-event="foreColor" data-value="#00FF00" title="" data-toggle="button" tabindex="-1" data-original-title="#00FF00"></button><button type="button" class="note-color-btn" style="background-color:#00FFFF;" data-event="foreColor" data-value="#00FFFF" title="" data-toggle="button" tabindex="-1" data-original-title="#00FFFF"></button><button type="button" class="note-color-btn" style="background-color:#0000FF;" data-event="foreColor" data-value="#0000FF" title="" data-toggle="button" tabindex="-1" data-original-title="#0000FF"></button><button type="button" class="note-color-btn" style="background-color:#9C00FF;" data-event="foreColor" data-value="#9C00FF" title="" data-toggle="button" tabindex="-1" data-original-title="#9C00FF"></button><button type="button" class="note-color-btn" style="background-color:#FF00FF;" data-event="foreColor" data-value="#FF00FF" title="" data-toggle="button" tabindex="-1" data-original-title="#FF00FF"></button></div><div><button type="button" class="note-color-btn" style="background-color:#F7C6CE;" data-event="foreColor" data-value="#F7C6CE" title="" data-toggle="button" tabindex="-1" data-original-title="#F7C6CE"></button><button type="button" class="note-color-btn" style="background-color:#FFE7CE;" data-event="foreColor" data-value="#FFE7CE" title="" data-toggle="button" tabindex="-1" data-original-title="#FFE7CE"></button><button type="button" class="note-color-btn" style="background-color:#FFEFC6;" data-event="foreColor" data-value="#FFEFC6" title="" data-toggle="button" tabindex="-1" data-original-title="#FFEFC6"></button><button type="button" class="note-color-btn" style="background-color:#D6EFD6;" data-event="foreColor" data-value="#D6EFD6" title="" data-toggle="button" tabindex="-1" data-original-title="#D6EFD6"></button><button type="button" class="note-color-btn" style="background-color:#CEDEE7;" data-event="foreColor" data-value="#CEDEE7" title="" data-toggle="button" tabindex="-1" data-original-title="#CEDEE7"></button><button type="button" class="note-color-btn" style="background-color:#CEE7F7;" data-event="foreColor" data-value="#CEE7F7" title="" data-toggle="button" tabindex="-1" data-original-title="#CEE7F7"></button><button type="button" class="note-color-btn" style="background-color:#D6D6E7;" data-event="foreColor" data-value="#D6D6E7" title="" data-toggle="button" tabindex="-1" data-original-title="#D6D6E7"></button><button type="button" class="note-color-btn" style="background-color:#E7D6DE;" data-event="foreColor" data-value="#E7D6DE" title="" data-toggle="button" tabindex="-1" data-original-title="#E7D6DE"></button></div><div><button type="button" class="note-color-btn" style="background-color:#E79C9C;" data-event="foreColor" data-value="#E79C9C" title="" data-toggle="button" tabindex="-1" data-original-title="#E79C9C"></button><button type="button" class="note-color-btn" style="background-color:#FFC69C;" data-event="foreColor" data-value="#FFC69C" title="" data-toggle="button" tabindex="-1" data-original-title="#FFC69C"></button><button type="button" class="note-color-btn" style="background-color:#FFE79C;" data-event="foreColor" data-value="#FFE79C" title="" data-toggle="button" tabindex="-1" data-original-title="#FFE79C"></button><button type="button" class="note-color-btn" style="background-color:#B5D6A5;" data-event="foreColor" data-value="#B5D6A5" title="" data-toggle="button" tabindex="-1" data-original-title="#B5D6A5"></button><button type="button" class="note-color-btn" style="background-color:#A5C6CE;" data-event="foreColor" data-value="#A5C6CE" title="" data-toggle="button" tabindex="-1" data-original-title="#A5C6CE"></button><button type="button" class="note-color-btn" style="background-color:#9CC6EF;" data-event="foreColor" data-value="#9CC6EF" title="" data-toggle="button" tabindex="-1" data-original-title="#9CC6EF"></button><button type="button" class="note-color-btn" style="background-color:#B5A5D6;" data-event="foreColor" data-value="#B5A5D6" title="" data-toggle="button" tabindex="-1" data-original-title="#B5A5D6"></button><button type="button" class="note-color-btn" style="background-color:#D6A5BD;" data-event="foreColor" data-value="#D6A5BD" title="" data-toggle="button" tabindex="-1" data-original-title="#D6A5BD"></button></div><div><button type="button" class="note-color-btn" style="background-color:#E76363;" data-event="foreColor" data-value="#E76363" title="" data-toggle="button" tabindex="-1" data-original-title="#E76363"></button><button type="button" class="note-color-btn" style="background-color:#F7AD6B;" data-event="foreColor" data-value="#F7AD6B" title="" data-toggle="button" tabindex="-1" data-original-title="#F7AD6B"></button><button type="button" class="note-color-btn" style="background-color:#FFD663;" data-event="foreColor" data-value="#FFD663" title="" data-toggle="button" tabindex="-1" data-original-title="#FFD663"></button><button type="button" class="note-color-btn" style="background-color:#94BD7B;" data-event="foreColor" data-value="#94BD7B" title="" data-toggle="button" tabindex="-1" data-original-title="#94BD7B"></button><button type="button" class="note-color-btn" style="background-color:#73A5AD;" data-event="foreColor" data-value="#73A5AD" title="" data-toggle="button" tabindex="-1" data-original-title="#73A5AD"></button><button type="button" class="note-color-btn" style="background-color:#6BADDE;" data-event="foreColor" data-value="#6BADDE" title="" data-toggle="button" tabindex="-1" data-original-title="#6BADDE"></button><button type="button" class="note-color-btn" style="background-color:#8C7BC6;" data-event="foreColor" data-value="#8C7BC6" title="" data-toggle="button" tabindex="-1" data-original-title="#8C7BC6"></button><button type="button" class="note-color-btn" style="background-color:#C67BA5;" data-event="foreColor" data-value="#C67BA5" title="" data-toggle="button" tabindex="-1" data-original-title="#C67BA5"></button></div><div><button type="button" class="note-color-btn" style="background-color:#CE0000;" data-event="foreColor" data-value="#CE0000" title="" data-toggle="button" tabindex="-1" data-original-title="#CE0000"></button><button type="button" class="note-color-btn" style="background-color:#E79439;" data-event="foreColor" data-value="#E79439" title="" data-toggle="button" tabindex="-1" data-original-title="#E79439"></button><button type="button" class="note-color-btn" style="background-color:#EFC631;" data-event="foreColor" data-value="#EFC631" title="" data-toggle="button" tabindex="-1" data-original-title="#EFC631"></button><button type="button" class="note-color-btn" style="background-color:#6BA54A;" data-event="foreColor" data-value="#6BA54A" title="" data-toggle="button" tabindex="-1" data-original-title="#6BA54A"></button><button type="button" class="note-color-btn" style="background-color:#4A7B8C;" data-event="foreColor" data-value="#4A7B8C" title="" data-toggle="button" tabindex="-1" data-original-title="#4A7B8C"></button><button type="button" class="note-color-btn" style="background-color:#3984C6;" data-event="foreColor" data-value="#3984C6" title="" data-toggle="button" tabindex="-1" data-original-title="#3984C6"></button><button type="button" class="note-color-btn" style="background-color:#634AA5;" data-event="foreColor" data-value="#634AA5" title="" data-toggle="button" tabindex="-1" data-original-title="#634AA5"></button><button type="button" class="note-color-btn" style="background-color:#A54A7B;" data-event="foreColor" data-value="#A54A7B" title="" data-toggle="button" tabindex="-1" data-original-title="#A54A7B"></button></div><div><button type="button" class="note-color-btn" style="background-color:#9C0000;" data-event="foreColor" data-value="#9C0000" title="" data-toggle="button" tabindex="-1" data-original-title="#9C0000"></button><button type="button" class="note-color-btn" style="background-color:#B56308;" data-event="foreColor" data-value="#B56308" title="" data-toggle="button" tabindex="-1" data-original-title="#B56308"></button><button type="button" class="note-color-btn" style="background-color:#BD9400;" data-event="foreColor" data-value="#BD9400" title="" data-toggle="button" tabindex="-1" data-original-title="#BD9400"></button><button type="button" class="note-color-btn" style="background-color:#397B21;" data-event="foreColor" data-value="#397B21" title="" data-toggle="button" tabindex="-1" data-original-title="#397B21"></button><button type="button" class="note-color-btn" style="background-color:#104A5A;" data-event="foreColor" data-value="#104A5A" title="" data-toggle="button" tabindex="-1" data-original-title="#104A5A"></button><button type="button" class="note-color-btn" style="background-color:#085294;" data-event="foreColor" data-value="#085294" title="" data-toggle="button" tabindex="-1" data-original-title="#085294"></button><button type="button" class="note-color-btn" style="background-color:#311873;" data-event="foreColor" data-value="#311873" title="" data-toggle="button" tabindex="-1" data-original-title="#311873"></button><button type="button" class="note-color-btn" style="background-color:#731842;" data-event="foreColor" data-value="#731842" title="" data-toggle="button" tabindex="-1" data-original-title="#731842"></button></div><div><button type="button" class="note-color-btn" style="background-color:#630000;" data-event="foreColor" data-value="#630000" title="" data-toggle="button" tabindex="-1" data-original-title="#630000"></button><button type="button" class="note-color-btn" style="background-color:#7B3900;" data-event="foreColor" data-value="#7B3900" title="" data-toggle="button" tabindex="-1" data-original-title="#7B3900"></button><button type="button" class="note-color-btn" style="background-color:#846300;" data-event="foreColor" data-value="#846300" title="" data-toggle="button" tabindex="-1" data-original-title="#846300"></button><button type="button" class="note-color-btn" style="background-color:#295218;" data-event="foreColor" data-value="#295218" title="" data-toggle="button" tabindex="-1" data-original-title="#295218"></button><button type="button" class="note-color-btn" style="background-color:#083139;" data-event="foreColor" data-value="#083139" title="" data-toggle="button" tabindex="-1" data-original-title="#083139"></button><button type="button" class="note-color-btn" style="background-color:#003163;" data-event="foreColor" data-value="#003163" title="" data-toggle="button" tabindex="-1" data-original-title="#003163"></button><button type="button" class="note-color-btn" style="background-color:#21104A;" data-event="foreColor" data-value="#21104A" title="" data-toggle="button" tabindex="-1" data-original-title="#21104A"></button><button type="button" class="note-color-btn" style="background-color:#4A1031;" data-event="foreColor" data-value="#4A1031" title="" data-toggle="button" tabindex="-1" data-original-title="#4A1031"></button></div></div></div></li></ul></div><div class="note-para btn-group"><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-shortcut="Ctrl+Shift+8" data-mac-shortcut="âŒ˜+â‡§+7" data-event="insertUnorderedList" tabindex="-1" data-original-title="Unordered list (Ctrl+Shift+8)"><i class="fa fa-list-ul"></i></button><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-shortcut="Ctrl+Shift+7" data-mac-shortcut="âŒ˜+â‡§+8" data-event="insertOrderedList" tabindex="-1" data-original-title="Ordered list (Ctrl+Shift+7)"><i class="fa fa-list-ol"></i></button><button type="button" class="btn btn-default-outline btn-sm btn-small dropdown-toggle" title="" data-toggle="dropdown" tabindex="-1" data-original-title="Paragraph"><i class="fa fa-align-left"></i>  <span class="caret"></span></button><ul class="dropdown-menu"><li><div class="note-align btn-group"><button type="button" class="btn btn-default-outline btn-sm btn-small active" title="" data-shortcut="Ctrl+Shift+L" data-mac-shortcut="âŒ˜+â‡§+L" data-event="justifyLeft" tabindex="-1" data-original-title="Align left (Ctrl+Shift+L)"><i class="fa fa-align-left"></i></button><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-shortcut="Ctrl+Shift+E" data-mac-shortcut="âŒ˜+â‡§+E" data-event="justifyCenter" tabindex="-1" data-original-title="Align center (Ctrl+Shift+E)"><i class="fa fa-align-center"></i></button><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-shortcut="Ctrl+Shift+R" data-mac-shortcut="âŒ˜+â‡§+R" data-event="justifyRight" tabindex="-1" data-original-title="Align right (Ctrl+Shift+R)"><i class="fa fa-align-right"></i></button><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-shortcut="Ctrl+Shift+J" data-mac-shortcut="âŒ˜+â‡§+J" data-event="justifyFull" tabindex="-1" data-original-title="Justify full (Ctrl+Shift+J)"><i class="fa fa-align-justify"></i></button></div></li><li><div class="note-list btn-group"><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-shortcut="Ctrl+[" data-mac-shortcut="âŒ˜+[" data-event="outdent" tabindex="-1" data-original-title="Outdent (Ctrl+[)"><i class="fa fa-indent-left"></i></button><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-shortcut="Ctrl+]" data-mac-shortcut="âŒ˜+]" data-event="indent" tabindex="-1" data-original-title="Indent (Ctrl+])"><i class="fa fa-indent-right"></i></button></div></li></ul></div><div class="note-height btn-group"><button type="button" class="btn btn-default-outline btn-sm btn-small dropdown-toggle" data-toggle="dropdown" title="" tabindex="-1" data-original-title="Line Height"><i class="fa fa-text-height"></i>&nbsp; <b class="caret"></b></button><ul class="dropdown-menu"><li><a data-event="lineHeight" data-value="1.0" class=""><i class="fa fa-ok"></i> 1.0</a></li><li><a data-event="lineHeight" data-value="1.2" class=""><i class="fa fa-ok"></i> 1.2</a></li><li><a data-event="lineHeight" data-value="1.4" class="checked"><i class="fa fa-ok"></i> 1.4</a></li><li><a data-event="lineHeight" data-value="1.5" class=""><i class="fa fa-ok"></i> 1.5</a></li><li><a data-event="lineHeight" data-value="1.6" class=""><i class="fa fa-ok"></i> 1.6</a></li><li><a data-event="lineHeight" data-value="1.8" class=""><i class="fa fa-ok"></i> 1.8</a></li><li><a data-event="lineHeight" data-value="2.0" class=""><i class="fa fa-ok"></i> 2.0</a></li><li><a data-event="lineHeight" data-value="3.0" class=""><i class="fa fa-ok"></i> 3.0</a></li></ul></div><div class="note-insert btn-group"><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-event="showImageDialog" tabindex="-1" data-original-title="Picture"><i class="fa fa-picture-o"></i></button><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-event="showLinkDialog" data-shortcut="Ctrl+K" data-mac-shortcut="âŒ˜+K" tabindex="-1" data-original-title="Link (Ctrl+K)"><i class="fa fa-link"></i></button></div><div class="note-table btn-group"><button type="button" class="btn btn-default-outline btn-sm btn-small dropdown-toggle" title="" data-toggle="dropdown" tabindex="-1" data-original-title="Table"><i class="fa fa-table"></i> <span class="caret"></span></button><ul class="dropdown-menu"><div class="note-dimension-picker"><div class="note-dimension-picker-mousecatcher" data-event="insertTable" data-value="1x1"></div><div class="note-dimension-picker-highlighted"></div><div class="note-dimension-picker-unhighlighted"></div></div><div class="note-dimension-display"> 1 x 1 </div></ul></div><div class="note-fullscreen btn-group"><button type="button" class="btn btn-default-outline btn-sm btn-small" title="" data-event="fullscreen" tabindex="-1" data-original-title="Full Screen"><i class="fa fa-fullscreen"></i></button></div></div><div class="note-editable" contenteditable="true" style="height: 300px;">
+                                                        {{khachhang.Note}}
+                                                    </div><div class="note-statusbar"><div class="note-resizebar"><div class="note-fa fa-bar"></div><div class="note-fa fa-bar"></div><div class="note-fa fa-bar"></div></div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>*@
+
+                               
+                                </div>
+                                <div style="float:right;margin-top:20px">
+                                    @*<button class="btn btn-primary"><i class=""></i>Thanh Toán</button>*@
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        <span class="" id="cartnotice">Thanh Toán</span>
+                                    </button>
+                                    @*<button class="btn btn-success"><i class="fa fa-cog"></i>Cập nhật</button>*@
+                                </div>
+
+                            </div>
+                        </div>
+                         
+                        <div class="tab-pane active" id="tab3" style="font-size: 20px;">
+                            @*<h3>
+                                    Attachments
+                                </h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet auctor purus, non imperdiet sapien dapibus non. Phasellus pretium rutrum elit in cursus. Donec ullamcorper nec massa vel mattis. Curabitur eros metus, dapibus quis est et, dapibus imperdiet dolor.
+                                </p>*@
+                            <div class="widget-content padded">
+                                <ul>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="font-size: 20px;">
+                                                    Thời gian
+                                                </th>
+                                                <th style="font-size: 20px;">
+                                                    Số tiền trả
+                                                </th>
+                                                <th style="font-size: 20px;">
+                                                    Người thu tiền
+                                                </th>
+                                                <th style="font-size: 20px;">
+                                                    Ngày hết hạn
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                @*<td>
+                                                    {{todate(ListGD.NgayGD)}}
+                                                </td>
+                                                <td>
+                                                    {{ListGD.SoTien}}
+                                                </td>
+                                                <td>
+                                                    {{ListGD.NguoiThu}}
+                                                </td>
+                                                <td class="hidden-xs">
+                                                   {{todate(ListGD.NgayHetHan)  }}
+                                                </td>*@
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+           
+        </div>
+    </div>
+}
+</body>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(".btn .btn-default").click(function () {
+        //alert();
+    })
+
+    var loadingIcon = '<div class="sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div>'
+    $('#my-tab-content').find('tbody').hide();
+    //$('#dataTable1').find('tbody').hide();
+    $('#my-tab-content').append(loadingIcon);
+
+    var app = angular.module("IndexApp", [])
+    app.controller('indexcontrol', function ($scope, $http) {
+        $http.get("http://localhost:3469/Vsmartsell/GetKH/@ViewBag.makh").success(function (response) {
+            var khachhang = response.khachhang[0];
+            $scope.khachhang = khachhang;
+
+
+            $http.get("http://localhost:3469/Vsmartsell/GetListGiaTien").success(function (response) {
+                debugger;
+                for(var m in response.ListGiaTien)
+                {
+                    if (khachhang.LoaiGoi == response.ListGiaTien[m].LoaiGoi)
+                    {
+                        $scope.GiaTien = response.ListGiaTien[m].GiaTien;
+                        break;
+                    }
+                }
+                });
+        });
+
+        $http.get("http://localhost:3469/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
+            var ListGD = response.ListGD[0];
+            $scope.ListGD = ListGD;
+            $('#my-tab-content').find('tbody').show();
+            $('.sk-circle').remove();
+
+        });
+
+        $http.get("http://localhost:3469/Vsmartsell/GetListGiaTien").success(function (response) {
+            function changegia() {
+                var loaigoi = $("#LoaiGoi").val()
+                var giagoi;
+                for (var m in response.ListGiaTien) {
+                    debugger;
+                    if (loaigoi == response.ListGiaTien[m].LoaiGoi) {
+                        giagoi = response.ListGiaTien[m].GiaTien;
+                        $("#giatien").val(giagoi);
+                        break;
+                    }
+
+                }
+                }
+            $("select").change(changegia);
+        });
+
+        //$http.get("http://localhost:3469/Vsmartsell/GetListGiaTien").success(function (response) {
+        //    var ListGiaTien = response.ListGiaTien[0];
+        //    var ListGiaTien1 = response.ListGiaTien[1];
+        //    var ListGiaTien2 = response.ListGiaTien[2];
+        //    $scope.ListGiaTien = ListGiaTien;
+        //    $scope.ListGiaTien1 = ListGiaTien1;
+        //    $scope.ListGiaTien2 = ListGiaTien2;
+
+        //});
+
+        $scope.todate = function (strdate) {
+            var newdate = new Date(parseInt(strdate.substr(6)));
+            var todate = ('0' + newdate.getDate()).slice(-2) + '-' + ('0' + (newdate.getMonth() + 1)).slice(-2) + '-' + newdate.getFullYear();
+            return todate;
+        };
+
+    });
+</script>
+}
