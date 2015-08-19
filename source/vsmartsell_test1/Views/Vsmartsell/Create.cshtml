@@ -4,139 +4,103 @@
     ViewBag.Title = "Create new customer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .form-control {
+        margin-bottom: 20px;
+    }
+    input, select, textarea {
+        max-width: 450px;
+    }
+    strong {
+        font-size: 20px;
+    }
+    body {
+        line-height: 2.428571;
+</style>
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-
+    <div class="col-lg-12 col-md-12">
+        <div class="widget-container fluid-height clearfix" style="background: rgb(200, 200, 200)">
             <div class="form-horizontal">
-                <h1>    Khách Hàng</h1>
-                <hr />
-                @Html.ValidationSummary(true)
-                <div class="col-lg-6">
-                    <div class="col-lg-2">
-                        <strong> Tên khách hàng</strong>
-                    </div>
-                    <div class="col-lg-10">
-                        @Html.TextBoxFor(model => model.TenKH, new { @class = "col-lg-12" })
+                <div id="dataTable1_length" class="dataTables_length" style="margin-left:20px">
+                <h2>Khách hàng</h2>
+                </div>
+                <div style="background: rgb(251, 251, 248); padding-bottom: 10px" >
+                    @Html.ValidationSummary(true)
+                    <div class="col-lg-6 col-lg-offset-1">
+                        <strong>Tên khách hàng :</strong>
+                        @Html.TextBoxFor(model => model.TenKH, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.TenKH)
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="control-label col-md-2">
-                        <strong>Phone</strong>
-                    </div>
-                    <div class="col-md-10">
+                    <div class="col-lg-offset-6">
+                        <strong>Phone :</strong>
                         @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Phone)
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="control-label col-md-2">
-                        <strong>Email</strong>
-                    </div>
-                    <div class="col-md-10">
+                    <div class="col-lg-6 col-lg-offset-1">
+                        <strong>Email :</strong>
                         @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Email)
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="control-label col-md-2">
-                        <strong>Loại khách hàng</strong>
-                    </div>
-
-                    <div class="col-md-10">
+                    <div class="col-lg-offset-6">
+                        <strong>Loại khách hàng :</strong>
                         @Html.TextBoxFor(model => model.LoaiKH, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.LoaiKH)
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="control-label col-md-2">
-                        <strong> Loại gói</strong>
-                    </div>
-                    <div class="col-md-10">
+                    <div class="col-lg-6 col-lg-offset-1">
+                        <strong>Loại gói :</strong>
                         @Html.DropDownListFor(model => model.LoaiGoi, new SelectList(ViewBag.listgoi), new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.LoaiGoi)
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="control-label col-md-2">
-                        <strong> Ngày đăng kí</strong>
-                    </div>
-                    <div class="col-md-10">
+                    <div class="col-lg-offset-6">
+                        <strong> Ngày đăng kí :</strong>
                         @Html.TextBoxFor(model => model.NgayDangKy, new { @class = "form-control", @type = "date" })
                         @Html.ValidationMessageFor(model => model.NgayDangKy)
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="control-label col-md-2">
-                        <strong> Ngày hết hạn</strong>
-                    </div>
-                    <div class="col-md-10">
+                    <div class="col-lg-6 col-lg-offset-1">
+                        <strong>Ngày hết hạn :</strong>
                         @Html.TextBoxFor(model => model.NgayHetHan, new { @class = "form-control", @type = "date" })
                         @Html.ValidationMessageFor(model => model.NgayHetHan)
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="control-label col-md-2">
-                        <strong> Tên cửa hàng</strong>
-                    </div>
-                    <div class="col-md-10">
+                    <div class="col-lg-offset-6">
+                        <strong>Tên cửa hàng :</strong>
                         @Html.TextBoxFor(model => model.TenCH, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.TenCH)
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="control-label col-md-2">
-                        <strong> Địa chỉ</strong>
-                    </div>
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.DiaChi, new { @class = "form-control" })
+                    <div class="col-lg-6 col-lg-offset-1">
+                        <strong>Địa chỉ :</strong>
+                        @Html.TextAreaFor(model => model.DiaChi, new { @class = "form-control", @rows = "3" })
                         @Html.ValidationMessageFor(model => model.DiaChi)
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="control-label col-md-2">
-                        <strong> Hỗ trợ</strong>
+                    <div class="col-lg-offset-6">
+                        <strong>Note :</strong>
+                        @Html.TextAreaFor(model => model.Note, new { @class = "form-control", @rows = "3" })
+                        @Html.ValidationMessageFor(model => model.Note)
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-lg-6 col-lg-offset-1">
+                        <strong>Hỗ trợ :</strong>
                         @Html.TextBoxFor(model => model.HoTro, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.HoTro)
                     </div>
-                </div>
+                    <div class="form-group" hidden>
+                        <div class="control-label col-md-2">
+                            <strong>Archive</strong>
+                        </div>
+                        <div class="col-md-10">
+                        </div>
+                    </div>
 
-                <div class="form-group" hidden>
-                    <div class="control-label col-md-2">
-                        <strong>Archive</strong>
-                    </div>
-                    <div class="col-md-10">                  
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="control-label col-md-2">
-                        <strong>Note</strong>
-                    </div>
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.Note, new { @class = "form-control" ,@rows="3"})
-                        @Html.ValidationMessageFor(model => model.Note)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-primary ladda-button" data-style="expand-left" />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-primary ladda-button" data-style="expand-left" />
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+        </div>
         }
 
         <div>

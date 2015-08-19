@@ -49,10 +49,10 @@
                             <a class="btn btn-success" href="http://localhost:3469/vsmartsell/create"><i class="fa fa-user"></i>Create</a>
                             @*<label>Search: <input type="text" aria-controls="dataTable1"></label>*@
                         </div>
-                        <table class="table table-bordered table-striped" id="dataTable1">
+                        <table class="table table-striped" id="dataTable1">
                             <thead>
                                 <tr>
-                                    
+
                                     <th style="text-align:left; width:200px;">
                                         Tên khách hàng
                                     </th>
@@ -85,7 +85,7 @@
                                     </th>
                                 </tr>
                             </thead>
-                            
+
                             <tbody>
 
 
@@ -121,20 +121,20 @@
                                         {{m.HoTro}}
                                     </td>
                                     <td style="width:130px;">
-                                                <a class="btn btn-xs btn-success" href="http://localhost:3469/vsmartsell/details/{{m.MaKH}}">
-                                                    <i class="glyphicon glyphicon-pencil">
-                                                    </i> sửa
-                                                </a>
-                                            <button class="btn btn-xs btn-danger">
-                                                <p hidden value="{{m.MaKH}}"></p>
-                                                <i class="glyphicon glyphicon-trash">
-                                                </i> xóa
-                                            </button>
+                                        <a class="btn btn-xs btn-success" href="http://localhost:3469/vsmartsell/details/{{m.MaKH}}">
+                                            <i class="glyphicon glyphicon-pencil">
+                                            </i> sửa
+                                        </a>
+                                        <button class="btn btn-xs btn-danger">
+                                            <p hidden value="{{m.MaKH}}"></p>
+                                            <i class="glyphicon glyphicon-trash">
+                                            </i> xóa
+                                        </button>
                                     </td>
                                 </tr>
 
-                                <table ><div id="loadingicon"></div></table>
-                                
+                                <table><div id="loadingicon"></div></table>
+
 
                             </tbody>
 
