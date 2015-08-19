@@ -7,7 +7,6 @@
     .a {
     }
 </style>
-aaaaaaaaaaaaaaaaaaa
 <head>
     <script src="~/Scripts/jquery.session.js"></script>
     <link href="~/Script/dao.css" rel="stylesheet" />
@@ -79,9 +78,6 @@ aaaaaaaaaaaaaaaaaaa
                                         Tên cửa hàng
                                     </th>
                                     <th>
-                                        Địa chỉ
-                                    </th>
-                                    <th>
                                         Người hỗ trợ
                                     </th>
                                     <th>
@@ -89,6 +85,7 @@ aaaaaaaaaaaaaaaaaaa
                                     </th>
                                 </tr>
                             </thead>
+                            
                             <tbody>
 
 
@@ -121,26 +118,23 @@ aaaaaaaaaaaaaaaaaaa
                                         {{m.TenCH}}
                                     </td>
                                     <td>
-                                        {{m.DiaChi}}
-                                    </td>
-                                    <td>
                                         {{m.HoTro}}
                                     </td>
                                     <td style="width:130px;">
                                                 <a class="btn btn-xs btn-success" href="http://localhost:3469/vsmartsell/details/{{m.MaKH}}">
                                                     <i class="glyphicon glyphicon-pencil">
-                                                    </i> sua
+                                                    </i> sửa
                                                 </a>
                                             <button class="btn btn-xs btn-danger">
                                                 <p hidden value="{{m.MaKH}}"></p>
                                                 <i class="glyphicon glyphicon-trash">
-                                                </i> xoa
+                                                </i> xóa
                                             </button>
                                     </td>
                                 </tr>
 
-
-
+                                <table ><div id="loadingicon"></div></table>
+                                
 
                             </tbody>
 
@@ -148,23 +142,25 @@ aaaaaaaaaaaaaaaaaaa
 
                         <div>
                             <div class="pagination">
-                                    <a class="btn btn-primary" ng-class="prevPageDisabled()">
-                                        <div ng-click="prevPage()">Prev</div>
-                                    </a>
-                                    <span id="soluongpage">
-                                        @for (var i = 1; i <= ViewBag.numpage; i++ )
-                                        {
-                                            <a class="btn btn-primary">@i</a>
-                                        }
-                                    </span>
-                                    <a class="btn btn-primary" ng-class="nextPageDisabled()">
-                                        <div ng-click="nextPage()">Next</div>
-                                    </a>
+                                <a class="btn btn-warning-outline" ng-class="firstPageDisabled()">
+                                    <div ng-click="firstPage()"><<</div>
+                                </a>
+                                <a class="btn btn-warning-outline" ng-class="prevPageDisabled()">
+                                    <div ng-click="prevPage()"><</div>
+                                </a>
+                                    
+                                        @for (var i = 1; i <= ViewBag.numpage; i++)
+                                            {
+                                                <a class="btn btn-warning-outline" ng-click="numPage(@i)" ng-class="numPageDisabled(@i)">@i</a>
+                                            }                         
+                                <a class="btn btn-warning-outline" ng-class="nextPageDisabled()">
+                                    <div ng-click="nextPage()">></div>
+                                </a>
+                                <a class="btn btn-warning-outline" ng-class="lastPageDisabled()">
+                                    <div ng-click="lastPage()">>></div>
+                                </a>
                                 
-                            </div>
-                            @*<ul id="soluongpage" class="pagination">
-
-                        </ul>*@
+                            </div>                          
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -232,19 +228,41 @@ aaaaaaaaaaaaaaaaaaa
         };
 
         $scope.nextPage = function () {
-            if ($scope.currentPage < $scope.pageCount()) {
+            if ($scope.currentPage < $scope.pageCount()-1) {
                 $scope.currentPage++;
             }
         };
 
         $scope.nextPageDisabled = function () {
-            return $scope.currentPage === $scope.pageCount() ? "disabled" : "";
+            return $scope.currentPage === $scope.pageCount()-1 ? "disabled" : "";
         };
 
+        $scope.lastPage = function () {
+            $scope.currentPage = parseInt(@ViewBag.numpage)-1;
+        };
+
+        $scope.lastPageDisabled = function () {
+            return $scope.currentPage === parseInt(@ViewBag.numpage)-1 ? "disabled" : "";
+        };
+
+        $scope.firstPage = function () {
+            $scope.currentPage = 0;
+        };
+
+        $scope.numPage = function (i) {
+            $scope.currentPage = i-1;
+        };
+
+        $scope.numPageDisabled = function (i) {
+            return $scope.currentPage === i-1 ? "disabled" : "";
+        };
+        $scope.firstPageDisabled = function () {
+            return $scope.currentPage === 0 ? "disabled" : "";
+        };
         var loadingIcon = '<div class="sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div>'
         //$('#dataTable1').find('thead').hide();
         //$('#dataTable1').find('tbody').hide();
-        $('#dataTable1').append(loadingIcon);
+        $('#loadingicon').append(loadingIcon);
 
         $http.get("/vsmartsell/GetListKH").success(function (response) {
             var tam = response.ListKH.length;
@@ -252,6 +270,8 @@ aaaaaaaaaaaaaaaaaaa
             $scope.pageChangeHandler = function (num) {
                 console.log('meals page changed to ' + num);
             };
+
+           
 
             function OtherController($scope) {
                 $scope.pageChangeHandler = function (num) {

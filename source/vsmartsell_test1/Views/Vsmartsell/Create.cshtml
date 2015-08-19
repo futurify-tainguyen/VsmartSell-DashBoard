@@ -50,7 +50,7 @@
                     </div>
 
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.LoaiKH, new SelectList(ViewBag.ListKH), new { @class = "form-control" })
+                        @Html.TextBoxFor(model => model.LoaiKH, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.LoaiKH)
                     </div>
                 </div>
@@ -128,7 +128,7 @@
                         <strong>Note</strong>
                     </div>
                     <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.Note, new { @class = "form-control" })
+                        @Html.TextAreaFor(model => model.Note, new { @class = "form-control" ,@rows="3"})
                         @Html.ValidationMessageFor(model => model.Note)
                     </div>
                 </div>
