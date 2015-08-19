@@ -41,7 +41,10 @@
         </div>
 
         <div class="col-md-3">Transactions : <span id="transactions"></span> </div>
-        <div class="col-md-3">Revenue : <span id="revenue"></span> VND </div>
+        <div class="col-md-6">Revenue : <span id="revenue"></span> VND </div>
+        <div class="col-md-3">
+            <a data-toggle="modal" data-target="#transactionModal">Chi tiết</a>
+        </div>
     </div>
 
     <div class="modal fade" id="userModal" role="dialog">
@@ -70,9 +73,24 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                <div class="modal-body" style="max-height: 400px; overflow-y: scroll;">
+                <div class="modal-body" style="max-height: 400px; overflow-y: scroll; padding-left: 0px; padding-right: 0px;">
                     <div class="container" style="width:inherit">
                         <span id="pageviewstable"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="transactionModal" role="dialog">
+        <div class="modal-dialog" style="width:480px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" style="max-height: 400px; overflow-y: scroll;">
+                    <div class="container" style="width:inherit">
+                        <span id="transactionstable"></span>
                     </div>
                 </div>
             </div>
@@ -90,7 +108,6 @@
         <section id="view-selector"></section>
         <section id="timeline"></section>*@
     <section id="auth-button"></section>
-
     <!-- Step 2: Load the library. -->
 
     <script>
@@ -181,7 +198,7 @@
                 query: {
                     'ids': 'ga:106032405',
                     'dimensions': 'ga:pagePath',
-                    'metrics': 'ga:pageviews',
+                    'metrics': 'ga:pageviews,ga:timeOnPage',
                     'start-date': '30daysAgo',
                     'end-date': 'today',
                 },
@@ -272,6 +289,24 @@
                 $("#transactions").text(ary[0][0]);
                 $("#revenue").text(ary[0][1].slice(0, -2));
             }).execute();
+
+            //draw transactions table
+            var transactionstable = new gapi.analytics.googleCharts.DataChart({
+                reportType: 'ga',
+                query: {
+                    'ids': 'ga:106032405',
+                    'metrics': 'ga:transactions,ga:transactionRevenue',
+                    'dimensions': 'ga:date',
+                    'start-date': '30daysAgo',
+                    'end-date': 'today',
+                    filters: 'ga:transactions!=0'
+                },
+                chart: {
+                    type: 'TABLE',
+                    container: 'transactionstable'
+                }
+            });
+            transactionstable.execute();
 
             // Step 6: Hook up the components to work together.
 
