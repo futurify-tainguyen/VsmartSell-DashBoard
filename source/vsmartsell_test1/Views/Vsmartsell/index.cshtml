@@ -46,7 +46,7 @@
 
                         <div class="dataTables_filter" id="dataTable1_filter">
 
-                            <a class="btn btn-success" href="http://localhost:3469/vsmartsell/create"><i class="fa fa-user"></i>Create</a>
+                            <a class="btn btn-primary" href="http://localhost:3469/vsmartsell/create"><i class="fa fa-user"></i>Thêm mới khách hàng</a>
                             @*<label>Search: <input type="text" aria-controls="dataTable1"></label>*@
                         </div>
                         <table class="table table-striped" id="dataTable1">
@@ -121,7 +121,7 @@
                                         {{m.HoTro}}
                                     </td>
                                     <td style="width:130px;">
-                                        <a class="btn btn-xs btn-success" href="http://localhost:3469/vsmartsell/details/{{m.MaKH}}">
+                                        <a class="btn btn-xs btn-primary" href="http://localhost:3469/vsmartsell/details/{{m.MaKH}}">
                                             <i class="glyphicon glyphicon-pencil">
                                             </i> sửa
                                         </a>
@@ -142,21 +142,21 @@
 
                         <div>
                             <div class="pagination">
-                                <a class="btn btn-warning-outline" ng-class="firstPageDisabled()">
+                                <a class="btn btn-default-outline" ng-class="firstPageDisabled()">
                                     <div ng-click="firstPage()"><<</div>
                                 </a>
-                                <a class="btn btn-warning-outline" ng-class="prevPageDisabled()">
+                                <a class="btn btn-default-outline" ng-class="prevPageDisabled()">
                                     <div ng-click="prevPage()"><</div>
                                 </a>
                                     
                                         @for (var i = 1; i <= ViewBag.numpage; i++)
                                             {
-                                                <a class="btn btn-warning-outline" ng-click="numPage(@i)" ng-class="numPageDisabled(@i)">@i</a>
+                                                <a class="btn btn-default-outline" ng-click="numPage(@i)" ng-class="numPageDisabled(@i)">@i</a>
                                             }                         
-                                <a class="btn btn-warning-outline" ng-class="nextPageDisabled()">
+                                <a class="btn btn-default-outline" ng-class="nextPageDisabled()">
                                     <div ng-click="nextPage()">></div>
                                 </a>
-                                <a class="btn btn-warning-outline" ng-class="lastPageDisabled()">
+                                <a class="btn btn-default-outline" ng-class="lastPageDisabled()">
                                     <div ng-click="lastPage()">>></div>
                                 </a>
                                 

@@ -4,6 +4,15 @@
     ViewBag.Title = "Create new customer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
+    <script src="~/Scripts/jquery.session.js"></script>
+    <link href="~/Script/dao.css" rel="stylesheet" />
+    <link href="~/Scripts/style.css" rel="stylesheet" />
+    <link href="~/Scripts/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Scripts/datatables.css" rel="stylesheet" />
+    <script src="~/Scripts/angular.min.js"></script>
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+</head>
 <style>
     .form-control {
         margin-bottom: 20px;
@@ -16,17 +25,29 @@
     }
     body {
         line-height: 2.428571;
+    }
+
 </style>
+
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
+            
     <div class="col-lg-12 col-md-12">
-        <div class="widget-container fluid-height clearfix" style="background: rgb(200, 200, 200)">
+        <div class="widget-container fluid-height clearfix" style=" /* IE10+ */ background-image: -ms-linear-gradient(left, #000000 0%, #C4C4C4 50%, #FFFFFF 100%); /* Mozilla Firefox */ background-image: -moz-linear-gradient(left, #000000 0%, #C4C4C4 50%, #FFFFFF 100%); /* Opera */ background-image: -o-linear-gradient(left, #000000 0%, #C4C4C4 50%, #FFFFFF 100%); /* Webkit (Safari/Chrome 10) */ background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #000000), color-stop(50, #C4C4C4), color-stop(100, #FFFFFF)); /* Webkit (Chrome 11+) */ background-image: -webkit-linear-gradient(left, #000000 0%, #C4C4C4 50%, #FFFFFF 100%); /* W3C Markup */ background-image: linear-gradient(to right, #000000 0%, #C4C4C4 50%, #FFFFFF 100%);">
             <div class="form-horizontal">
-                <div id="dataTable1_length" class="dataTables_length" style="margin-left:20px">
-                <h2>Khách hàng</h2>
+                <div class="dataTable1_length col-lg-6" class="dataTables_length" style="margin-left:20px">
+                    <h2 style="margin-top:20px;color:white">Khách hàng</h2>
                 </div>
-                <div style="background: rgb(251, 251, 248); padding-bottom: 10px" >
+                <div class="form-group col-lg-offset-6" style="margin-right:20px">                  
+                    <button id="thietlaplai" style="margin-top: 20px; float: right" class="btn btn-danger" type="submit"><i class="glyphicon glyphicon-refresh"></i> Thiết lập lại</button>
+                    <button style="margin-top: 20px; float: right" class="btn btn-success" type="submit"><i class="fa fa-user"></i>Thêm mới khách hàng</button>
+                    <a style="float: right; margin-top: 20px;" href="http://localhost:3469/Vsmartsell/Index" class="btn btn-default">
+                        <i class="fa fa-mail-reply">
+                        </i> Quay lại
+                    </a>                                
+                </div>
+                <div style="background: rgb(251, 251, 248); padding-bottom: 10px">
                     @Html.ValidationSummary(true)
                     <div class="col-lg-6 col-lg-offset-1">
                         <strong>Tên khách hàng :</strong>
@@ -36,7 +57,7 @@
                     <div class="col-lg-offset-6">
                         <strong>Phone :</strong>
                         @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Phone)
+                     @Html.ValidationMessageFor(model => model.Phone)
                     </div>
                     <div class="col-lg-6 col-lg-offset-1">
                         <strong>Email :</strong>
@@ -61,7 +82,7 @@
                     <div class="col-lg-6 col-lg-offset-1">
                         <strong>Ngày hết hạn :</strong>
                         @Html.TextBoxFor(model => model.NgayHetHan, new { @class = "form-control", @type = "date" })
-                        @Html.ValidationMessageFor(model => model.NgayHetHan)
+                     @Html.ValidationMessageFor(model => model.NgayHetHan)
                     </div>
                     <div class="col-lg-offset-6">
                         <strong>Tên cửa hàng :</strong>
@@ -78,11 +99,6 @@
                         @Html.TextAreaFor(model => model.Note, new { @class = "form-control", @rows = "3" })
                         @Html.ValidationMessageFor(model => model.Note)
                     </div>
-                    <div class="col-lg-6 col-lg-offset-1">
-                        <strong>Hỗ trợ :</strong>
-                        @Html.TextBoxFor(model => model.HoTro, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.HoTro)
-                    </div>
                     <div class="form-group" hidden>
                         <div class="control-label col-md-2">
                             <strong>Archive</strong>
@@ -90,19 +106,24 @@
                         <div class="col-md-10">
                         </div>
                     </div>
-
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Create" class="btn btn-primary ladda-button" data-style="expand-left" />
-                        </div>
+                    <div class="col-lg-offset-1" >
+                        <strong>Hỗ trợ :</strong>
+                        @Html.TextBoxFor(model => model.HoTro, new { @class = "form-control",style="margin-left:8.3333px" })
+                        @Html.ValidationMessageFor(model => model.HoTro)
                     </div>
+
+
+
                 </div>
             </div>
         </div>
         </div>
         }
-
-        <div>
-            @Html.ActionLink("Back to List", "index")
-        </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $('#thietlaplai').click(function () {
+            $('.form-control').val('');
+        })
+    </script>
+  }

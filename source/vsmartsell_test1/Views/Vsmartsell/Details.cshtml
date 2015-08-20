@@ -53,7 +53,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
-                        <h4 class="modal-title">Thanh toán tiền</h4>
+                        <h3 class="modal-title"><strong>Thanh toán tiền</strong></h3>
                     </div>
 
                     <div class="modal-footer" style="margin-top:0px">
@@ -163,7 +163,7 @@
                 <button style="float:right" type="submit" value="" class="btn btn-success">
                     <i class="glyphicon glyphicon-floppy-save"></i> Lưu
                 </button>
-                <a style="float:right" href="http://localhost:3469/Vsmartsell/Index" class="btn btn-danger">
+                <a style="float:right" href="http://localhost:3469/Vsmartsell/Index" class="btn btn-default">
                     <i class="fa fa-mail-reply">
                     </i> Quay lại
                 </a>
@@ -174,8 +174,8 @@
 
                 <div class="col-lg-12">
                     <div class="widget-container fluid-height clearfix">
-                        <div class="heading tabs" style="background:rgb(200, 200, 200)">
-                            <i class="fa fa-sitemap" style="color:white"></i><strong style="color:white;font-size:20px">Thông tin khách hàng  </strong><strong style="color:#000000;font-size:20px"> @Html.DisplayTextFor(model => model.TenKH)</strong>
+                        <div class="heading tabs" style="background:rgb(150, 150, 150)">
+                            <i class="fa fa-sitemap" style="color:white"></i><strong style="color:white;font-size:20px">Thông tin khách hàng  </strong><strong style="color:#000000;font-size:20px;text-transform:uppercase"> @Html.DisplayTextFor(model => model.TenKH)</strong>
                             <ul class="nav nav-tabs pull-right" data-tabs="tabs" id="tabs">
                                 <li class="active">
                                     <a data-toggle="tab" href="#tab1"><i class="fa fa-info-circle"></i><span><strong>Thông tin khách hàng</strong></span></a>
@@ -190,7 +190,7 @@
                         </div>
                         <div id="loadingicon"></div>
                         <div class="tab-content padded" hidden id="my-tab-content" style="background:rgb(251, 251, 248);">
-                            <div class="tab-pane active" id="tab1" style="font-size:20px;line-height: 50px;height: 520px;">                                
+                            <div class="tab-pane active" id="tab1" style="font-size:20px;line-height: 50px;">                                
                                 <ul>
 
                                     <div class="col-lg-6">
