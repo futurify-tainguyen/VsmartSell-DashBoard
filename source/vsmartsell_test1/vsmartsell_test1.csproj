@@ -203,6 +203,7 @@
     <Content Include="images\logo.png" />
     <Content Include="Scripts\bootstrap-editable.css" />
     <Content Include="Scripts\bootstrap.min.css" />
+    <Content Include="Scripts\date-range-selector.js" />
     <Content Include="Scripts\style.css" />
     <Content Include="Script\bootstrap.min.js" />
     <Content Include="Content\se7en-font.css" />
