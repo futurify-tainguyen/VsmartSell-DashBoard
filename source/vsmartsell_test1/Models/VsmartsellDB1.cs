@@ -49,9 +49,13 @@ namespace vsmartsell_test1.Models
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        public int ThoiHan { get; set; }
         public DateTime NgayHetHan { get; set; }
+        public decimal CuocPhi { get; set; }
+        public decimal TienGiam { get; set; }
         public decimal SoTien { get; set; }
         public string NguoiThu { get; set; }
+        public string Note { get; set; }
     }
 
     public class BangGia
