@@ -40,7 +40,7 @@
             <a data-toggle="modal" data-target="#pageviewsModal">Chi tiết</a>
         </div>
 
-        <div class="col-md-3">Transactions : <span id="transactions"></span> </div>
+        <div class="col-md-3">Transactions in last 30 days : <span id="transactions"></span> </div>
         <div class="col-md-6">Revenue : <span id="revenue"></span> VND </div>
         <div class="col-md-3">
             <a data-toggle="modal" data-target="#transactionModal">Chi tiết</a>
@@ -119,6 +119,7 @@
         }(window, document, 'script'));
     </script>
 
+    <script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/date-range-selector.js"></script>
     <script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/active-users.js"></script>
 
     <script>
@@ -167,7 +168,7 @@
             });
             activeUsers.set({ 'ids': 'ga:106032405' }).execute();
 
-            // Step 5: Create the timeline chart.
+            // Step 5: Create the report.
             //get pageviews data
             var pageviews = new gapi.analytics.report.Data({
                 query: {
@@ -193,6 +194,11 @@
             }).execute();
 
             //draw pageviews table
+            var dateRange1 = {
+                'start-date': '30daysAgo',
+                'end-date': 'today'
+            };
+
             var page = new gapi.analytics.googleCharts.DataChart({
                 reportType: 'ga',
                 query: {
@@ -212,7 +218,7 @@
             //});
             page.execute();
 
-            //get users
+            //get users data
             var users = new gapi.analytics.report.Data({
                 query: {
                     'ids': 'ga:106032405',
@@ -240,6 +246,10 @@
             }).execute();
 
             //draw users chart
+            var dateRange2 = {
+                'start-date': '30daysAgo',
+                'end-date': 'today'
+            };
             var timeline = new gapi.analytics.googleCharts.DataChart({
                 reportType: 'ga',
                 query: {
@@ -251,7 +261,6 @@
                 },
                 chart: {
                     type: 'LINE',
-                    //container: 'timeline'
                     container: 'numberuser'
                 }
             });
@@ -291,6 +300,10 @@
             }).execute();
 
             //draw transactions table
+            var dateRange3 = {
+                'start-date': '30daysAgo',
+                'end-date': 'today'
+            };
             var transactionstable = new gapi.analytics.googleCharts.DataChart({
                 reportType: 'ga',
                 query: {
