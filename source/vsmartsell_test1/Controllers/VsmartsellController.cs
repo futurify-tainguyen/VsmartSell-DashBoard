@@ -33,7 +33,7 @@ namespace vsmartsell_test1.Controllers
 
 
         // them data vao danh sach lich su giao dich
-        public ActionResult UpdateHistory(int makh, DateTime ngaygd, DateTime ngayhethan, int sotien, string nguoithu)
+        public ActionResult UpdateHistory(int makh, DateTime ngaygd, DateTime ngayhethan, decimal sotien, string nguoithu, int thoihan, decimal cuocphi, decimal tiengiam, string note)
         {
             if (ModelState.IsValid)
             {
@@ -43,6 +43,10 @@ namespace vsmartsell_test1.Controllers
                 newls.NgayHetHan = ngayhethan;
                 newls.SoTien = sotien;
                 newls.NguoiThu = nguoithu;
+                newls.CuocPhi = cuocphi;
+                newls.ThoiHan = thoihan;
+                newls.TienGiam = tiengiam;
+                newls.Note = note;
                 db.DSLichSuGD.Add(newls);
                 db.SaveChanges();
                 return Json(true);
