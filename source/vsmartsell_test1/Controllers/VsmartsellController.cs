@@ -13,6 +13,8 @@ namespace vsmartsell_test1.Controllers
     public class vsmartsellController : Controller
     {
         private VsmartsellDBContext db = new VsmartsellDBContext();
+
+        // lay lich su giao dich cua 1 khach hang
         public ActionResult GetListGD(int? id)
         {
             var ListGD = from m in db.DSLichSuGD
@@ -20,13 +22,15 @@ namespace vsmartsell_test1.Controllers
                          select m;
             return Json(new { ListGD = ListGD }, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult UpdateHistory(int makh, DateTime ngayhethan, int sotien, string nguoithu)
+
+        // them data vao danh sach lich su giao dich
+        public ActionResult UpdateHistory(int makh, DateTime ngaygd, DateTime ngayhethan, int sotien, string nguoithu)
         {
             if (ModelState.IsValid)
             {
                 LichSuGD newls = new LichSuGD();
                 newls.MaKH = makh;
-                newls.NgayGD = DateTime.Now;
+                newls.NgayGD = ngaygd;
                 newls.NgayHetHan = ngayhethan;
                 newls.SoTien = sotien;
                 newls.NguoiThu = nguoithu;
@@ -36,7 +40,8 @@ namespace vsmartsell_test1.Controllers
             }
             return Json(false);
         }
-        // GET: /Vsmartsell/
+
+        // lay thong tin khach hang
         public ActionResult GetKH(int id)
         {
             var khachhang = from m in db.DSKhachHang
@@ -45,6 +50,7 @@ namespace vsmartsell_test1.Controllers
             return Json(new { khachhang = khachhang  }, JsonRequestBehavior.AllowGet);
         }
 
+        // lay gia tien tu loai goi
         public ActionResult GetGiaTien(string loaigoi)
         {
             var GiaTien = from m in db.DSGia
@@ -52,18 +58,24 @@ namespace vsmartsell_test1.Controllers
                           select m;
             return Json(new { GiaTien = GiaTien }, JsonRequestBehavior.AllowGet);
         }
+
+        // lay gia tien cua tat ca cac loai goi
         public ActionResult GetListGiaTien()
         {
             var ListGiaTien = from m in db.DSGia
                           select m;
             return Json(new { ListGiaTien = ListGiaTien }, JsonRequestBehavior.AllowGet);
         }
+
+        // lay thong tin tat ca khach hang
         public ActionResult GetListKH()
         {
             var ListKH = from m in db.DSKhachHang
                          select m;
             return Json(new { ListKH = ListKH }, JsonRequestBehavior.AllowGet);
         }
+
+        // lay thong tin 10 khach hang tham chieu theo so trang
         public ActionResult GetList10KH(int id)
         {
             //id is page number
@@ -86,7 +98,7 @@ namespace vsmartsell_test1.Controllers
             return View();
         }
 
-        //change archive bool
+        // thay doi trang thai archive cua 1 khach hang
         [HttpPost]
         public ActionResult EditArchive(int? id)
         {
