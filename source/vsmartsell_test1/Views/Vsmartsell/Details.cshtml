@@ -64,9 +64,11 @@
                                 <label class="control-label col-md-4"><strong>Ngày thanh toán</strong></label>
                                 <div class="col-md-8">
                                     <div class="input-group date datepicker" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
-                                        <input class="form-control" type="text"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input class="form-control" type="text"><button class="input-group-addon" id="ngaythanhtoan"><i class="fa fa-calendar"></i></button>
+                                        
                                     </div>
                                 </div>
+
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Nhân viên thu tiền</strong></label>
@@ -114,12 +116,6 @@
                                 <label class="control-label col-md-4" for="disabledInput"><strong>Tổng tiền</strong></label>
                                 <div class="col-md-8">
                                     <input class="form-control" id="disabledInput" disabled placeholder="" type="text">
-                                </div>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label class="control-label col-md-4"><strong>Thanh toán</strong></label>
-                                <div class="col-md-8">
-                                    <input class="form-control" placeholder="" type="text">
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
@@ -378,5 +374,14 @@
         };
 
     });
+   
+        $('#ngaythanhtoan').click(function () {
+            alert();
+        });
+    $('#ngaythanhtoan').datetimepicker({
+        format: 'dd/MM/yyyy hh:mm:ss',
+        language: 'pt-BR'
+    });
+    
     </script>
 }
