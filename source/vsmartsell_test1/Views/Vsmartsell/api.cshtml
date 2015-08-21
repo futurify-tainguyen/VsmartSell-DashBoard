@@ -51,7 +51,8 @@
         <div class="modal-dialog modal-lg" style="width:910px;">
             <div class="modal-content" style="width:910px;">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div id="dateRange1"></div>
+                    @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
                 </div>
                 <div class="modal-body" style="padding: 0px;">
                     <div class="container" style="padding:1px;width:inherit">
@@ -71,7 +72,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div id="dateRange2"></div>
                 </div>
                 <div class="modal-body" style="max-height: 400px; overflow-y: scroll; padding-left: 0px; padding-right: 0px;">
                     <div class="container" style="width:inherit">
@@ -86,7 +87,7 @@
         <div class="modal-dialog" style="width:480px;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div id="dateRange3"></div>
                 </div>
                 <div class="modal-body" style="max-height: 400px; overflow-y: scroll;">
                     <div class="container" style="width:inherit">
@@ -119,7 +120,7 @@
         }(window, document, 'script'));
     </script>
 
-    <script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/date-range-selector.js"></script>
+    <script src="~/Scripts/date-range-selector.js"></script>
     <script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/active-users.js"></script>
 
     <script>
@@ -169,55 +170,6 @@
             activeUsers.set({ 'ids': 'ga:106032405' }).execute();
 
             // Step 5: Create the report.
-            //get pageviews data
-            var pageviews = new gapi.analytics.report.Data({
-                query: {
-                    'ids': 'ga:106032405',
-                    'dimensions': 'ga:pagePath',
-                    'metrics': 'ga:pageviews',
-                    'start-date': '30daysAgo',
-                    'end-date': 'today',
-                    filters: 'ga:pagePath!=/'
-                }
-            });
-            pageviews.on('success', function (result) {
-                var ary = result.rows;
-                var leng = ary.length;
-                var max = 0;
-                for (i = 1; i < leng; i++) {
-                    if (Number(ary[max][1]) < Number(ary[i][1])) {
-                        max = i;
-                    }
-                }
-                $("#pagepath").text(ary[max][0]);
-                $("#pageviews").text(ary[max][1]);
-            }).execute();
-
-            //draw pageviews table
-            var dateRange1 = {
-                'start-date': '30daysAgo',
-                'end-date': 'today'
-            };
-
-            var page = new gapi.analytics.googleCharts.DataChart({
-                reportType: 'ga',
-                query: {
-                    'ids': 'ga:106032405',
-                    'dimensions': 'ga:pagePath',
-                    'metrics': 'ga:pageviews,ga:timeOnPage',
-                    'start-date': '30daysAgo',
-                    'end-date': 'today',
-                },
-                chart: {
-                    type: 'TABLE',
-                    container: 'pageviewstable'
-                }
-            });
-            //page.on('success', function (response) {
-            //    response.data;
-            //});
-            page.execute();
-
             //get users data
             var users = new gapi.analytics.report.Data({
                 query: {
@@ -246,25 +198,27 @@
             }).execute();
 
             //draw users chart
-            var dateRange2 = {
+            var dateRange1 = {
                 'start-date': '30daysAgo',
                 'end-date': 'today'
             };
+            var dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
+                container: 'dateRange1'
+            }).set(dateRange1).execute();
+
             var timeline = new gapi.analytics.googleCharts.DataChart({
                 reportType: 'ga',
                 query: {
                     'ids': 'ga:106032405',
                     'dimensions': 'ga:date',
                     'metrics': 'ga:users',
-                    'start-date': '30daysAgo',
-                    'end-date': 'today',
                 },
                 chart: {
                     type: 'LINE',
                     container: 'numberuser'
                 }
             });
-            timeline.execute();
+            timeline.set({ query: dateRange1 }).execute();
 
             //draw username and date table
             var usernametable = new gapi.analytics.googleCharts.DataChart({
@@ -273,15 +227,63 @@
                     'ids': 'ga:106032405',
                     'metrics': 'ga:sessions',
                     'dimensions': 'ga:dimension2,ga:date',
-                    'start-date': '7daysAgo',
-                    'end-date': 'today',
                 },
                 chart: {
                     type: 'TABLE',
                     container: 'username'
                 }
             });
-            usernametable.execute();
+            usernametable.set({ query: dateRange1 }).execute();
+
+            //get pageviews data
+            var pageviews = new gapi.analytics.report.Data({
+                query: {
+                    'ids': 'ga:106032405',
+                    'dimensions': 'ga:pagePath',
+                    'metrics': 'ga:pageviews',
+                    'start-date': '30daysAgo',
+                    'end-date': 'today',
+                    filters: 'ga:pagePath!=/'
+                }
+            });
+            pageviews.on('success', function (result) {
+                var ary = result.rows;
+                var leng = ary.length;
+                var max = 0;
+                for (i = 1; i < leng; i++) {
+                    if (Number(ary[max][1]) < Number(ary[i][1])) {
+                        max = i;
+                    }
+                }
+                $("#pagepath").text(ary[max][0]);
+                $("#pageviews").text(ary[max][1]);
+            }).execute();
+
+            //draw pageviews table
+            var dateRange2 = {
+                'start-date': '30daysAgo',
+                'end-date': 'today'
+            };
+            var dateRangeSelector2 = new gapi.analytics.ext.DateRangeSelector({
+                container: 'dateRange2'
+            }).set(dateRange2).execute();
+
+            var page = new gapi.analytics.googleCharts.DataChart({
+                reportType: 'ga',
+                query: {
+                    'ids': 'ga:106032405',
+                    'dimensions': 'ga:pagePath',
+                    'metrics': 'ga:pageviews,ga:timeOnPage',
+                },
+                chart: {
+                    type: 'TABLE',
+                    container: 'pageviewstable'
+                }
+            });
+            //page.on('success', function (response) {
+            //    response.data;
+            //});
+            page.set({ query: dateRange2 }).execute();
 
             //get transaction data
             var money = new gapi.analytics.report.Data({
@@ -304,14 +306,15 @@
                 'start-date': '30daysAgo',
                 'end-date': 'today'
             };
+            var dateRangeSelector3 = new gapi.analytics.ext.DateRangeSelector({
+                container: 'dateRange3'
+            }).set(dateRange3).execute();
             var transactionstable = new gapi.analytics.googleCharts.DataChart({
                 reportType: 'ga',
                 query: {
                     'ids': 'ga:106032405',
                     'metrics': 'ga:transactions,ga:transactionRevenue',
                     'dimensions': 'ga:date',
-                    'start-date': '30daysAgo',
-                    'end-date': 'today',
                     filters: 'ga:transactions!=0'
                 },
                 chart: {
@@ -319,7 +322,30 @@
                     container: 'transactionstable'
                 }
             });
-            transactionstable.execute();
+            transactionstable.set({ query: dateRange3 }).execute();
+
+            // Register a handler to run whenever the user changes the date range from
+            // the second datepicker. The handler will update the second dataChart
+            // instance as well as change the dashboard subtitle to reflect the range.
+            dateRangeSelector1.on('change', function (data) {
+                timeline.set({ query: data }).execute();
+                usernametable.set({ query: data }).execute();
+                // Update the "to" dates text.
+                var datefield = document.getElementById('to-dates');
+                datefield.innerHTML = data['start-date'] + '&mdash;' + data['end-date'];
+            });
+            dateRangeSelector2.on('change', function (data) {
+                page.set({ query: data }).execute();
+                // Update the "to" dates text.
+                var datefield = document.getElementById('to-dates');
+                datefield.innerHTML = data['start-date'] + '&mdash;' + data['end-date'];
+            });
+            dateRangeSelector3.on('change', function (data) {
+                transactionstable.set({ query: data }).execute();
+                // Update the "to" dates text.
+                var datefield = document.getElementById('to-dates');
+                datefield.innerHTML = data['start-date'] + '&mdash;' + data['end-date'];
+            });
 
             // Step 6: Hook up the components to work together.
 
