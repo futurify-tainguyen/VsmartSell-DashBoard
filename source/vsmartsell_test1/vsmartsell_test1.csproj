@@ -190,6 +190,10 @@
     <Compile Include="Migrations\201508200932460_upgrade_LSGD.Designer.cs">
       <DependentUpon>201508200932460_upgrade_LSGD.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508251113588_add_viewid.cs" />
+    <Compile Include="Migrations\201508251113588_add_viewid.Designer.cs">
+      <DependentUpon>201508251113588_add_viewid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -390,6 +394,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508200932460_upgrade_LSGD.resx">
       <DependentUpon>201508200932460_upgrade_LSGD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508251113588_add_viewid.resx">
+      <DependentUpon>201508251113588_add_viewid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
