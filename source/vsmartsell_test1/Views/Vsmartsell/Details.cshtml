@@ -313,6 +313,7 @@
 </body>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery.session.js"></script>
     <script type="text/javascript">
     $(".btn .btn-default").click(function () {
         //alert();
@@ -379,9 +380,7 @@
             alert();
         });
         $('#backindex').click(function () {
-        $.post("http://localhost:3469/vsmartsell/GetList10KH", { id: i }, function (data) {
-
-        });
+           
         })
     </script>
 }

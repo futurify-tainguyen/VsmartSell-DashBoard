@@ -6,6 +6,7 @@
 <style>
     .a {
     }
+    .disablede
 </style>
 <head>
     <link href="~/Script/dao.css" rel="stylesheet" />
@@ -213,9 +214,8 @@
 <script src="~/Scripts/jquery.session.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-      
+        
     });
-
     
     var app = angular.module("IndexApp", [])
     app.filter('offset', function () {
@@ -322,17 +322,18 @@
                 });
             }
         })
-        $.session.set('nowpage');
-        if ($.session.get('nowpage')) {
+        if ($.session.get('nowpage') == null) {
             //load page tra tu dong ve page 1
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: 1 }).success(function (response) {
-                $.session.set('nowpage', 1, 0);
+                $.session.set('nowpage', 1);
                 $scope.activePage = 1;
                 $scope.List10KH = response.List10KH;
             });
         } else {
             //load page khi back về
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')) }).success(function (response) {
+            debugger
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: $.session.get("sorttype") }).success(function (response) {
+                debugger
                 $scope.List10KH = response.List10KH;
             });
         }
@@ -346,20 +347,18 @@
         };
         //previous page
         $scope.previouspage = function () {
-            debugger
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')) - 1 }).success(function (response) {
                 $.session.set('nowpage', parseInt($.session.get('nowpage')) - 1, 0);
                 $scope.List10KH = response.List10KH;
-                $scope.activePage = parseInt($.session.get('nowpage')) - 1;
+                $scope.activePage = parseInt($.session.get('nowpage'));
             });
         };
         //next page
         $scope.nextpage = function () {
-            debugger
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')) + 1 }).success(function (response) {
                 $.session.set('nowpage', parseInt($.session.get('nowpage')) + 1, 0);
                 $scope.List10KH = response.List10KH;
-                $scope.activePage = parseInt($.session.get('nowpage')) + 1;
+                $scope.activePage = parseInt($.session.get('nowpage'));
             });
         };
         //first page
@@ -367,6 +366,7 @@
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: 1 }).success(function (response) {
                 $.session.set('nowpage', 1, 0);
                 $scope.List10KH = response.List10KH;
+                $scope.activePage = parseInt($.session.get('nowpage'));
             });
         };
         //lastpage
@@ -374,95 +374,120 @@
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: i }).success(function (response) {
                 $.session.set('nowpage', i, 0);
                 $scope.List10KH = response.List10KH;
+                $scope.activePage = parseInt($.session.get('nowpage'));
             });
         };
-
+        //sort by name
         $('#up1').click(function () {
             $('#up1').hide();
             $('#down1').removeAttr('hidden');
             $('#down1').show();
+            $.session.set("sorttype", "kh1", 0);
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "kh1" }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
+          
         })
+        //sort by name
         $('#down1').click(function () {
             $('#down1').hide();
             $('#up1').show();
+            $.session.set("sorttype", "kh2", 0);
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "kh2" }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
+        //sort by loaihk
         $('#up2').click(function () {
             $('#up2').hide();
             $('#down2').removeAttr('hidden');
             $('#down2').show();
+            $.session.set("sorttype", "loai1", 0);
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "loai1" }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
+        //sort by loaihk
         $('#down2').click(function () {
             $('#down2').hide();
             $('#up2').show();
+            $.session.set("sorttype", "loai2", 0);
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "loai2" }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
+        //sort by loaigoi
         $('#up3').click(function () {
             $('#up3').hide();
             $('#down3').removeAttr('hidden');
             $('#down3').show();
+            $.session.set("sorttype", "goi1", 0);
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "goi1" }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
+        //sort by loaigoi
         $('#down3').click(function () {
             $('#down3').hide();
             $('#up3').show();
+            $.session.set("sorttype", "goi2", 0);
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "goi2" }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
+        //sort by ngaybatdau
         $('#up4').click(function () {
             $('#up4').hide();
             $('#down4').removeAttr('hidden');
             $('#down4').show();
+            $.session.set("sorttype", "batdau1", 0);
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "batdau1" }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
+        //sort by ngaybatdau
         $('#down4').click(function () {
             $('#down4').hide();
             $('#up4').show();
+            $.session.set("sorttype", "batdau2", 0);
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "batdau2" }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
+        //sort by ngayketthuc
         $('#up5').click(function () {
             $('#up5').hide();
             $('#down5').removeAttr('hidden');
             $('#down5').show();
+            $.session.set("sorttype", "ketthuc1", 0);
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ketthuc1" }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
+        //sort by ngayketthuc
         $('#down5').click(function () {
             $('#down5').hide();
             $('#up5').show();
+            $.session.set("sorttype", "ketthuc2", 0);
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ketthuc2" }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
+        //sort by tencuahang
         $('#up6').click(function () {
             $('#up6').hide();
             $('#down6').removeAttr('hidden');
             $('#down6').show();
+            $.session.set("sorttype", "ch1", 0);
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ch1" }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
+        //sort by tencuahang
         $('#down6').click(function () {
             $('#down6').hide();
             $('#up6').show();
+            $.session.set("sorttype", "ch2", 0);
             $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ch2" }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
