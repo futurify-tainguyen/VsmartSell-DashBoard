@@ -366,6 +366,7 @@
     <Content Include="Script\bootstrap.css.map" />
     <Content Include="Views\Vsmartsell\create.cshtml" />
     <Content Include="Views\Vsmartsell\api.cshtml" />
+    <Content Include="Views\Shared\_gapiPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

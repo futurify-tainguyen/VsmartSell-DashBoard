@@ -16,18 +16,6 @@
             var s = Math.floor(d % 3600 % 60);
             return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s);
         }
-        //var item = [[2, 5], [1, 6], [3, 4]]
-        //item = item.sort(function (a, b) {
-        //    if (a[1] > b[1]) {
-        //        return 1;
-        //    }
-        //    if (a[1] < b[1]) {
-        //        return -1;
-        //    }
-        //    // a must be equal to b
-        //    return 0;
-        //});
-        //var aaa = item;
         //(function (i, s, o, g, r, a, m) {
         //    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
         //        (i[r].q = i[r].q || []).push(arguments)
@@ -42,6 +30,7 @@
 <body>
 
     <!-- Step 1: Create the containing elements. -->
+    <span>@ViewBag.gaviewid</span>
     <div class="container">
         <div class="col-md-12" id="active-users-container"></div>
 
@@ -150,121 +139,121 @@
     <script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/active-users.js"></script>
 
     <script>
-        gapi.analytics.ready(function () {
+    gapi.analytics.ready(function () {
 
-            // Step 3: Authorize the user.
+        // Step 3: Authorize the user.
 
-            var CLIENT_ID = '668445380644-9vud4di1lm4gdonocgtskdpvkqtet74l.apps.googleusercontent.com';
+        var CLIENT_ID = '668445380644-9vud4di1lm4gdonocgtskdpvkqtet74l.apps.googleusercontent.com';
 
-            gapi.analytics.auth.authorize({
-                container: 'auth-button',
-                clientid: CLIENT_ID,
-            });
+        gapi.analytics.auth.authorize({
+            container: 'auth-button',
+            clientid: CLIENT_ID,
+        });
 
-            // Step 4: Create the view selector.
+        // Step 4: Create the view selector.
 
-            var viewSelector = new gapi.analytics.ViewSelector({
-                container: 'view-selector'
-            });
+        var viewSelector = new gapi.analytics.ViewSelector({
+            container: 'view-selector'
+        });
 
-            /**
-            * Create a new ActiveUsers instance to be rendered inside of an
-            * element with the id "active-users-container" and poll for changes every
-            * five seconds.
-            */
-            var activeUsers = new gapi.analytics.ext.ActiveUsers({
-                container: 'active-users-container',
-                pollingInterval: 5
-            });
-            //Add CSS animation to visually show the when users come and go.
-            activeUsers.once('success', function () {
+        /**
+        * Create a new ActiveUsers instance to be rendered inside of an
+        * element with the id "active-users-container" and poll for changes every
+        * five seconds.
+        */
+        var activeUsers = new gapi.analytics.ext.ActiveUsers({
+            container: 'active-users-container',
+            pollingInterval: 5
+        });
+        //Add CSS animation to visually show the when users come and go.
+        activeUsers.once('success', function () {
+            var element = this.container.firstChild;
+            var timeout;
+
+            this.on('change', function (data) {
                 var element = this.container.firstChild;
-                var timeout;
+                var animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
+                element.className += (' ' + animationClass);
 
-                this.on('change', function (data) {
-                    var element = this.container.firstChild;
-                    var animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
-                    element.className += (' ' + animationClass);
-
-                    clearTimeout(timeout);
-                    timeout = setTimeout(function () {
-                        element.className =
-                            element.className.replace(/ is-(increasing|decreasing)/g, '');
-                    }, 3000);
-                });
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                    element.className =
+                        element.className.replace(/ is-(increasing|decreasing)/g, '');
+                }, 3000);
             });
-            activeUsers.set({ 'ids': 'ga:106032405' }).execute();
+        });
+        activeUsers.set({ 'ids': 'ga:@ViewBag.gaviewid' }).execute();
 
-            // Step 5: Create the report.
-            //get users data
-            var users = new gapi.analytics.report.Data({
-                query: {
-                    'ids': 'ga:106032405',
-                    'dimensions': 'ga:date',
-                    'metrics': 'ga:users',
-                    'start-date': '30daysAgo',
-                    'end-date': 'today',
-                }
-            });
-            users.on('success', function (result) {
-                var ary = result.rows;
-                var _30days = 0;
-                var _7days = 0;
-                var _today = 0;
-                for (i = 0; i < 31; i++) {
-                    _30days += Number(ary[i][1]); // i = date index, 1 = get number of users
-                }
-                for (i = 23; i < 31; i++) {
-                    _7days += Number(ary[i][1]);
-                }
-                _today = ary[30][1];
-                $("#30days").text(_30days);
-                $("#7days").text(_7days);
-                $("#today").text(_today);
-            }).execute();
-
-            //draw users chart
-            var dateRange1 = {
+        // Step 5: Create the report.
+        //get users data
+        var users = new gapi.analytics.report.Data({
+            query: {
+                'ids': 'ga:@ViewBag.gaviewid',
+                'dimensions': 'ga:date',
+                'metrics': 'ga:users',
                 'start-date': '30daysAgo',
-                'end-date': 'today'
-            };
-            var dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
-                container: 'dateRange1'
-            }).set(dateRange1).execute();
+                'end-date': 'today',
+            }
+        });
+        users.on('success', function (result) {
+            var ary = result.rows;
+            var _30days = 0;
+            var _7days = 0;
+            var _today = 0;
+            for (i = 0; i < 31; i++) {
+                _30days += Number(ary[i][1]); // i = date index, 1 = get number of users
+            }
+            for (i = 23; i < 31; i++) {
+                _7days += Number(ary[i][1]);
+            }
+            _today = ary[30][1];
+            $("#30days").text(_30days);
+            $("#7days").text(_7days);
+            $("#today").text(_today);
+        }).execute();
 
-            var timeline = new gapi.analytics.googleCharts.DataChart({
-                reportType: 'ga',
-                query: {
-                    'ids': 'ga:106032405',
-                    'dimensions': 'ga:date',
-                    'metrics': 'ga:users',
-                },
-                chart: {
-                    type: 'LINE',
-                    container: 'numberuser'
-                }
-            });
-            timeline.set({ query: dateRange1 }).execute();
+        //draw users chart
+        var dateRange1 = {
+            'start-date': '30daysAgo',
+            'end-date': 'today'
+        };
+        var dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
+            container: 'dateRange1'
+        }).set(dateRange1).execute();
 
-            //draw username and date table
-            var usernametable = new gapi.analytics.googleCharts.DataChart({
-                reportType: 'ga',
-                query: {
-                    'ids': 'ga:106032405',
-                    'metrics': 'ga:sessions',
-                    'dimensions': 'ga:dimension2,ga:date',
-                },
-                chart: {
-                    type: 'TABLE',
-                    container: 'username'
-                }
-            });
-            usernametable.set({ query: dateRange1 }).execute();
+        var timeline = new gapi.analytics.googleCharts.DataChart({
+            reportType: 'ga',
+            query: {
+                'ids': 'ga:@ViewBag.gaviewid',
+                'dimensions': 'ga:date',
+                'metrics': 'ga:users',
+            },
+            chart: {
+                type: 'LINE',
+                container: 'numberuser'
+            }
+        });
+        timeline.set({ query: dateRange1 }).execute();
 
-            //get pageviews data
-            var pageviews = new gapi.analytics.report.Data({
-                query: {
-                    'ids': 'ga:106032405',
+        //draw username and date table
+        var usernametable = new gapi.analytics.googleCharts.DataChart({
+            reportType: 'ga',
+            query: {
+                'ids': 'ga:@ViewBag.gaviewid',
+                'metrics': 'ga:sessions',
+                'dimensions': 'ga:dimension2,ga:date',
+            },
+            chart: {
+                type: 'TABLE',
+                container: 'username'
+            }
+        });
+        usernametable.set({ query: dateRange1 }).execute();
+
+        //get pageviews data
+        var pageviews = new gapi.analytics.report.Data({
+            query: {
+                'ids': 'ga:@ViewBag.gaviewid',
                     'dimensions': 'ga:pagePath',
                     'metrics': 'ga:pageviews',
                     'start-date': '30daysAgo',
@@ -322,71 +311,71 @@
             var money = new gapi.analytics.report.Data({
                 reportType: 'ga',
                 query: {
-                    'ids': 'ga:106032405',
-                    'metrics': 'ga:transactions,ga:transactionRevenue',
-                    'start-date': '30daysAgo',
-                    'end-date': 'today',
-                }
-            });
-            money.on('success', function (result) {
-                var ary = result.rows;
-                $("#transactions").text(ary[0][0]);
-                $("#revenue").text(ary[0][1].slice(0, -2));
-            }).execute();
-
-            //draw transactions table
-            var dateRange3 = {
+                    'ids': 'ga:@ViewBag.gaviewid',
+                'metrics': 'ga:transactions,ga:transactionRevenue',
                 'start-date': '30daysAgo',
-                'end-date': 'today'
-            };
-            var dateRangeSelector3 = new gapi.analytics.ext.DateRangeSelector({
-                container: 'dateRange3'
-            }).set(dateRange3).execute();
-            var transactionstable = new gapi.analytics.googleCharts.DataChart({
-                reportType: 'ga',
-                query: {
-                    'ids': 'ga:106032405',
-                    'metrics': 'ga:transactions,ga:transactionRevenue',
-                    'dimensions': 'ga:date',
-                    filters: 'ga:transactions!=0'
-                },
-                chart: {
-                    type: 'TABLE',
-                    container: 'transactionstable'
-                }
-            });
-            transactionstable.set({ query: dateRange3 }).execute();
-
-            // Register a handler to run whenever the user changes the date range from
-            // the second datepicker. The handler will update the second dataChart
-            // instance as well as change the dashboard subtitle to reflect the range.
-            dateRangeSelector1.on('change', function (data) {
-                timeline.set({ query: data }).execute();
-                usernametable.set({ query: data }).execute();
-                // Update the "to" dates text.
-                var datefield = document.getElementById('to-dates');
-                datefield.innerHTML = data['start-date'] + '&mdash;' + data['end-date'];
-            });
-            dateRangeSelector2.on('change', function (data) {
-                page.set({ query: data }).execute();
-                // Update the "to" dates text.
-                var datefield = document.getElementById('to-dates');
-                datefield.innerHTML = data['start-date'] + '&mdash;' + data['end-date'];
-            });
-            dateRangeSelector3.on('change', function (data) {
-                transactionstable.set({ query: data }).execute();
-                // Update the "to" dates text.
-                var datefield = document.getElementById('to-dates');
-                datefield.innerHTML = data['start-date'] + '&mdash;' + data['end-date'];
-            });
-
-            // Step 6: Hook up the components to work together.
-
-            //gapi.analytics.auth.on('success', function (response) {
-            //viewSelector.execute();
-            //});
-
+                'end-date': 'today',
+            }
         });
+        money.on('success', function (result) {
+            var ary = result.rows;
+            $("#transactions").text(ary[0][0]);
+            $("#revenue").text(ary[0][1].slice(0, -2));
+        }).execute();
+
+        //draw transactions table
+        var dateRange3 = {
+            'start-date': '30daysAgo',
+            'end-date': 'today'
+        };
+        var dateRangeSelector3 = new gapi.analytics.ext.DateRangeSelector({
+            container: 'dateRange3'
+        }).set(dateRange3).execute();
+        var transactionstable = new gapi.analytics.googleCharts.DataChart({
+            reportType: 'ga',
+            query: {
+                'ids': 'ga:@ViewBag.gaviewid',
+                'metrics': 'ga:transactions,ga:transactionRevenue',
+                'dimensions': 'ga:date',
+                filters: 'ga:transactions!=0'
+            },
+            chart: {
+                type: 'TABLE',
+                container: 'transactionstable'
+            }
+        });
+        transactionstable.set({ query: dateRange3 }).execute();
+
+        // Register a handler to run whenever the user changes the date range from
+        // the second datepicker. The handler will update the second dataChart
+        // instance as well as change the dashboard subtitle to reflect the range.
+        dateRangeSelector1.on('change', function (data) {
+            timeline.set({ query: data }).execute();
+            usernametable.set({ query: data }).execute();
+            // Update the "to" dates text.
+            var datefield = document.getElementById('to-dates');
+            datefield.innerHTML = data['start-date'] + '&mdash;' + data['end-date'];
+        });
+        dateRangeSelector2.on('change', function (data) {
+            page.set({ query: data }).execute();
+            // Update the "to" dates text.
+            var datefield = document.getElementById('to-dates');
+            datefield.innerHTML = data['start-date'] + '&mdash;' + data['end-date'];
+        });
+        dateRangeSelector3.on('change', function (data) {
+            transactionstable.set({ query: data }).execute();
+            // Update the "to" dates text.
+            var datefield = document.getElementById('to-dates');
+            datefield.innerHTML = data['start-date'] + '&mdash;' + data['end-date'];
+        });
+
+        // Step 6: Hook up the components to work together.
+
+        //gapi.analytics.auth.on('success', function (response) {
+        //viewSelector.execute();
+        //});
+
+    });
     </script>
 
 </body>
