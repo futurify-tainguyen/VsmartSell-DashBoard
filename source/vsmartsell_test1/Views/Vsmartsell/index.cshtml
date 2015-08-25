@@ -34,9 +34,9 @@
                         <div id="dataTable1_length" class="dataTables_length"><h2>Thông tin danh sách khách hàng</h2></div>
 
                         <div class="dataTables_filter" id="dataTable1_filter">
-
-
-                            @*<label>Search: <input type="text" aria-controls="dataTable1"></label>*@
+                            <form class="navbar-form form-inline col-lg-2 hidden-xs" style="float:right">
+                                <input class="form-control" placeholder="Tìm kiếm" type="text">
+                            </form>
                         </div>
                         <table class="table table-striped" id="dataTable1">
                             <thead>
@@ -86,7 +86,11 @@
                                         </div>
                                     </th>
                                     <th width="10%">
-                                        Tên cửa hàng
+                                        <div class="col-lg-9" style="margin-left: -15px;">Tên cửa hàng</div>
+                                        <div class="col-lg-3">
+                                            <div id="up6"><button style="margin-left:-20px" class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></div>
+                                            <div id="down6" hidden><button style="margin-left:-20px" class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></div>
+                                        </div>
                                     </th>
                                     <th width="8%">
                                         Người hỗ trợ
@@ -372,51 +376,98 @@
                 $scope.List10KH = response.List10KH;
             });
         };
+
+        $('#up1').click(function () {
+            $('#up1').hide();
+            $('#down1').removeAttr('hidden');
+            $('#down1').show();
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "kh1" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        $('#down1').click(function () {
+            $('#down1').hide();
+            $('#up1').show();
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "kh2" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        $('#up2').click(function () {
+            $('#up2').hide();
+            $('#down2').removeAttr('hidden');
+            $('#down2').show();
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "loai1" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        $('#down2').click(function () {
+            $('#down2').hide();
+            $('#up2').show();
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "loai2" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        $('#up3').click(function () {
+            $('#up3').hide();
+            $('#down3').removeAttr('hidden');
+            $('#down3').show();
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "goi1" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        $('#down3').click(function () {
+            $('#down3').hide();
+            $('#up3').show();
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "goi2" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        $('#up4').click(function () {
+            $('#up4').hide();
+            $('#down4').removeAttr('hidden');
+            $('#down4').show();
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "batdau1" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        $('#down4').click(function () {
+            $('#down4').hide();
+            $('#up4').show();
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "batdau2" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        $('#up5').click(function () {
+            $('#up5').hide();
+            $('#down5').removeAttr('hidden');
+            $('#down5').show();
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ketthuc1" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        $('#down5').click(function () {
+            $('#down5').hide();
+            $('#up5').show();
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ketthuc2" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        $('#up6').click(function () {
+            $('#up6').hide();
+            $('#down6').removeAttr('hidden');
+            $('#down6').show();
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ch1" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        $('#down6').click(function () {
+            $('#down6').hide();
+            $('#up6').show();
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ch2" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
     });
-    $('#up1').click(function () {
-        $('#up1').hide();
-        $('#down1').removeAttr('hidden');
-        $('#down1').show();
-    })
-    $('#down1').click(function () {
-        $('#down1').hide();
-        $('#up1').show();
-    })
-    $('#up2').click(function () {
-        $('#up2').hide();
-        $('#down2').removeAttr('hidden');
-        $('#down2').show();
-    })
-    $('#down2').click(function () {
-        $('#down2').hide();
-        $('#up2').show();
-    })
-    $('#up3').click(function () {
-        $('#up3').hide();
-        $('#down3').removeAttr('hidden');
-        $('#down3').show();
-    })
-    $('#down3').click(function () {
-        $('#down3').hide();
-        $('#up3').show();
-    })
-    $('#up4').click(function () {
-        $('#up4').hide();
-        $('#down4').removeAttr('hidden');
-        $('#down4').show();
-    })
-    $('#down4').click(function () {
-        $('#down4').hide();
-        $('#up4').show();
-    })
-    $('#up5').click(function () {
-        $('#up5').hide();
-        $('#down5').removeAttr('hidden');
-        $('#down5').show();
-    })
-    $('#down5').click(function () {
-        $('#down5').hide();
-        $('#up5').show();
-    })
+   
 </script>
 }
