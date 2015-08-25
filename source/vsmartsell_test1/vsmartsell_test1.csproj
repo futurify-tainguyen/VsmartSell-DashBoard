@@ -205,6 +205,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="images\logo.png" />
+    <Content Include="JavaScript\jquery.session.js" />
     <Content Include="Scripts\bootstrap-editable.css" />
     <Content Include="Scripts\bootstrap.min.css" />
     <Content Include="Scripts\date-range-selector.js" />

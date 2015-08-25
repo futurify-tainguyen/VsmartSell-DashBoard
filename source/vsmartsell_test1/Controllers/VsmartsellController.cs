@@ -229,7 +229,7 @@ namespace vsmartsell_test1.Controllers
                          select n.LoaiKH;
             ViewBag.ListKH = ListKH;
             ViewBag.listgoi = listgoi;
-            return View();
+            return View("details");
         }
 
         // POST: /Vsmartsell/Create
@@ -243,7 +243,7 @@ namespace vsmartsell_test1.Controllers
             {
                 db.DSKhachHang.Add(khachhang);
                 db.SaveChanges();
-                return RedirectToAction("index");
+                return RedirectToAction("details");
             }
 
             return View(khachhang);

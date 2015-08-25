@@ -32,21 +32,21 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-            
+          <div class="col-lg-offset-9">    
+              <a href="http://localhost:3469/Vsmartsell/Index" class="btn btn-default">
+                  <i class="fa fa-mail-reply">
+                  </i> Quay lại
+              </a>         
+                    <button  class="btn btn-success" type="submit"><i class="fa fa-user"></i>Thêm mới</button>
+              <button id="thietlaplai" class="btn btn-danger" type="submit"><i class="glyphicon glyphicon-refresh"></i> Thiết lập lại</button>                              
+                </div>  
     <div class="col-lg-12 col-md-12">
-        <div class="widget-container fluid-height clearfix" style=" /* IE10+ */ background-image: -ms-linear-gradient(left, #000000 0%, #C4C4C4 50%, #FFFFFF 100%); /* Mozilla Firefox */ background-image: -moz-linear-gradient(left, #000000 0%, #C4C4C4 50%, #FFFFFF 100%); /* Opera */ background-image: -o-linear-gradient(left, #000000 0%, #C4C4C4 50%, #FFFFFF 100%); /* Webkit (Safari/Chrome 10) */ background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #000000), color-stop(50, #C4C4C4), color-stop(100, #FFFFFF)); /* Webkit (Chrome 11+) */ background-image: -webkit-linear-gradient(left, #000000 0%, #C4C4C4 50%, #FFFFFF 100%); /* W3C Markup */ background-image: linear-gradient(to right, #000000 0%, #C4C4C4 50%, #FFFFFF 100%);">
+        <div class="widget-container fluid-height clearfix" style="background:rgb(150, 150, 150)">
             <div class="form-horizontal">
-                <div class="dataTable1_length col-lg-6" class="dataTables_length" style="margin-left:20px">
-                    <h2 style="margin-top:20px;color:white">Khách hàng</h2>
+                <div class="dataTable1_length col-lg-12" class="dataTables_length" style="margin-left:20px">
+                    <h2 class="col-lg-12" style="margin-top:5px;color:white">Khách hàng</h2>
                 </div>
-                <div class="form-group col-lg-offset-6" style="margin-right:20px">                  
-                    <button id="thietlaplai" style="margin-top: 20px; float: right" class="btn btn-danger" type="submit"><i class="glyphicon glyphicon-refresh"></i> Thiết lập lại</button>
-                    <button style="margin-top: 20px; float: right" class="btn btn-success" type="submit"><i class="fa fa-user"></i>Thêm mới khách hàng</button>
-                    <a style="float: right; margin-top: 20px;" href="http://localhost:3469/Vsmartsell/Index" class="btn btn-default">
-                        <i class="fa fa-mail-reply">
-                        </i> Quay lại
-                    </a>                                
-                </div>
+
                 <div style="background: rgb(251, 251, 248); padding-bottom: 10px">
                     @Html.ValidationSummary(true)
                     <div class="col-lg-6 col-lg-offset-1">
@@ -57,7 +57,7 @@
                     <div class="col-lg-offset-6">
                         <strong>Phone :</strong>
                         @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
-                     @Html.ValidationMessageFor(model => model.Phone)
+                        @Html.ValidationMessageFor(model => model.Phone)
                     </div>
                     <div class="col-lg-6 col-lg-offset-1">
                         <strong>Email :</strong>
@@ -82,7 +82,7 @@
                     <div class="col-lg-6 col-lg-offset-1">
                         <strong>Ngày hết hạn :</strong>
                         @Html.TextBoxFor(model => model.NgayHetHan, new { @class = "form-control", @type = "date" })
-                     @Html.ValidationMessageFor(model => model.NgayHetHan)
+                        @Html.ValidationMessageFor(model => model.NgayHetHan)
                     </div>
                     <div class="col-lg-offset-6">
                         <strong>Tên cửa hàng :</strong>
@@ -106,13 +106,11 @@
                         <div class="col-md-10">
                         </div>
                     </div>
-                    <div class="col-lg-offset-1" >
+                    <div class="col-lg-offset-1">
                         <strong>Hỗ trợ :</strong>
-                        @Html.TextBoxFor(model => model.HoTro, new { @class = "form-control",style="margin-left:8.3333px" })
+                        @Html.TextBoxFor(model => model.HoTro, new { @class = "form-control", style = "margin-left:8.3333px" })
                         @Html.ValidationMessageFor(model => model.HoTro)
                     </div>
-
-
 
                 </div>
             </div>

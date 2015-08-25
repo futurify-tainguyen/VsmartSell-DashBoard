@@ -159,10 +159,10 @@
                 <button style="float:right" type="submit" value="" class="btn btn-success">
                     <i class="glyphicon glyphicon-floppy-save"></i> Lưu
                 </button>
-                <a style="float:right" href="http://localhost:3469/Vsmartsell/Index" class="btn btn-default">
+                <button style="float:right" id="backindex" class="btn btn-default">
                     <i class="fa fa-mail-reply">
                     </i> Quay lại
-                </a>
+                </button>
             </div>
         </div>
         <div class="row">
@@ -235,7 +235,7 @@
                             </div>
 
                             <div class="tab-pane" id="tab2" style="font-size: 20px;line-height:50px">
-                                <div class="widget-content padded clearfix">
+                                <ul>
                                     <div class="col-lg-6">
                                         <strong>Gói sử dụng : </strong>
                                         @Html.DropDownListFor(model => model.LoaiGoi, new SelectList(ViewBag.listgoi), new { @class = "form-control" })
@@ -259,7 +259,7 @@
                                     </div>*@
 
 
-                                </div>
+                                </ul>
                             </div>
 
                             <div class="tab-pane" id="tab3" style="font-size: 20px;">
@@ -313,6 +313,7 @@
 </body>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery.session.js"></script>
     <script type="text/javascript">
     $(".btn .btn-default").click(function () {
         //alert();
@@ -378,10 +379,8 @@
         $('#ngaythanhtoan').click(function () {
             alert();
         });
-    $('#ngaythanhtoan').datetimepicker({
-        format: 'dd/MM/yyyy hh:mm:ss',
-        language: 'pt-BR'
-    });
-    
+        $('#backindex').click(function () {
+           
+        })
     </script>
 }

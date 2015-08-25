@@ -6,9 +6,9 @@
 <style>
     .a {
     }
+    .disablede
 </style>
 <head>
-    <script src="~/Scripts/jquery.session.js"></script>
     <link href="~/Script/dao.css" rel="stylesheet" />
     <link href="~/Scripts/style.css" rel="stylesheet" />    
     <link href="~/Scripts/font-awesome.min.css" rel="stylesheet" />
@@ -16,25 +16,14 @@
     <script src="~/Scripts/angular.min.js"></script>
     @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
 </head>
-@*<div class="sk-circle">
-    <div class="sk-circle1 sk-child"></div>mn
-    <div class="sk-circle2 sk-child"></div>
-    <div class="sk-circle3 sk-child"></div>
-    <div class="sk-circle4 sk-child"></div>
-    <div class="sk-circle5 sk-child"></div>
-    <div class="sk-circle6 sk-child"></div>
-    <div class="sk-circle7 sk-child"></div>
-    <div class="sk-circle8 sk-child"></div>
-    <div class="sk-circle9 sk-child"></div>
-    <div class="sk-circle10 sk-child"></div>
-    <div class="sk-circle11 sk-child"></div>
-    <div class="sk-circle12 sk-child"></div>
-</div>*@
 
-<body class="page-header-fixed bg-1" ng-app="IndexApp" ng-controller="indexcontrol">
-    <div class="container-fluid main-content">
+<div class="col-lg-offset-10">
+    <a  style="margin-left:110px" class="btn btn-primary" href="http://localhost:3469/vsmartsell/create"><i class="fa fa-user"></i>Thêm mới khách hàng</a>
+</div>
+<body class="page-header-fixed bg-1" ng-app="IndexApp" >
+    <div class="container-fluid main-content" ng-controller="indexcontrol">
         <div class="page-title">
-            
+
         </div>
         <!-- DataTables Example -->
         <div class="row">
@@ -46,47 +35,68 @@
                         <div id="dataTable1_length" class="dataTables_length"><h2>Thông tin danh sách khách hàng</h2></div>
 
                         <div class="dataTables_filter" id="dataTable1_filter">
-
-                            <a class="btn btn-primary" href="http://localhost:3469/vsmartsell/create"><i class="fa fa-user"></i>Thêm mới khách hàng</a>
-                            @*<label>Search: <input type="text" aria-controls="dataTable1"></label>*@
+                            <form class="navbar-form form-inline col-lg-2 hidden-xs" style="float:right">
+                                <input class="form-control" placeholder="Tìm kiếm" type="text">
+                            </form>
                         </div>
                         <table class="table table-striped" id="dataTable1">
                             <thead>
                                 <tr>
 
-                                    <th style="text-align:left; width:200px;">
-                                        <div class="col-lg-9" style="margin-top:8px" >
-                                            Tên khách hàng
-                                        </div>
+                                    <th width="15%">
+                                        <div class="col-lg-9" style="margin-left: -15px;">Tên khách hàng</div>
                                         <div class="col-lg-3">
-                                            <div><button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-resize-vertical" style="font-size:20px"></span></button></div>
+                                            <div id="up1"><button style="margin-left:-60px" class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></div>
+                                            <div id="down1" hidden><button style="margin-left:-60px" class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></div>
                                         </div>
                                     </th>
-                                    <th>
+                                    <th width="8%">
                                         Số điện thoại
                                     </th>
-                                    <th>
+                                    <th width="11%">
                                         Email
                                     </th>
-                                    <th>
-                                        Loại khách hàng
+                                    <th width="12%">
+                                        <div class="col-lg-9" style="margin-left: -10px;">Loại khách hàng</div>
+                                        <div class="col-lg-3">
+                                            <div id="up2"><button style="margin-left:-35px" class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></div>
+                                            <div id="down2" hidden><button style="margin-left:-35px" class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></div>
+                                        </div>
+
                                     </th>
-                                    <th>
-                                        Loại cước
+                                    <th width="8%">
+                                        <div class="col-lg-9" style="margin-left: -15px;">Loại cước</div>
+                                        <div class="col-lg-3">
+                                            <div id="up3"><button style="margin-left:-20px" class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></div>
+                                            <div id="down3" hidden><button style="margin-left:-20px" class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></div>
+                                        </div>
+
                                     </th>
-                                    <th>
-                                        Ngày đăng kí
+                                    <th width="10%">
+                                        <div class="col-lg-9" style="margin-left: -15px;">Ngày đăng kí</div>
+                                        <div class="col-lg-3">
+                                            <div id="up4"><button style="margin-left:-20px" class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></div>
+                                            <div id="down4" hidden><button style="margin-left:-20px" class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></div>
+                                        </div>
                                     </th>
-                                    <th>
-                                        Ngày hết hạn
+                                    <th width="10%">
+                                        <div class="col-lg-9" style="margin-left: -15px;">Ngày hết hạn</div>
+                                        <div class="col-lg-3">
+                                            <div id="up5"><button style="margin-left:-20px" class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></div>
+                                            <div id="down5" hidden><button style="margin-left:-20px" class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></div>
+                                        </div>
                                     </th>
-                                    <th>
-                                        Tên cửa hàng
+                                    <th width="10%">
+                                        <div class="col-lg-9" style="margin-left: -15px;">Tên cửa hàng</div>
+                                        <div class="col-lg-3">
+                                            <div id="up6"><button style="margin-left:-20px" class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></div>
+                                            <div id="down6" hidden><button style="margin-left:-20px" class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></div>
+                                        </div>
                                     </th>
-                                    <th>
+                                    <th width="8%">
                                         Người hỗ trợ
                                     </th>
-                                    <th>
+                                    <th width="8%">
                                         Thao tác
                                     </th>
                                 </tr>
@@ -95,7 +105,7 @@
                             <tbody>
 
 
-                                <tr hidden ng-repeat="m in ListKH | filter:{Archive:'False'} | offset: currentPage*itemsPerPage | limitTo: itemsPerPage" id="item" name="{{m.MaKH}}">
+                                <tr hidden ng-repeat="m in List10KH">
 
 
                                     <td hidden id="{{ m.MaKH }}"></td>
@@ -145,29 +155,31 @@
                             </tbody>
 
                         </table>
-
+                        </div>
+                        @*them phan page chia tren sever*@
                         <div>
                             <div class="pagination">
-                                <a class="btn btn-default-outline" ng-class="firstPageDisabled()">
-                                    <div ng-click="firstPage()"><<</div>
+                                <a class="btn btn-default-outline {{activePage== 1?'disabled':''}}" id="first" ng-click="firstpage()" ng-class="DisabledFirstPage">
+                                    <div><<</div>
                                 </a>
-                                <a class="btn btn-default-outline" ng-class="prevPageDisabled()">
-                                    <div ng-click="prevPage()"><</div>
+                                <a class="btn btn-default-outline {{activePage== 1?'disabled':''}}" id="previous" ng-click="previouspage()" ng-class="DisabledPreviousPage">
+                                    <div><</div>
                                 </a>
-                                    
-                                        @for (var i = 1; i <= ViewBag.numpage; i++)
-                                            {
-                                                <a class="btn btn-default-outline" ng-click="numPage(@i)" ng-class="numPageDisabled(@i)">@i</a>
-                                            }                         
-                                <a class="btn btn-default-outline" ng-class="nextPageDisabled()">
-                                    <div ng-click="nextPage()">></div>
+
+                                @for (var i = 1; i <= ViewBag.numpage; i++)
+                                    {
+                                        <a class="btn btn-default-outline {{activePage==@(i)?'disabled':''}}"  ng-click="selectpage(@i)" value="@i" id="@i">@i</a>
+                                    }
+                                <a class="btn btn-default-outline {{activePage==@(ViewBag.numpage)?'disabled':''}}" id="next" ng-click="nextpage()" ng-class="DisabledNextPage">
+                                    <div>></div>
                                 </a>
-                                <a class="btn btn-default-outline" ng-class="lastPageDisabled()">
-                                    <div ng-click="lastPage()">>></div>
+                                <a class="btn btn-default-outline {{activePage==@(ViewBag.numpage)?'disabled':''}}" id="last" ng-click="lastpage(@ViewBag.numpage)" ng-class="DisabledLastPage">
+                                    <div>>></div>
                                 </a>
-                                
-                            </div>                          
+
+                            </div>
                         </div>
+
                     </div>
                     <div class="col-md-12">
                         <div class="well">
@@ -199,7 +211,12 @@
 
 @section Scripts {
 @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery.session.js"></script>
 <script type="text/javascript">
+    $(document).ready(function () {
+        
+    });
+    
     var app = angular.module("IndexApp", [])
     app.filter('offset', function () {
         return function (input, start) {
@@ -209,6 +226,8 @@
     });
     $('tr').removeAttr('hidden');
     app.controller('indexcontrol', function ($scope, $http) {
+        
+
         $scope.itemsPerPage = 10;
         $scope.currentPage = 0;
         $scope.items = [];
@@ -266,8 +285,6 @@
             return $scope.currentPage === 0 ? "disabled" : "";
         };
         var loadingIcon = '<div class="sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div>'
-        //$('#dataTable1').find('thead').hide();
-        //$('#dataTable1').find('tbody').hide();
         $('#loadingicon').append(loadingIcon);
 
         $http.get("/vsmartsell/GetListKH").success(function (response) {
@@ -286,8 +303,6 @@
             }
             var listKH = response.ListKH;
             $scope.ListKH = listKH;
-            //$('#dataTable1').find('thead').show();
-            //$('#dataTable1').find('tbody').find('tr').removeAttr('hidden');
             $('.sk-circle').remove();
         });
 
@@ -306,10 +321,178 @@
                     { location.reload() }
                 });
             }
-            
+        })
+        if ($.session.get('nowpage') == null) {
+            //load page tra tu dong ve page 1
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: 1 }).success(function (response) {
+                $.session.set('nowpage', 1);
+                $scope.activePage = 1;
+                $scope.List10KH = response.List10KH;
+            });
+        } else {
+            //load page khi back về
+            debugger
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: $.session.get("sorttype") }).success(function (response) {
+                debugger
+                $scope.List10KH = response.List10KH;
+            });
+        }
+        //server trả về đúng page yêu cầu theo id
+        $scope.selectpage = function (i) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: i }).success(function (response) {
+                $.session.set('nowpage', i, 0);
+                $scope.activePage = i;
+                $scope.List10KH = response.List10KH;
+            });
+        };
+        //previous page
+        $scope.previouspage = function () {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')) - 1 }).success(function (response) {
+                $.session.set('nowpage', parseInt($.session.get('nowpage')) - 1, 0);
+                $scope.List10KH = response.List10KH;
+                $scope.activePage = parseInt($.session.get('nowpage'));
+            });
+        };
+        //next page
+        $scope.nextpage = function () {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')) + 1 }).success(function (response) {
+                $.session.set('nowpage', parseInt($.session.get('nowpage')) + 1, 0);
+                $scope.List10KH = response.List10KH;
+                $scope.activePage = parseInt($.session.get('nowpage'));
+            });
+        };
+        //first page
+        $scope.firstpage = function () {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: 1 }).success(function (response) {
+                $.session.set('nowpage', 1, 0);
+                $scope.List10KH = response.List10KH;
+                $scope.activePage = parseInt($.session.get('nowpage'));
+            });
+        };
+        //lastpage
+        $scope.lastpage = function (i) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: i }).success(function (response) {
+                $.session.set('nowpage', i, 0);
+                $scope.List10KH = response.List10KH;
+                $scope.activePage = parseInt($.session.get('nowpage'));
+            });
+        };
+        //sort by name
+        $('#up1').click(function () {
+            $('#up1').hide();
+            $('#down1').removeAttr('hidden');
+            $('#down1').show();
+            $.session.set("sorttype", "kh1", 0);
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "kh1" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+          
+        })
+        //sort by name
+        $('#down1').click(function () {
+            $('#down1').hide();
+            $('#up1').show();
+            $.session.set("sorttype", "kh2", 0);
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "kh2" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        //sort by loaihk
+        $('#up2').click(function () {
+            $('#up2').hide();
+            $('#down2').removeAttr('hidden');
+            $('#down2').show();
+            $.session.set("sorttype", "loai1", 0);
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "loai1" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        //sort by loaihk
+        $('#down2').click(function () {
+            $('#down2').hide();
+            $('#up2').show();
+            $.session.set("sorttype", "loai2", 0);
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "loai2" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        //sort by loaigoi
+        $('#up3').click(function () {
+            $('#up3').hide();
+            $('#down3').removeAttr('hidden');
+            $('#down3').show();
+            $.session.set("sorttype", "goi1", 0);
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "goi1" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        //sort by loaigoi
+        $('#down3').click(function () {
+            $('#down3').hide();
+            $('#up3').show();
+            $.session.set("sorttype", "goi2", 0);
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "goi2" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        //sort by ngaybatdau
+        $('#up4').click(function () {
+            $('#up4').hide();
+            $('#down4').removeAttr('hidden');
+            $('#down4').show();
+            $.session.set("sorttype", "batdau1", 0);
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "batdau1" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        //sort by ngaybatdau
+        $('#down4').click(function () {
+            $('#down4').hide();
+            $('#up4').show();
+            $.session.set("sorttype", "batdau2", 0);
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "batdau2" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        //sort by ngayketthuc
+        $('#up5').click(function () {
+            $('#up5').hide();
+            $('#down5').removeAttr('hidden');
+            $('#down5').show();
+            $.session.set("sorttype", "ketthuc1", 0);
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ketthuc1" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        //sort by ngayketthuc
+        $('#down5').click(function () {
+            $('#down5').hide();
+            $('#up5').show();
+            $.session.set("sorttype", "ketthuc2", 0);
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ketthuc2" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        //sort by tencuahang
+        $('#up6').click(function () {
+            $('#up6').hide();
+            $('#down6').removeAttr('hidden');
+            $('#down6').show();
+            $.session.set("sorttype", "ch1", 0);
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ch1" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        })
+        //sort by tencuahang
+        $('#down6').click(function () {
+            $('#down6').hide();
+            $('#up6').show();
+            $.session.set("sorttype", "ch2", 0);
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ch2" }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
         })
     });
-
    
 </script>
 }
