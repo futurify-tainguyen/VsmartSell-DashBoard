@@ -212,7 +212,7 @@ namespace vsmartsell_test1.Controllers
             {
                 db.Entry(khachhang).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("index");
+                return RedirectToAction("details");
             }
 
             return View(khachhang);
@@ -243,7 +243,10 @@ namespace vsmartsell_test1.Controllers
             {
                 db.DSKhachHang.Add(khachhang);
                 db.SaveChanges();
-                return RedirectToAction("details");
+                var listgoi = from m in db.DSGia
+                          orderby m.LoaiGoi
+                          select m.LoaiGoi;
+                return RedirectToAction("details", new { id = khachhang.MaKH });
             }
 
             return View(khachhang);

@@ -16,9 +16,10 @@
     <script src="~/Scripts/angular.min.js"></script>
     @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
 </head>
-
-<div class="col-lg-offset-10">
-    <a  style="margin-left:110px" class="btn btn-primary" href="http://localhost:3469/vsmartsell/create"><i class="fa fa-user"></i>Thêm mới khách hàng</a>
+<div class="row">
+<div class="col-md-offset-10" style="float:right" >
+    <a class="btn btn-primary" href="http://localhost:3469/vsmartsell/create"><i class="fa fa-user"></i>Thêm mới khách hàng</a>
+</div>
 </div>
 <body class="page-header-fixed bg-1" ng-app="IndexApp" >
     <div class="container-fluid main-content" ng-controller="indexcontrol">
@@ -27,7 +28,7 @@
         </div>
         <!-- DataTables Example -->
         <div class="row">
-            <div class="col-lg-12 col-md-12">
+            <div class="col-md-12 col-md-12">
                 <div class="widget-container fluid-height clearfix">
 
 
@@ -35,7 +36,7 @@
                         <div id="dataTable1_length" class="dataTables_length"><h2>Thông tin danh sách khách hàng</h2></div>
 
                         <div class="dataTables_filter" id="dataTable1_filter">
-                            <form class="navbar-form form-inline col-lg-2 hidden-xs" style="float:right">
+                            <form class="navbar-form form-inline col-md-2 hidden-xs" style="float:right">
                                 <input class="form-control" placeholder="Tìm kiếm" type="text">
                             </form>
                         </div>
@@ -333,7 +334,7 @@
         }
         //server trả về đúng page yêu cầu theo id
         $scope.selectpage = function (i) {
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: i }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: i, sorttype: $.session.get("sorttype") }).success(function (response) {
                 $.session.set('nowpage', i, 0);
                 $scope.activePage = i;
                 $scope.List10KH = response.List10KH;
@@ -341,7 +342,7 @@
         };
         //previous page
         $scope.previouspage = function () {
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')) - 1 }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')) - 1, sorttype: $.session.get("sorttype") }).success(function (response) {
                 $.session.set('nowpage', parseInt($.session.get('nowpage')) - 1, 0);
                 $scope.List10KH = response.List10KH;
                 $scope.activePage = parseInt($.session.get('nowpage'));
@@ -349,7 +350,7 @@
         };
         //next page
         $scope.nextpage = function () {
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')) + 1 }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')) + 1, sorttype: $.session.get("sorttype") }).success(function (response) {
                 $.session.set('nowpage', parseInt($.session.get('nowpage')) + 1, 0);
                 $scope.List10KH = response.List10KH;
                 $scope.activePage = parseInt($.session.get('nowpage'));
@@ -357,7 +358,7 @@
         };
         //first page
         $scope.firstpage = function () {
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: 1 }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: 1, sorttype: $.session.get("sorttype") }).success(function (response) {
                 $.session.set('nowpage', 1, 0);
                 $scope.List10KH = response.List10KH;
                 $scope.activePage = parseInt($.session.get('nowpage'));
@@ -365,7 +366,7 @@
         };
         //lastpage
         $scope.lastpage = function (i) {
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: i }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: i, sorttype: $.session.get("sorttype") }).success(function (response) {
                 $.session.set('nowpage', i, 0);
                 $scope.List10KH = response.List10KH;
                 $scope.activePage = parseInt($.session.get('nowpage'));

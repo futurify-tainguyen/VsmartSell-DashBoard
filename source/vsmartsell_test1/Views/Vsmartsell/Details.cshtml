@@ -37,12 +37,12 @@
     <link href="~/Scripts/summernote.css" rel="stylesheet" />
     <link href="~/Scripts/font-awesome.css" rel="stylesheet" />
     <script src="~/Scripts/angular.min.js"></script>
+    <link href="~/Scripts/bootstrap-editable.css" rel="stylesheet" />
     <link href="~/Script/dao.css" rel="stylesheet" />
     <link href="~/Scripts/font-awesome.min.css" rel="stylesheet" />
 </head>
 
 <body class="page-header-fixed bg-1" ng-app="IndexApp" ng-controller="indexcontrol">
-
     <div class="row">
         <!-- Trigger the modal with a button -->
 
@@ -62,11 +62,8 @@
                         <div class="col-md-10" style="width:490px">
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Ngày thanh toán</strong></label>
-                                <div class="col-md-8">
-                                    <div class="input-group date datepicker" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
-                                        <input class="form-control" type="text"><button class="input-group-addon" id="ngaythanhtoan"><i class="fa fa-calendar"></i></button>
-                                        
-                                    </div>
+                                <div class="input-group date datepicker" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
+                                    <input class="form-control" type="text"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
 
                             </div>
@@ -129,7 +126,7 @@
 
 
                         <div class="col-md-8" style="float:right">
-                            <button type="button" class="btn btn-primary">
+                            <button type="button" class="btn btn-success">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span class="" id="cartnotice">Thanh Toán</span>
                             </button>
@@ -152,23 +149,20 @@
     {
         @Html.AntiForgeryToken()
         <div class="row">
-            <div class="col-lg-12">                
-                <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                    <i class="fa fa-shopping-cart"></i> Thanh Toán
-                </button>
+            <div class="col-md-12">                             
                 <button style="float:right" type="submit" value="" class="btn btn-success">
                     <i class="glyphicon glyphicon-floppy-save"></i> Lưu
                 </button>
-                <button style="float:right" id="backindex" class="btn btn-default">
+                <a href="http://localhost:3469/Vsmartsell/index" style="float:right" id="backindex" class="btn btn-default">
                     <i class="fa fa-mail-reply">
                     </i> Quay lại
-                </button>
+                </a>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-md-12">
 
-                <div class="col-lg-12">
+                <div class="col-md-12">
                     <div class="widget-container fluid-height clearfix">
                         <div class="heading tabs" style="background:rgb(150, 150, 150)">
                             <strong style="color:white;font-size:20px">Thông tin khách hàng  </strong><strong style="color:#000000;font-size:20px;text-transform:uppercase"> @Html.DisplayTextFor(model => model.TenKH)</strong>
@@ -189,43 +183,47 @@
                             <div class="tab-pane active" id="tab1" style="font-size:20px;line-height: 50px;">                                
                                 <ul>
 
-                                    <div class="col-lg-6">
+                                    <div class="col-md-6">
                                         <strong>Tên khách hàng :</strong>
                                         @Html.TextBoxFor(model => model.TenKH, new { @class = "form-control" })
                                     </div>
-                                    <div class="col-lg-offset-6">
+                                    <div class="col-md-offset-6">
                                         <strong>Tên cửa hàng :</strong>
                                         @Html.TextBoxFor(model => model.TenCH, new { @class = "form-control" })
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-md-6">
                                         <strong>Số điện thoại :</strong>
                                         @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
                                     </div>
-                                    <div class="col-lg-offset-6">
+                                    <div class="col-md-offset-6">
                                         <strong>Loại khách hàng :</strong>
                                         @Html.TextBoxFor(model => model.LoaiKH, new { @class = "form-control" })
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-md-6">
                                         <strong>Email :</strong>
                                         @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
                                     </div>
-                                    <div class="col-lg-offset-6">
+                                    <div class="col-md-offset-6">
                                         <strong>Người hỗ trợ :</strong>
                                         @Html.TextBoxFor(model => model.HoTro, new { @class = "form-control" })
                                     </div>
-                                    <div hidden class="col-lg-6">
+                                    @*<div hidden class="col-md-6">
+                                        <strong>mã khách hàng :</strong>
+                                        @Html.EditorFor(model => model.MaKH)
+                                    </div>*@
+                                    <div hidden="" class="col-md-6">
                                         <strong>Mã khách hàng :</strong>
-                                        @Html.TextBoxFor(model => model.MaKH, new { @class = "form-control" })
+                                        <input class="form-control" data-val="true" data-val-number="The field MaKH must be a number." data-val-required="The MaKH field is required." id="MaKH" name="MaKH" type="text" value="@(Model != null ? Model.MaKH : 0)">
                                     </div>
-                                    <div hidden class="col-lg-6">
+                                    <div hidden class="col-md-6">
                                         <strong> Tình trạng :</strong>
-                                        @Html.TextBoxFor(model => model.Archive, new { @class = "form-control" })
+                                        @Html.CheckBoxFor(model => model.Archive)
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-md-6">
                                         <strong>Địa chỉ :</strong>
                                         @Html.TextAreaFor(model => model.DiaChi, new { @class = " form-control", style = "max-width:700px", rows = "3" })
                                     </div>
-                                    <div class="col-lg-offset-6">
+                                    <div class="col-md-offset-6">
                                         <strong>Ghi chú :</strong>
                                         @Html.TextAreaFor(model => model.Note, new { @class = " form-control", style = "max-width:700px", rows = "3" })
                                     </div>
@@ -236,24 +234,25 @@
 
                             <div class="tab-pane" id="tab2" style="font-size: 20px;line-height:50px">
                                 <ul>
-                                    <div class="col-lg-6">
+                                    <div class="col-md-6">
                                         <strong>Gói sử dụng : </strong>
                                         @Html.DropDownListFor(model => model.LoaiGoi, new SelectList(ViewBag.listgoi), new { @class = "form-control" })
                                        
                                     </div>
-                                    <div class="col-lg-offset-6">
+                                    <div class="col-md-offset-6">
                                         <strong>Ngày bắt đầu :</strong>
                                         @Html.TextBoxFor(model => model.NgayDangKy, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-md-6">
                                         <strong>Giá gói sử dụng :</strong>
                                         <input disabled id="giatien" type="text" class="form-control" value="{{GiaTien}}">
                                     </div>
-                                    <div class="col-lg-offset-6">
+                                    <div class="col-md-offset-6">
                                         <strong>Ngày hết hạn :</strong>
                                         @Html.TextBoxFor(model => model.NgayHetHan, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
                                     </div>
-                                    @*<div class="col-lg-12">
+
+                                    @*<div class="col-md-12">
                                         <strong>Ghi chú :</strong>
                                         @Html.TextAreaFor(model => model.Note, new { @class = "form-control", style = "max-width:700px", rows = "3" })
                                     </div>*@
@@ -281,6 +280,9 @@
                                                     <th style="font-size: 20px;">
                                                         Ngày hết hạn
                                                     </th>
+                                                    <th style="font-size: 20px;">
+                                                        Số ngày sắp hết hạn
+                                                    </th>
                                                 </tr>
                                                 <tr ng-repeat="m in ListGD">
                                                     <td>
@@ -296,6 +298,9 @@
                                                         {{todate(m.NgayHetHan)  }}
                                                     </td>
                                                 </tr>
+                                                <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                    <i class="fa fa-shopping-cart"></i> Thanh Toán
+                                                </button>
                                             </thead>
                                         </table>
                                     </ul>

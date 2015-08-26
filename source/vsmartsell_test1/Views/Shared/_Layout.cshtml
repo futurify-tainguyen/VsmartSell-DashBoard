@@ -21,7 +21,7 @@
             <button class="navbar-toggle">
                 <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
             </button>
-            <a href="http://localhost:3469/vsmartsell/index" style="font-size:30px;color:red;font-weight:bold;font-family:'Arial Unicode MS'"><img src="~/images/logo.png" style="width:40px" />Vsmartsell Dashboard</a>
+            <a href="http://localhost:3469/vsmartsell/index" class="resetpageandtype" style="font-size:30px;color:red;font-weight:bold;font-family:'Arial Unicode MS'"><img src="~/images/logo.png" style="width:40px" />Vsmartsell Dashboard</a>
             @*<form class="navbar-form form-inline col-lg-2 hidden-xs" style="float:right">
                 <input class="form-control" placeholder="Search" type="text">
             </form>*@
@@ -30,7 +30,7 @@
             <div class="nav-collapse">
                 <ul class="nav">
                     <li>
-                        <a href="http://localhost:3469/vsmartsell/index"><span aria-hidden="true" class="se7en-home"></span>Home</a>
+                        <a class="resetpageandtype" href="http://localhost:3469/vsmartsell/index"><span aria-hidden="true" class="se7en-home"></span>Home</a>
                     </li>
                 
                
@@ -52,3 +52,9 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.session.js"></script>
+    <script type="text/javascript">
+    </script>
+}
