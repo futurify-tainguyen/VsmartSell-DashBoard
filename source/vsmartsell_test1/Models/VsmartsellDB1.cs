@@ -33,6 +33,7 @@ namespace vsmartsell_test1.Models
         public bool Archive { get; set; }
         public string Note { get; set; }
         //public ICollection<LichSuGD> DSLichSuGD { get; set; }
+        public string Viewid { get; set; }
     }
 
     public class LichSuGD
