@@ -32,7 +32,10 @@
     <!-- Step 1: Create the containing elements. -->
     <span>@ViewBag.gaviewid</span>
     <div class="container">
-        <div class="col-md-12" id="active-users-container"></div>
+        <div class="col-md-3" id="active-users-container"></div>
+        <div class="col-md-9">
+            <a data-toggle="modal" data-target="#eventsModal">Activities in last 3 days</a>
+        </div>
 
         <div class="col-md-3">Users today : <span id="today"></span> </div>
         <div class="col-md-3">Users in last 7 days : <span id="7days"></span> </div>
@@ -107,6 +110,20 @@
                 <div class="modal-body" style="max-height: 400px; overflow-y: scroll;">
                     <div class="container" style="width:inherit">
                         <span id="transactionstable"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="eventsModal" role="dialog">
+        <div class="modal-dialog" style="width:480px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body" style="max-height: 400px; overflow-y: scroll; padding:10px;">
+                    <div class="container" style="width:inherit; padding:0;">
+                        <span id="eventstable"></span>
                     </div>
                 </div>
             </div>
@@ -345,6 +362,23 @@
             }
         });
         transactionstable.set({ query: dateRange3 }).execute();
+
+        //draw events table
+        var events = new gapi.analytics.googleCharts.DataChart({
+            reportType: 'ga',
+            query: {
+                'ids': 'ga:106032405',
+                'metrics': 'ga:totalEvents',
+                'dimensions': 'ga:eventCategory,ga:eventLabel',
+                'start-date': '3daysAgo',
+                'end-date': 'today',
+            },
+            chart: {
+                type: 'TABLE',
+                container: 'eventstable'
+            }
+        });
+        events.execute();
 
         // Register a handler to run whenever the user changes the date range from
         // the second datepicker. The handler will update the second dataChart
