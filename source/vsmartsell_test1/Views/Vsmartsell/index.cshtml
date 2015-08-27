@@ -483,6 +483,10 @@
             });
         }
     });
-
+    $('.resetpageandtype').click(function () {
+        $.session.set('nowpage', '1');
+        $.session.set('sorttype', '');
+        $.session.set('timkiem', '');
+    })
 </script>
 }

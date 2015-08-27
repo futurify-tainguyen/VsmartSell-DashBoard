@@ -1,6 +1,9 @@
 ﻿@model vsmartsell_test1.Models.KhachHang
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+     if (ViewBag.makh > 0) { 
+    ViewBag.gaviewid = Model.Viewid;
+     }
 }
 <style>
     body a {
