@@ -206,7 +206,7 @@ namespace vsmartsell_test1.Controllers
         // POST: /Vsmartsell/Details/5 , edit in details
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult details([Bind(Include = "MaKH,TenKH,Phone,Email,LoaiKH,LoaiGoi,NgayDangKy,NgayHetHan,TenCH,DiaChi,HoTro,Archive,Note")] KhachHang khachhang)
+        public ActionResult details([Bind(Include = "MaKH,TenKH,Phone,Email,LoaiKH,LoaiGoi,NgayDangKy,NgayHetHan,TenCH,DiaChi,HoTro,Archive,Note,Viewid")] KhachHang khachhang)
         {
             if (ModelState.IsValid)
             {
@@ -237,7 +237,7 @@ namespace vsmartsell_test1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult create([Bind(Include = "MaKH,TenKH,Phone,Email,LoaiKH,LoaiGoi,NgayDangKy,NgayHetHan,TenCH,DiaChi,HoTro,Archive,Note")] KhachHang khachhang)
+        public ActionResult create([Bind(Include = "MaKH,TenKH,Phone,Email,LoaiKH,LoaiGoi,NgayDangKy,NgayHetHan,TenCH,DiaChi,HoTro,Archive,Note,Viewid")] KhachHang khachhang)
         {
             if (ModelState.IsValid)
             {

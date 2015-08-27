@@ -287,7 +287,6 @@ C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\Micro
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.csprojResolveAssemblyReference.cache
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.Initial.resources
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.banggia.resources
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.banggia1.resources
