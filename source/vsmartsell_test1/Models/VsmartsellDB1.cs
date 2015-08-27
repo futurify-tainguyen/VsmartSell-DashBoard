@@ -13,7 +13,7 @@ namespace vsmartsell_test1.Models
         [Key]
         public int MaKH { get; set; }
         public string TenKH { get; set; }
-        public int Phone { get; set; }
+        public string Phone { get; set; }
         public string Email { get; set; }
         public string LoaiKH { get; set; }
         public string LoaiGoi { get; set; }
