@@ -297,3 +297,5 @@ C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.upgrade_LSGD.resources
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.upgrade_LSGD.resources
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.add_viewid.resources
+C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.csprojResolveAssemblyReference.cache
+C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.LishSuGD_Paid.resources
