@@ -198,6 +198,10 @@
     <Compile Include="Migrations\201508270231287_LishSuGD_Paid.Designer.cs">
       <DependentUpon>201508270231287_LishSuGD_Paid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508270847068_ignore_accent.cs" />
+    <Compile Include="Migrations\201508270847068_ignore_accent.Designer.cs">
+      <DependentUpon>201508270847068_ignore_accent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -405,6 +409,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508270231287_LishSuGD_Paid.resx">
       <DependentUpon>201508270231287_LishSuGD_Paid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508270847068_ignore_accent.resx">
+      <DependentUpon>201508270847068_ignore_accent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
