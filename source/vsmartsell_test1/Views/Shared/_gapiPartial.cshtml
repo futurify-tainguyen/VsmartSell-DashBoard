@@ -1,12 +1,21 @@
 ﻿@{
     ViewBag.Title = "Analytics";
 }
+<style>
+    .colorinformation{
+        color: blue;
+    }
 
+    a:hover {
+        color: blue;
+        text-decoration: underline;
+    }
+</style>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Embed API Demo</title>
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    @*<link rel="stylesheet" href="~/Content/bootstrap.min.css">*@
     <!--tracking code-->
     <script>
         function secondsToHms(d) {
@@ -30,31 +39,31 @@
 <body>
 
     <!-- Step 1: Create the containing elements. -->
-    <span>@ViewBag.gaviewid</span>
     <div class="container">
+        <h4 class="col-md-12">Thông tin sử dụng phần mềm</h4>
         <div class="col-md-3" id="active-users-container"></div>
         <div class="col-md-9">
-            <a data-toggle="modal" data-target="#eventsModal">Activities in last 3 days</a>
+            <a data-toggle="modal" class="colorinformation" data-target="#eventsModal">Activities in last 3 days</a>
         </div>
 
         <div class="col-md-3">Users today : <span id="today"></span> </div>
         <div class="col-md-3">Users in last 7 days : <span id="7days"></span> </div>
         <div class="col-md-3">Users in last 30 days : <span id="30days"></span> </div>
         <div class="col-md-3">
-            <a data-toggle="modal" data-target="#userModal">Chi tiết</a>
+            <a data-toggle="modal" class="colorinformation" data-target="#userModal">Chi tiết</a>
         </div>
 
         <div class="col-md-3">Most viewed in last 30 days : </div>
         <div class="col-md-3"> <span id="pagepath"></span> </div>
         <div class="col-md-3">Viewed : <span id="pageviews"></span> </div>
         <div class="col-md-3">
-            <a data-toggle="modal" data-target="#pageviewsModal">Chi tiết</a>
+            <a data-toggle="modal" class="colorinformation" data-target="#pageviewsModal">Chi tiết</a>
         </div>
 
         <div class="col-md-3">Transactions in last 30 days : <span id="transactions"></span> </div>
         <div class="col-md-6">Revenue : <span id="revenue"></span> VND </div>
         <div class="col-md-3">
-            <a data-toggle="modal" data-target="#transactionModal">Chi tiết</a>
+            <a data-toggle="modal" class="colorinformation" data-target="#transactionModal">Chi tiết</a>
         </div>
     </div>
 
@@ -129,7 +138,7 @@
             </div>
         </div>
     </div>
-
+    <br />
 
     @*Users in last 30 days : <span id="30days"></span> <br />
         Users in last 7 days : <span id="7days"></span> <br />
@@ -140,7 +149,9 @@
         <section id="pageviewstable"></section>
         <section id="view-selector"></section>
         <section id="timeline"></section>*@
-    <section id="auth-button"></section>
+    <div class="col-md-12" style="padding:0 0 0 0">
+        <section id="auth-button" style="background-color:#ffffff"></section>
+    </div>
     <!-- Step 2: Load the library. -->
 
     <script>
@@ -304,7 +315,7 @@
             var page = new gapi.analytics.report.Data({
                 //reportType: 'ga',
                 query: {
-                    'ids': 'ga:106032405',
+                    'ids': 'ga:@ViewBag.gaviewid',
                     'dimensions': 'ga:pagePath',
                     'metrics': 'ga:pageviews,ga:timeOnPage',
                 },
@@ -367,7 +378,7 @@
         var events = new gapi.analytics.googleCharts.DataChart({
             reportType: 'ga',
             query: {
-                'ids': 'ga:106032405',
+                'ids': 'ga:@ViewBag.gaviewid',
                 'metrics': 'ga:totalEvents',
                 'dimensions': 'ga:eventCategory,ga:eventLabel',
                 'start-date': '3daysAgo',

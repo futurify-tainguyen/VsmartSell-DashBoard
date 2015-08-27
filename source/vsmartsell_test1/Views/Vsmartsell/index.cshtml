@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.gaviewid = "106032405";
 }
 <style>
     .a {
@@ -174,28 +175,9 @@
 
                             </div>
                         </div>
-
+                    
                     </div>
-                    <div class="col-md-12">
-                        <div class="well">
-                            <h2>Thông tin sử dụng phần mềm</h2>
-                            <p>
-                                Tổng số lượng người dùng :
-                            </p>
-                            <p>
-                                Số lượng người dùng mỗi ngày :
-                            </p>
-                            <p>
-                                Số lượng người dùng > 3 ngày mỗi tuần :
-                            </p>
-                            <p>
-                                Số lượng người dùng < 3 ngày mỗi tuần :
-                            </p>
-                            <p>
-                                Trang được sử dụng nhiều nhất :
-                            </p>
-                        </div>
-                    </div>
+                    
                 </div>
 
             </div>
@@ -203,7 +185,9 @@
         <!-- end DataTables Example -->
     </div>
 </body>
-
+<div class="col-md-12" style="padding: 0 0 0 0;">
+    @Html.Partial("_gapiPartial")
+</div>
 @section Scripts {
 @Scripts.Render("~/bundles/jqueryval")
 <script src="~/Scripts/jquery.session.js"></script>

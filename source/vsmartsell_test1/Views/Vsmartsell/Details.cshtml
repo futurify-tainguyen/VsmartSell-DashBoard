@@ -162,10 +162,17 @@
         <div class="row">
             <div class="col-md-12">
 
-                <div class="col-md-12">
+                <div class="col-md-12" style="padding-bottom:20px">
                     <div class="widget-container fluid-height clearfix">
                         <div class="heading tabs" style="background:rgb(150, 150, 150)">
-                            <strong style="color:white;font-size:20px">Thông tin khách hàng  </strong><strong style="color:#000000;font-size:20px;text-transform:uppercase"> @Html.DisplayTextFor(model => model.TenKH)</strong>
+                            @if (ViewBag.makh > 0)
+                            {
+                                <strong style="color:white;font-size:20px">Thông tin khách hàng  </strong><strong style="color:#000000;font-size:20px;text-transform:uppercase"> @Html.DisplayTextFor(model => model.TenKH)</strong>
+                            }
+                            else
+                            {
+                                <strong style="color:white;font-size:20px">Thêm mới khách hàng  </strong>
+                            }
                             <ul class="nav nav-tabs pull-right" data-tabs="tabs" id="tabs">
                                 <li class="active">
                                     <a data-toggle="tab" href="#tab1"><i class="fa fa-info-circle"></i><span><strong>Thông tin khách hàng</strong></span></a>
@@ -180,7 +187,7 @@
                         </div>
                         <div id="loadingicon"></div>
                         <div class="tab-content padded" hidden id="my-tab-content" style="background:rgb(251, 251, 248);">
-                            <div class="tab-pane active" id="tab1" style="font-size:20px;line-height: 50px;">                                
+                            <div class="tab-pane active" id="tab1" style="font-size:20px;line-height: 50px;">
                                 <ul>
 
                                     <div class="col-md-6">
@@ -208,9 +215,9 @@
                                         @Html.TextBoxFor(model => model.HoTro, new { @class = "form-control" })
                                     </div>
                                     @*<div hidden class="col-md-6">
-                                        <strong>mã khách hàng :</strong>
-                                        @Html.EditorFor(model => model.MaKH)
-                                    </div>*@
+                                <strong>mã khách hàng :</strong>
+                                @Html.EditorFor(model => model.MaKH)
+                            </div>*@
                                     <div hidden="" class="col-md-6">
                                         <strong>Mã khách hàng :</strong>
                                         <input class="form-control" data-val="true" data-val-number="The field MaKH must be a number." data-val-required="The MaKH field is required." id="MaKH" name="MaKH" type="text" value="@(Model != null ? Model.MaKH : 0)">
@@ -237,7 +244,7 @@
                                     <div class="col-md-6">
                                         <strong>Gói sử dụng : </strong>
                                         @Html.DropDownListFor(model => model.LoaiGoi, new SelectList(ViewBag.listgoi), new { @class = "form-control" })
-                                       
+
                                     </div>
                                     <div class="col-md-offset-6">
                                         <strong>Ngày bắt đầu :</strong>
@@ -251,11 +258,14 @@
                                         <strong>Ngày hết hạn :</strong>
                                         @Html.TextBoxFor(model => model.NgayHetHan, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
                                     </div>
-
+                                    <div class="col-md-12">
+                                        <strong>Mã thông tin ( phụ ) : </strong>
+                                        @Html.TextBoxFor(model => model.Viewid, new { @class = "form-control" })
+                                    </div>
                                     @*<div class="col-md-12">
-                                        <strong>Ghi chú :</strong>
-                                        @Html.TextAreaFor(model => model.Note, new { @class = "form-control", style = "max-width:700px", rows = "3" })
-                                    </div>*@
+                                <strong>Ghi chú :</strong>
+                                @Html.TextAreaFor(model => model.Note, new { @class = "form-control", style = "max-width:700px", rows = "3" })
+                            </div>*@
 
 
                                 </ul>
@@ -308,6 +318,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
 
@@ -315,7 +326,11 @@
             </div>
         </div>
     }
+
 </body>
+<div class="col-md-12" style="padding: 0 0 0 0;">
+    @Html.Partial("_gapiPartial")
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 <script src="~/Scripts/jquery.session.js"></script>
