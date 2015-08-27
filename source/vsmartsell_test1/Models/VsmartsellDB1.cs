@@ -57,6 +57,7 @@ namespace vsmartsell_test1.Models
         public decimal SoTien { get; set; }
         public string NguoiThu { get; set; }
         public string Note { get; set; }
+        public bool Paid { get; set; }
     }
 
     public class BangGia
