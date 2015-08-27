@@ -37,9 +37,11 @@
                         <div id="dataTable1_length" class="dataTables_length"><h2>Thông tin danh sách khách hàng</h2></div>
 
                         <div class="dataTables_filter" id="dataTable1_filter">
-                            <form class="navbar-form form-inline col-md-2 hidden-xs" style="float:right">
-                                <input class="form-control" placeholder="Tìm kiếm" type="text">
-                            </form>
+                            <div class="navbar-form form-inline col-md-2 hidden-xs" style="float:right">
+                                <input id="timkiem" class="form-control" placeholder="Tìm kiếm" type="text">
+                                <button class="btn btn-success" ng-click="timkiem()">Tìm kiếm</button>
+                            </div>
+                          
                         </div>
                         <table class="table table-striped" id="dataTable1">
                             <thead>
@@ -161,19 +163,20 @@
                                 <a class="btn btn-default-outline {{activePage== 1?'disabled':''}}" id="previous" ng-click="previouspage()" ng-class="DisabledPreviousPage">
                                     <div><</div>
                                 </a>
+                                    <span id="page">
+                                        @for (var i = 1; i <= ViewBag.numpage; i++)
+                                        {
+                                            <a class="btn btn-default-outline {{activePage==@(i)?'disabled':''}}" ng-click="selectpage(@i)" value="@i" id="@i">@i</a>
+                                        }
+                                    </span>
+                                    <a class="btn btn-default-outline {{activePage==@(ViewBag.numpage)?'disabled':''}}" id="next" ng-click="nextpage()" ng-class="DisabledNextPage">
+                                        <div>></div>
+                                    </a>
+                                    <a class="btn btn-default-outline {{activePage==@(ViewBag.numpage)?'disabled':''}}" id="last" ng-click="lastpage(@ViewBag.numpage)" ng-class="DisabledLastPage">
+                                        <div>>></div>
+                                    </a>
 
-                                @for (var i = 1; i <= ViewBag.numpage; i++)
-                                    {
-                                        <a class="btn btn-default-outline {{activePage==@(i)?'disabled':''}}"  ng-click="selectpage(@i)" value="@i" id="@i">@i</a>
-                                    }
-                                <a class="btn btn-default-outline {{activePage==@(ViewBag.numpage)?'disabled':''}}" id="next" ng-click="nextpage()" ng-class="DisabledNextPage">
-                                    <div>></div>
-                                </a>
-                                <a class="btn btn-default-outline {{activePage==@(ViewBag.numpage)?'disabled':''}}" id="last" ng-click="lastpage(@ViewBag.numpage)" ng-class="DisabledLastPage">
-                                    <div>>></div>
-                                </a>
-
-                            </div>
+</div>
                         </div>
                     
                     </div>
@@ -193,9 +196,9 @@
 <script src="~/Scripts/jquery.session.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        
+
     });
-    
+
     var app = angular.module("IndexApp", [])
     app.filter('offset', function () {
         return function (input, start) {
@@ -205,7 +208,7 @@
     });
     $('tr').removeAttr('hidden');
     app.controller('indexcontrol', function ($scope, $http) {
-        
+
 
         $scope.itemsPerPage = 10;
         $scope.currentPage = 0;
@@ -232,17 +235,17 @@
         };
 
         $scope.nextPage = function () {
-            if ($scope.currentPage < $scope.pageCount()-1) {
+            if ($scope.currentPage < $scope.pageCount() - 1) {
                 $scope.currentPage++;
             }
         };
 
         $scope.nextPageDisabled = function () {
-            return $scope.currentPage === $scope.pageCount()-1 ? "disabled" : "";
+            return $scope.currentPage === $scope.pageCount() - 1 ? "disabled" : "";
         };
 
         $scope.lastPage = function () {
-            $scope.currentPage = parseInt(@ViewBag.numpage)-1;
+            $scope.currentPage = parseInt(@ViewBag.numpage) - 1;
         };
 
         $scope.lastPageDisabled = function () {
@@ -273,7 +276,7 @@
                 console.log('meals page changed to ' + num);
             };
 
-           
+
 
             function OtherController($scope) {
                 $scope.pageChangeHandler = function (num) {
@@ -311,14 +314,14 @@
         } else {
             //load page khi back về
             debugger
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: $.session.get("sorttype") }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: $.session.get("sorttype"), search: $.session.get("timkiem") }).success(function (response) {
                 debugger
                 $scope.List10KH = response.List10KH;
             });
         }
         //server trả về đúng page yêu cầu theo id
         $scope.selectpage = function (i) {
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: i, sorttype: $.session.get("sorttype") }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: i, sorttype: $.session.get("sorttype"), search: $.session.get("timkiem") }).success(function (response) {
                 $.session.set('nowpage', i, 0);
                 $scope.activePage = i;
                 $scope.List10KH = response.List10KH;
@@ -326,7 +329,7 @@
         };
         //previous page
         $scope.previouspage = function () {
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')) - 1, sorttype: $.session.get("sorttype") }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')) - 1, sorttype: $.session.get("sorttype"), search: $.session.get("timkiem") }).success(function (response) {
                 $.session.set('nowpage', parseInt($.session.get('nowpage')) - 1, 0);
                 $scope.List10KH = response.List10KH;
                 $scope.activePage = parseInt($.session.get('nowpage'));
@@ -334,7 +337,7 @@
         };
         //next page
         $scope.nextpage = function () {
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')) + 1, sorttype: $.session.get("sorttype") }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')) + 1, sorttype: $.session.get("sorttype"), search: $.session.get("timkiem") }).success(function (response) {
                 $.session.set('nowpage', parseInt($.session.get('nowpage')) + 1, 0);
                 $scope.List10KH = response.List10KH;
                 $scope.activePage = parseInt($.session.get('nowpage'));
@@ -342,7 +345,7 @@
         };
         //first page
         $scope.firstpage = function () {
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: 1, sorttype: $.session.get("sorttype") }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: 1, sorttype: $.session.get("sorttype"), search: $.session.get("timkiem") }).success(function (response) {
                 $.session.set('nowpage', 1, 0);
                 $scope.List10KH = response.List10KH;
                 $scope.activePage = parseInt($.session.get('nowpage'));
@@ -350,7 +353,7 @@
         };
         //lastpage
         $scope.lastpage = function (i) {
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: i, sorttype: $.session.get("sorttype") }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: i, sorttype: $.session.get("sorttype"), search: $.session.get("timkiem") }).success(function (response) {
                 $.session.set('nowpage', i, 0);
                 $scope.List10KH = response.List10KH;
                 $scope.activePage = parseInt($.session.get('nowpage'));
@@ -362,17 +365,17 @@
             $('#down1').removeAttr('hidden');
             $('#down1').show();
             $.session.set("sorttype", "kh1", 0);
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "kh1" }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "kh1", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
-          
+
         })
         //sort by name
         $('#down1').click(function () {
             $('#down1').hide();
             $('#up1').show();
             $.session.set("sorttype", "kh2", 0);
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "kh2" }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "kh2", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
@@ -382,7 +385,7 @@
             $('#down2').removeAttr('hidden');
             $('#down2').show();
             $.session.set("sorttype", "loai1", 0);
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "loai1" }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "loai1", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
@@ -391,7 +394,7 @@
             $('#down2').hide();
             $('#up2').show();
             $.session.set("sorttype", "loai2", 0);
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "loai2" }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "loai2", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
@@ -401,7 +404,7 @@
             $('#down3').removeAttr('hidden');
             $('#down3').show();
             $.session.set("sorttype", "goi1", 0);
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "goi1" }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "goi1", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
@@ -410,7 +413,7 @@
             $('#down3').hide();
             $('#up3').show();
             $.session.set("sorttype", "goi2", 0);
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "goi2" }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "goi2", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
@@ -420,7 +423,7 @@
             $('#down4').removeAttr('hidden');
             $('#down4').show();
             $.session.set("sorttype", "batdau1", 0);
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "batdau1" }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "batdau1", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
@@ -429,7 +432,7 @@
             $('#down4').hide();
             $('#up4').show();
             $.session.set("sorttype", "batdau2", 0);
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "batdau2" }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "batdau2", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
@@ -439,7 +442,7 @@
             $('#down5').removeAttr('hidden');
             $('#down5').show();
             $.session.set("sorttype", "ketthuc1", 0);
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ketthuc1" }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ketthuc1", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
@@ -448,7 +451,7 @@
             $('#down5').hide();
             $('#up5').show();
             $.session.set("sorttype", "ketthuc2", 0);
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ketthuc2" }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ketthuc2", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
@@ -458,7 +461,7 @@
             $('#down6').removeAttr('hidden');
             $('#down6').show();
             $.session.set("sorttype", "ch1", 0);
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ch1" }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ch1", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
@@ -467,11 +470,19 @@
             $('#down6').hide();
             $('#up6').show();
             $.session.set("sorttype", "ch2", 0);
-            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ch2" }).success(function (response) {
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ch2", search:$.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
         })
+        $scope.timkiem = function()
+        {
+            $.session.set("timkiem", $('#timkiem').val(), 0);
+            $http.post("http://localhost:3469/vsmartsell/GetList10KH", { id: 1, sorttype: "kh1", search: $.session.get("timkiem") }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+                debugger
+            });
+        }
     });
-   
+
 </script>
 }
