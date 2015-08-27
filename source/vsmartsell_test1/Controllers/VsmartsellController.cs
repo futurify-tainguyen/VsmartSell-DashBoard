@@ -89,13 +89,17 @@ namespace vsmartsell_test1.Controllers
         }
 
         // lay danh sach 10 khach hang tuy theo so trang
-        public ActionResult GetList10KH(int id, string sorttype)
+        public ActionResult GetList10KH(int id, string sorttype, string search)
         {
             //id is page number
             var ListKH = from m in db.DSKhachHang
                          where m.Archive == false
                          select m;
-            if (sorttype == null)
+            if (!String.IsNullOrEmpty(search))
+            {
+                ListKH = ListKH.Where(m => m.TenKH.Contains(search));
+            }
+            if (String.IsNullOrEmpty(sorttype))
             {
                 ListKH = ListKH.OrderBy(m => m.MaKH);
             }
