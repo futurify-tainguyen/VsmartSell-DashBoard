@@ -221,7 +221,11 @@ namespace vsmartsell_test1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("details");
             }
-
+            var listgoi = from m in db.DSGia
+                          orderby m.LoaiGoi
+                          select m.LoaiGoi;
+            ViewBag.listgoi = listgoi;
+            ViewBag.makh = khachhang.MaKH;
             return View(khachhang);
         }
 
@@ -250,13 +254,13 @@ namespace vsmartsell_test1.Controllers
             {
                 db.DSKhachHang.Add(khachhang);
                 db.SaveChanges();
-                var listgoi = from m in db.DSGia
-                          orderby m.LoaiGoi
-                          select m.LoaiGoi;
                 return RedirectToAction("details", new { id = khachhang.MaKH });
             }
-
-            return View(khachhang);
+            var listgoi = from m in db.DSGia
+                          orderby m.LoaiGoi
+                          select m.LoaiGoi;
+            ViewBag.listgoi = listgoi;
+            return View("details", khachhang);
         }
 
         public ActionResult ThanhToan(LichSuGD lsgd)
