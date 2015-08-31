@@ -1,7 +1,7 @@
 ﻿@model vsmartsell_test1.Models.KhachHang
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-     if (ViewBag.makh > 0) { 
+        if (ViewBag.makh > 0) { 
     ViewBag.gaviewid = Model.Viewid;
      }
 }
@@ -152,14 +152,23 @@
     {
         @Html.AntiForgeryToken()
         <div class="row">
-            <div class="col-md-12">                             
+            <div class="col-md-12">                           
                 <button style="float:right" type="submit" value="" class="btn btn-success">
                     <i class="glyphicon glyphicon-floppy-save"></i> Lưu
                 </button>
-                <a href="http://localhost:3469/Vsmartsell/index" style="float:right" id="backindex" class="btn btn-default">
+                <a href="/Vsmartsell/index" style="float:right" id="backindex" class="btn btn-default">
                     <i class="fa fa-mail-reply">
                     </i> Quay lại
                 </a>
+                                @if (ViewBag.makh > 0)
+{
+
+                }
+                else
+                {
+                    <a type="button" style="float:right" id="thietlaplai" value="" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> Thiết lập lại</a>
+                }
+                  
             </div>
         </div>
         <div class="row">
@@ -227,7 +236,7 @@
                                     </div>
                                     <div hidden class="col-md-6">
                                         <strong> Tình trạng :</strong>
-                                        @Html.CheckBoxFor(model => model.Archive)
+                                        @Html.CheckBoxFor(model => model.Archive, new { @class = " form-control" })
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Địa chỉ :</strong>
@@ -246,7 +255,7 @@
                                 <ul>
                                     <div class="col-md-6">
                                         <strong>Gói sử dụng : </strong>
-                                        @Html.DropDownListFor(model => model.LoaiGoi, new SelectList(ViewBag.listgoi), new { @class = "form-control" })
+                                        @Html.DropDownListFor(model => model.LoaiGoi, new SelectList(ViewBag.listgoi),new { @class = "form-control" })
 
                                     </div>
                                     <div class="col-md-offset-6">
@@ -331,9 +340,14 @@
     }
 
 </body>
-<div class="col-md-12" style="padding: 0 0 0 0;">
+@if (ViewBag.makh > 0)
+{
+    <div class="col-md-12" style="padding: 0 0 0 0;">
+
     @Html.Partial("_gapiPartial")
 </div>
+}
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 <script src="~/Scripts/jquery.session.js"></script>
@@ -349,12 +363,12 @@
 
     var app = angular.module("IndexApp", [])
     app.controller('indexcontrol', function ($scope, $http) {
-        $http.get("http://localhost:3469/Vsmartsell/GetKH/@ViewBag.makh").success(function (response) {
+        $http.get("/Vsmartsell/GetKH/@ViewBag.makh").success(function (response) {
             var khachhang = response.khachhang[0];
             $scope.khachhang = khachhang;
 
 
-            $http.get("http://localhost:3469/Vsmartsell/GetListGiaTien").success(function (response) {
+            $http.get("/Vsmartsell/GetListGiaTien").success(function (response) {
                 for(var m in response.ListGiaTien)
                 {
                     if (khachhang.LoaiGoi == response.ListGiaTien[m].LoaiGoi)
@@ -366,7 +380,7 @@
                 });
         });
 
-        $http.get("http://localhost:3469/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
+        $http.get("/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
             debugger;
             var ListGD = response.ListGD;
             $scope.ListGD = ListGD;
@@ -375,7 +389,7 @@
 
         });
 
-        $http.get("http://localhost:3469/Vsmartsell/GetListGiaTien").success(function (response) {
+        $http.get("/Vsmartsell/GetListGiaTien").success(function (response) {
             function changegia() {
                 var loaigoi = $("#LoaiGoi").val()
                 var giagoi;
@@ -398,7 +412,10 @@
         };
 
     });
-   
+        //thiết lập lại
+        $('#thietlaplai').click(function () {
+            $('.form-control').val('');
+        })
         $('#ngaythanhtoan').click(function () {
             alert();
         });
