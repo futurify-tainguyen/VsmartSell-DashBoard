@@ -152,9 +152,9 @@ namespace vsmartsell_test1.Controllers
                 ListKH = ListKH.OrderByDescending(m => m.TenCH);
             }
             var count = ListKH.Count();
-            ViewBag.numpage = (count - 1) / 10 + 1;
+            var numpage = (count - 1) / 10 + 1;
             var List10KH = ListKH.Skip((id-1)*10).Take(10);
-            return Json(new { List10KH = List10KH }, JsonRequestBehavior.AllowGet);
+            return Json(new { List10KH = List10KH, numpage = numpage }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult api()
