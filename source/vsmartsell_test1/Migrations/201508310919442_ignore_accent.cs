@@ -7,7 +7,7 @@ namespace vsmartsell_test1.Migrations
     {
         public override void Up()
         {
-            Sql("alter table KhachHangs alter column TenKH nvarchar(255) COLLATE SQL_LATIN1_GENERAL_CP1_CI_AI null");
+            Sql("alter table KhachHangs alter column TenKH nvarchar(MAX) COLLATE SQL_LATIN1_GENERAL_CP1_CI_AI not null");
         }
         
         public override void Down()

@@ -89,67 +89,41 @@ namespace vsmartsell_test1.Controllers
         }
 
         // lay danh sach 10 khach hang tuy theo so trang
-        public ActionResult GetList10KH(int id, string sorttype, string search)
+        public ActionResult GetList10KH(int id, SortType sorttype = SortType.makh, string search = "")
         {
             //id is page number
             var ListKH = from m in db.DSKhachHang
                          where m.Archive == false
-                         select m;
-            if (!String.IsNullOrEmpty(search))
+                         select m;    
+            ListKH = ListKH.Where(m => m.TenKH.Contains(search));
+            switch (sorttype)
             {
-                ListKH = ListKH.Where(m => m.TenKH.Contains(search));
-            }
-            if (String.IsNullOrEmpty(sorttype))
-            {
-                ListKH = ListKH.OrderBy(m => m.MaKH);
-            }
-            else if (sorttype == "kh1")
-            {
-                ListKH = ListKH.OrderBy(m => m.TenKH);
-            }
-            else if (sorttype == "kh2")
-            {
-                ListKH = ListKH.OrderByDescending(m => m.TenKH);
-            }
-            else if (sorttype == "loai1")
-            {
-                ListKH = ListKH.OrderBy(m => m.LoaiKH);
-            }
-            else if (sorttype == "loai2")
-            {
-                ListKH = ListKH.OrderByDescending(m => m.LoaiKH);
-            }
-            else if (sorttype == "goi1")
-            {
-                ListKH = ListKH.OrderBy(m => m.LoaiGoi);
-            }
-            else if (sorttype == "goi2")
-            {
-                ListKH = ListKH.OrderByDescending(m => m.LoaiGoi);
-            }
-            else if (sorttype == "batdau1")
-            {
-                ListKH = ListKH.OrderBy(m => m.NgayDangKy);
-            }
-            else if (sorttype == "batdau2")
-            {
-                ListKH = ListKH.OrderByDescending(m => m.NgayDangKy);
-            }
-            else if (sorttype == "ketthuc1")
-            {
-                ListKH = ListKH.OrderBy(m => m.NgayHetHan);
-            }
-            else if (sorttype == "ketthuc2")
-            {
-                ListKH = ListKH.OrderByDescending(m => m.NgayHetHan);
-            }
-            else if (sorttype == "ch1")
-            {
-                ListKH = ListKH.OrderBy(m => m.TenCH);
-            }
-            else if (sorttype == "ch2")
-            {
-                ListKH = ListKH.OrderByDescending(m => m.TenCH);
+                case SortType.makh:
+                    ListKH = ListKH.OrderBy(m => m.MaKH); break;
+                case SortType.kh1:
+                    ListKH = ListKH.OrderBy(m => m.TenKH); break;
+                case SortType.kh2:
+                    ListKH = ListKH.OrderByDescending(m => m.TenKH); break;
+                case SortType.ch1:
+                    ListKH = ListKH.OrderBy(m => m.TenCH); break;
+                case SortType.ch2:
+                    ListKH = ListKH.OrderByDescending(m => m.TenCH); break;
+                case SortType.loai1:
+                    ListKH = ListKH.OrderBy(m => m.LoaiKH); break;
+                case SortType.loai2:
+                    ListKH = ListKH.OrderByDescending(m => m.LoaiKH); break;
+                case SortType.goi1:
+                    ListKH = ListKH.OrderBy(m => m.LoaiGoi); break;
+                case SortType.goi2:
+                    ListKH = ListKH.OrderByDescending(m => m.LoaiGoi); break;
+                case SortType.batdau1:
+                    ListKH = ListKH.OrderBy(m => m.NgayDangKy); break;
+                case SortType.batdau2:
+                    ListKH = ListKH.OrderByDescending(m => m.NgayDangKy); break;
+                case SortType.ketthuc1:
+                    ListKH = ListKH.OrderBy(m => m.NgayHetHan); break;
+                case SortType.ketthuc2:
+                    ListKH = ListKH.OrderByDescending(m => m.NgayHetHan); break;
             }
             var count = ListKH.Count();
             var numpage = (count - 1) / 10 + 1;

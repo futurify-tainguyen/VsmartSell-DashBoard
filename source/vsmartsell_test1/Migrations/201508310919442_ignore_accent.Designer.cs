@@ -13,7 +13,7 @@ namespace vsmartsell_test1.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201508270847068_ignore_accent"; }
+            get { return "201508310919442_ignore_accent"; }
         }
         
         string IMigrationMetadata.Source
