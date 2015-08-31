@@ -152,9 +152,9 @@ namespace vsmartsell_test1.Controllers
                 ListKH = ListKH.OrderByDescending(m => m.TenCH);
             }
             var count = ListKH.Count();
-            ViewBag.numpage = (count - 1) / 10 + 1;
+            var numpage = (count - 1) / 10 + 1;
             var List10KH = ListKH.Skip((id-1)*10).Take(10);
-            return Json(new { List10KH = List10KH }, JsonRequestBehavior.AllowGet);
+            return Json(new { List10KH = List10KH, numpage = numpage }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult api()
@@ -221,7 +221,11 @@ namespace vsmartsell_test1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("details");
             }
-
+            var listgoi = from m in db.DSGia
+                          orderby m.LoaiGoi
+                          select m.LoaiGoi;
+            ViewBag.listgoi = listgoi;
+            ViewBag.makh = khachhang.MaKH;
             return View(khachhang);
         }
 
@@ -250,13 +254,13 @@ namespace vsmartsell_test1.Controllers
             {
                 db.DSKhachHang.Add(khachhang);
                 db.SaveChanges();
-                var listgoi = from m in db.DSGia
-                          orderby m.LoaiGoi
-                          select m.LoaiGoi;
                 return RedirectToAction("details", new { id = khachhang.MaKH });
             }
-
-            return View(khachhang);
+            var listgoi = from m in db.DSGia
+                          orderby m.LoaiGoi
+                          select m.LoaiGoi;
+            ViewBag.listgoi = listgoi;
+            return View("details", khachhang);
         }
 
         public ActionResult ThanhToan(LichSuGD lsgd)
