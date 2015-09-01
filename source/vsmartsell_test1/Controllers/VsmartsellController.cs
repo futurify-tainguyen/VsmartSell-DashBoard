@@ -193,6 +193,7 @@ namespace vsmartsell_test1.Controllers
             {
                 db.Entry(khachhang).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["userMsg"] = "Chỉnh sửa thông tin khách hàng thành công.";
                 return RedirectToAction("details");
             }
             var listgoi = from m in db.DSGia
@@ -228,6 +229,7 @@ namespace vsmartsell_test1.Controllers
             {
                 db.DSKhachHang.Add(khachhang);
                 db.SaveChanges();
+                TempData["userMsg"] = "Tạo mới khách hàng thành công.";
                 return RedirectToAction("details", new { id = khachhang.MaKH });
             }
             var listgoi = from m in db.DSGia
