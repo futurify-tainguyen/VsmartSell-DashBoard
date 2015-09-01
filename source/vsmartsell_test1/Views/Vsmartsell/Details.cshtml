@@ -161,7 +161,7 @@
                     </i> Quay lại
                 </a>
                                 @if (ViewBag.makh > 0)
-{
+                {
 
                 }
                 else
@@ -203,27 +203,31 @@
                                 <ul>
 
                                     <div class="col-md-6">
-                                        <strong>Tên khách hàng :</strong>
+                                        <strong>Tên khách hàng :</strong>@Html.ValidationMessageFor(model => model.TenKH, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextBoxFor(model => model.TenKH, new { @class = "form-control" })
+                                       
                                     </div>
                                     <div class="col-md-offset-6">
-                                        <strong>Tên cửa hàng :</strong>
+                                        <strong>Tên cửa hàng :</strong>@Html.ValidationMessageFor(model => model.TenCH, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextBoxFor(model => model.TenCH, new { @class = "form-control" })
+
                                     </div>
                                     <div class="col-md-6">
-                                        <strong>Số điện thoại :</strong>
+                                        <strong>Số điện thoại :</strong>@Html.ValidationMessageFor(model => model.Phone, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                                        
                                     </div>
                                     <div class="col-md-offset-6">
-                                        <strong>Loại khách hàng :</strong>
+                                        <strong>Loại khách hàng :</strong>@Html.ValidationMessageFor(model => model.LoaiKH, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextBoxFor(model => model.LoaiKH, new { @class = "form-control" })
                                     </div>
                                     <div class="col-md-6">
-                                        <strong>Email :</strong>
+                                        <strong>Email :</strong>@Html.ValidationMessageFor(model => model.Email, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                                        
                                     </div>
-                                    <div class="col-md-offset-6">
-                                        <strong>Người hỗ trợ :</strong>
+                                    <div class="col-offset-md-6">
+                                        <strong>Người hỗ trợ :</strong>@Html.ValidationMessageFor(model => model.HoTro, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextBoxFor(model => model.HoTro, new { @class = "form-control" })
                                     </div>
                                     @*<div hidden class="col-md-6">
@@ -239,11 +243,11 @@
                                         @Html.CheckBoxFor(model => model.Archive, new { @class = " form-control" })
                                     </div>
                                     <div class="col-md-6">
-                                        <strong>Địa chỉ :</strong>
+                                        <strong>Địa chỉ :</strong>@Html.ValidationMessageFor(model => model.DiaChi, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextAreaFor(model => model.DiaChi, new { @class = " form-control", style = "max-width:700px", rows = "3" })
                                     </div>
                                     <div class="col-md-offset-6">
-                                        <strong>Ghi chú :</strong>
+                                        <strong>Ghi chú :</strong>@Html.ValidationMessageFor(model => model.Note, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextAreaFor(model => model.Note, new { @class = " form-control", style = "max-width:700px", rows = "3" })
                                     </div>
 
@@ -254,24 +258,26 @@
                             <div class="tab-pane" id="tab2" style="font-size: 20px;line-height:50px">
                                 <ul>
                                     <div class="col-md-6">
-                                        <strong>Gói sử dụng : </strong>
+                                        <strong>Gói sử dụng : </strong>@Html.ValidationMessageFor(model => model.LoaiGoi, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.DropDownListFor(model => model.LoaiGoi, new SelectList(ViewBag.listgoi),new { @class = "form-control" })
 
                                     </div>
                                     <div class="col-md-offset-6">
-                                        <strong>Ngày bắt đầu :</strong>
+                                        <strong>Ngày bắt đầu :</strong>@Html.ValidationMessageFor(model => model.NgayDangKy, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextBoxFor(model => model.NgayDangKy, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                                       
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Giá gói sử dụng :</strong>
                                         <input disabled id="giatien" type="text" class="form-control" value="{{GiaTien}}">
                                     </div>
                                     <div class="col-md-offset-6">
-                                        <strong>Ngày hết hạn :</strong>
+                                        <strong>Ngày hết hạn :</strong>@Html.ValidationMessageFor(model => model.NgayHetHan, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextBoxFor(model => model.NgayHetHan, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                                       
                                     </div>
                                     <div class="col-md-12">
-                                        <strong>Mã thông tin ( phụ ) : </strong>
+                                        <strong>Mã thông tin ( phụ ) : </strong>@Html.ValidationMessageFor(model => model.Viewid, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextBoxFor(model => model.Viewid, new { @class = "form-control" })
                                     </div>
                                     @*<div class="col-md-12">
