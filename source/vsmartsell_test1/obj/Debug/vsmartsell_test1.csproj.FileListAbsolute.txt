@@ -299,11 +299,14 @@ C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.add_viewid.resources
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.csprojResolveAssemblyReference.cache
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.LishSuGD_Paid.resources
-C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.ignore_accent.resources
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.khachhang_phone.resources
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.add_viewid.resources
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.LishSuGD_Paid.resources
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.ignore_accent.resources
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.khachhang_phone.resources
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.validation.resources
+<<<<<<< HEAD
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.validation.resources
+=======
+C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.ignore_accent.resources
+>>>>>>> a2ae5359c79b08540a0f32c17623efd7d00ad49f

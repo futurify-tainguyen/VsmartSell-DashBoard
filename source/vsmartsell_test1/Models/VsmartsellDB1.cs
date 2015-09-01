@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace vsmartsell_test1.Models
 {
+    public enum SortType { makh, kh1, kh2, ch1, ch2, loai1, loai2, goi1, goi2, batdau1, batdau2, ketthuc1, ketthuc2}
     public class KhachHang
     {
         [Key]
