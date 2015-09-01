@@ -100,7 +100,7 @@
                                 </tr>
                             </thead>
 
-                            <tbody>
+                            <tbody id="body">
 
 
                                 <tr hidden ng-repeat="m in List10KH">
@@ -169,10 +169,6 @@
                                             <a class="btn btn-default-outline {{activePage==@(i)?'disabled':''}}" ng-click="selectpage(@i)" value="@i" id="@i">@i</a>
                                         }
                                     </span>
-                                <li ng-repeat="n in range()"
-                                    ng-class="{active: n == currentPage}" ng-click="selectpage(n)">
-                                    <a href="#">{{n+1}}</a>
-                                </li>
                                     <a class="btn btn-default-outline {{activePage==@(ViewBag.numpage)?'disabled':''}}" id="next" ng-click="nextpage()" ng-class="DisabledNextPage">
                                         <div>></div>
                                     </a>
@@ -180,7 +176,7 @@
                                         <div>>></div>
                                     </a>
 
-</div>
+                            </div>
                         </div>
                     
                     </div>
@@ -482,22 +478,37 @@
         {
             $.session.set("timkiem", $('#timkiem').val(), 0);
             $http.post("/vsmartsell/GetList10KH", { id: 1, sorttype: "kh1", search: $.session.get("timkiem") }).success(function (response) {
-                $scope.List10KH = response.List10KH;
-                alert(response.List10KH)
-                alert(@ViewBag.numpage)
-                $('#page').remove();
-                var pages = '<a class="btn btn-default-outline " ng-click="selectpage" value="" id="">1</a>';
-                $('#page').append(pages);
                 debugger
+                $scope.List10KH = response.List10KH;
+                //alert(response.List10KH)
+                //alert(response.numpage)
+                $('#page').find('a').remove();
+                 for (var i = 1; i <= response.numpage; i++)
+                 {
+                    var buttonpage = '  <a class="btn btn-default-outline" onclick="selectpage1('+i+')" value="'+i+'" id="'+i+'">'+i+'</a>'
+                    $('#page').append(buttonpage);
+                 }
+                 selectpage1 = function (i) {
+                     $http.post("/vsmartsell/GetList10KH", { id: i, sorttype: $.session.get("sorttype"), search: $.session.get("timkiem") }).success(function (response) {
+                         $.session.set('nowpage', i, 0);
+                         $scope.activePage = i;                        
+                         $scope.List10KH = response.List10KH;
+                         if (i == response.numpage)
+                         {
+                             $('#next').attr('disabled', 'disabled');
+                             $('#last').attr('disabled', 'disabled');
+                         }
+                     });
+                 }
+                 $('.btn').click(function () {
+                     debugger
+                     $('.btn').removeAttr("disabled");
+                     $(this).attr('disabled', 'disabled');
+                 })
             });
-            
-            
-        }
-        $scope.range=function()
-        {
-
         }
     });
+    
     $('.resetpageandtype').click(function () {
         $.session.set('nowpage', '1');
         $.session.set('sorttype', '');
