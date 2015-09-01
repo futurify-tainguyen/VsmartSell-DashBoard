@@ -227,10 +227,12 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="images\logo.png" />
     <Content Include="JavaScript\jquery.session.js" />
-    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-editable.css" />
     <Content Include="Scripts\bootstrap.min.css" />
     <Content Include="Scripts\date-range-selector.js" />
+    <Content Include="Scripts\datepicker3.css" />
+    <Content Include="Scripts\daterange-picker.js" />
     <Content Include="Scripts\style.css" />
     <Content Include="Script\bootstrap.min.js" />
     <Content Include="Content\se7en-font.css" />
@@ -433,6 +435,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Start\App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

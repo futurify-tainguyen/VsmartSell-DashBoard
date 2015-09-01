@@ -39,11 +39,14 @@
     @*<link href="~/Script/bootstrap.css" rel="stylesheet" />*@
     <link href="~/Scripts/summernote.css" rel="stylesheet" />
     <link href="~/Scripts/font-awesome.css" rel="stylesheet" />
-    <script src="~/Scripts/angular.min.js"></script>
-    <link href="~/Scripts/bootstrap-editable.css" rel="stylesheet" />
+    <script src="~/Scripts/angular.min.js"></script> 
+    <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+    <link href="~/Scripts/datepicker3.css" rel="stylesheet" />
     <link href="~/Script/dao.css" rel="stylesheet" />
     <link href="~/Scripts/font-awesome.min.css" rel="stylesheet" />
 </head>
+<div id="message" hidden class="alert alert-success col-md-4 col-md-offset-4" style="position:fixed;text-align:center"><strong>@TempData["userMsg"]</strong></div>
+    
 
 <body class="page-header-fixed bg-1" ng-app="IndexApp" ng-controller="indexcontrol">
     <div class="row">
@@ -65,7 +68,7 @@
                         <div class="col-md-10" style="width:490px">
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Ngày thanh toán</strong></label>
-                                <div class="input-group date datepicker" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
+                                <div class="input-group date datepicker col-md-8" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
                                     <input class="form-control" type="text"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
 
@@ -131,7 +134,7 @@
                         <div class="col-md-8" style="float:right">
                             <button type="button" class="btn btn-success">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span class="" id="cartnotice">Thanh Toán</span>
+                                <span class="" id="cartnotice">Tạo hóa đơn</span>
                             </button>
                             <button class="btn btn-danger" data-dismiss="modal">
                                 <i class="fa fa-trash-o"></i>Hủy
@@ -153,7 +156,7 @@
         @Html.AntiForgeryToken()
         <div class="row">
             <div class="col-md-12">                           
-                <button style="float:right" type="submit" value="" class="btn btn-success">
+                <button style="float:right" id="save" type="submit" value="" class="btn btn-success">
                     <i class="glyphicon glyphicon-floppy-save"></i> Lưu
                 </button>
                 <a href="/Vsmartsell/index" style="float:right" id="backindex" class="btn btn-default">
@@ -327,7 +330,7 @@
                                                     </td>
                                                 </tr>
                                                 <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                                    <i class="fa fa-shopping-cart"></i> Thanh Toán
+                                                    <i class="fa fa-shopping-cart"></i> Tạo hóa đơn
                                                 </button>
                                             </thead>
                                         </table>
@@ -357,11 +360,12 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 <script src="~/Scripts/jquery.session.js"></script>
+<script src="~/Scripts/bootstrap-datepicker.js"></script>
     <script type="text/javascript">
     $(".btn .btn-default").click(function () {
         //alert();
     })
-
+    
     var loadingIcon = '<div class="sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div>'
     $('#my-tab-content').find('tbody').hide();
     //$('#dataTable1').find('tbody').hide();
@@ -422,11 +426,28 @@
         $('#thietlaplai').click(function () {
             $('.form-control').val('');
         })
+        //thong bao save thanh cong
+
+       
+        if ($("#message").text() != "")
+        {
+            $('#message').removeAttr('hidden');
+            setTimeout(function () {
+                $('#message').fadeOut();
+            }, 2000);
+        }
+        
         $('#ngaythanhtoan').click(function () {
             alert();
         });
         $('#backindex').click(function () {
            
         })
+        $('.datepicker').datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: 'dd/mm/yyyy',
+        });
     </script>
 }
