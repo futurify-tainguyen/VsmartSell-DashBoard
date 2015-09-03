@@ -68,34 +68,34 @@
                         <div class="col-md-10" style="width:490px">
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Ngày thanh toán</strong></label>
-                                <div class="input-group date datepicker col-md-8" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
-                                    <input class="form-control" type="text"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <div class="input-group date datepicker col-md-8" data-date-autoclose="true" style="width:292px" data-date-format="dd-mm-yyyy">
+                                    <input class="form-control" id="ngaythanhtoan" style="margin-left:5px" placeholder="" type="text"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
 
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Nhân viên thu tiền</strong></label>
                                 <div class="col-md-8">
-                                    <input class="form-control" placeholder="" type="text">
+                                    <input class="form-control" id="nhanvienthutien" placeholder="" type="text">
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4" for="disabledInput"><strong>Mã giao dịch</strong></label>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="disabledInput" disabled placeholder="" type="text">
+                                    <input class="form-control" id="magiaodich" disabled placeholder="" type="text">
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Thời hạn</strong></label>
                                 <div class="col-md-8">
-                                    <select class="form-control"><option value="Category 1">1 tháng</option><option value="Category 2">3 tháng</option><option value="Category 3">6 tháng</option><option value="Category 4">Trả hết</option></select>
+                                    <select class="form-control" id="thoihan"><option value="1">1 tháng</option><option value="3">3 tháng</option><option value="6">6 tháng</option><option value="12">12 tháng</option></select>
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Cước phí</strong></label>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input class="form-control" type="text"><span class="input-group-addon">/tháng</span>
+                                        <input disabled id="cuocphi" type="text" class="form-control" value="{{GiaTien}}"><span class="input-group-addon">/tháng</span>
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                                 <label class="control-label col-md-4"><strong>Thành tiền</strong></label>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input class="form-control" disabled type="text"><span class="input-group-addon">VNĐ</span>
+                                        <input class="form-control" id="thanhtien" disabled type="text"><span id="clickthanhtien" class="input-group-addon">VNĐ</span>
                                     </div>
                                 </div>
                             </div>
@@ -111,20 +111,22 @@
                                 <label class="control-label col-md-4"><strong>Tiền giảm</strong></label>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input class="form-control" type="text"><span class="input-group-addon">VNĐ</span>
+                                        <input class="form-control" id="tiengiam" type="text"><span class="input-group-addon">VNĐ</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4" for="disabledInput"><strong>Tổng tiền</strong></label>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="disabledInput" disabled placeholder="" type="text">
+                                    <div class="input-group">
+                                        <input class="form-control" id="tongtien" disabled placeholder="" type="text"><span class="input-group-addon">VNĐ</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Ghi chú</strong></label>
                                 <div class="col-md-8">
-                                    <input class="form-control" placeholder="" type="text">
+                                    <input class="form-control" id="ghichu" placeholder="" type="text">
                                 </div>
                             </div>
                         </div>
@@ -300,7 +302,7 @@
                                             <thead>
                                                 <tr>
                                                     <th style="font-size: 20px;">
-                                                        Thời gian
+                                                        Ngày tạo hóa đơn
                                                     </th>
                                                     <th style="font-size: 20px;">
                                                         Số tiền trả
@@ -329,7 +331,7 @@
                                                         {{todate(m.NgayHetHan)  }}
                                                     </td>
                                                 </tr>
-                                                <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="resethoadon">
                                                     <i class="fa fa-shopping-cart"></i> Tạo hóa đơn
                                                 </button>
                                             </thead>
@@ -365,7 +367,7 @@
     $(".btn .btn-default").click(function () {
         //alert();
     })
-    
+
     var loadingIcon = '<div class="sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div>'
     $('#my-tab-content').find('tbody').hide();
     //$('#dataTable1').find('tbody').hide();
@@ -379,15 +381,13 @@
 
 
             $http.get("/Vsmartsell/GetListGiaTien").success(function (response) {
-                for(var m in response.ListGiaTien)
-                {
-                    if (khachhang.LoaiGoi == response.ListGiaTien[m].LoaiGoi)
-                    {
+                for (var m in response.ListGiaTien) {
+                    if (khachhang.LoaiGoi == response.ListGiaTien[m].LoaiGoi) {
                         $scope.GiaTien = response.ListGiaTien[m].GiaTien;
                         break;
                     }
                 }
-                });
+            });
         });
 
         $http.get("/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
@@ -412,7 +412,7 @@
                     }
 
                 }
-                }
+            }
             $("select").change(changegia);
         });
         $scope.todate = function (strdate) {
@@ -422,32 +422,95 @@
         };
 
     });
-        //thiết lập lại
-        $('#thietlaplai').click(function () {
-            $('.form-control').val('');
-        })
-        //thong bao save thanh cong
+    //thiết lập lại
+    $('#thietlaplai').click(function () {
+        $('.form-control').val('');
+    })
+    //thong bao save thanh cong
 
-       
-        if ($("#message").text() != "")
-        {
-            $('#message').removeAttr('hidden');
-            setTimeout(function () {
-                $('#message').fadeOut();
-            }, 2000);
+
+    if ($("#message").text() != "") {
+        $('#message').removeAttr('hidden');
+        setTimeout(function () {
+            $('#message').fadeOut();
+        }, 2000);
+    }
+
+    $('#ngaythanhtoan').click(function () {
+    });
+    $('#backindex').click(function () {
+
+    })
+    $('.datepicker').datepicker({
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+    });
+    $('.form-control').click(function () {
+
+    })
+    $('#thoihan').focusout(function () {
+        var thanhtien;
+        thanhtien = Number($('#thoihan').val()) * Number($('#cuocphi').val());
+        $('#thanhtien').val(thanhtien);
+    })
+    $('#tiengiam').focusout(function () {
+        var tongtien;
+        tongtien = Number($('#thoihan').val()) * Number($('#cuocphi').val()) - Number($('#tiengiam').val());
+        $('#tongtien').val(tongtien);
+    })
+    //tao hoa don
+    $('#cartnotice').click(function () {
+        // int makh, DateTime ngaygd, DateTime ngayhethan, decimal sotien, string nguoithu, int thoihan, decimal cuocphi, decimal tiengiam, string note, bool paid
+        var paid = confirm("Có chắc là muốn tạo hóa đơn chứ ?");
+        if (paid == true) {
+            var note = $('#ghichu').val()
+            var tiengiam = $('#tiengiam').val()
+            var cuocphi = $('#cuocphi').val()
+            var thoihan = $('#thoihan').val()
+            var nguoithu = $('#nhanvienthutien').val()
+            var sotien = $('#tongtien').val()
+            var nam = parseInt($('#NgayHetHan').val().substring(0, 4))
+            var thang = parseInt($('#NgayHetHan').val().substring(5, 7))
+            var ngay = parseInt($('#NgayHetHan').val().substring(8, 10))
+            var giahan = parseInt(thoihan)
+            var newngay = ngay
+            var newthang = thang + giahan
+            if (newthang > 12) {
+                newthang = newthang - 12
+                var newnam = nam + 1
+            }
+            else {
+                newthang = newthang
+                var newnam = nam
+            }
+            if (newthang < 10) {
+                var ngayhethan = newnam.toString() + "/0" + newthang.toString() + "/" + newngay.toString()
+            }
+            else {
+                var ngayhethan = newnam.toString() + "/" + newthang.toString() + "/" + newngay.toString()
+            }
+            var ngaygd = $('#ngaythanhtoan').val()
+            var makh = Number($('#MaKH').val())
+            debugger
+            $.post("/vsmartsell/UpdateHistory", { makh: makh, ngaygd: ngaygd, ngayhethan: ngayhethan, sotien: sotien, nguoithu: nguoithu, thoihan: thoihan, cuocphi: cuocphi, tiengiam: tiengiam, note: note, paid: false }, function (data) {
+                debugger
+            });
         }
-        
-        $('#ngaythanhtoan').click(function () {
-            alert();
-        });
-        $('#backindex').click(function () {
-           
-        })
-        $('.datepicker').datepicker({
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: 'dd/mm/yyyy',
-        });
-    </script>
+    })
+        //set gia tri cuoc phi
+    //$('#cuocphi').val($('#giatien').val())
+    //reset hoa don
+    $('#resethoadon').click(function () {
+        $('#ngaythanhtoan').val('')
+        $('#nhanvienthutien').val('')
+        $('#thoihan').val('')
+        $('#tiengiam').val('')
+        $('#thanhtien').val('')
+        $('#tongtien').val('')
+        $('#ghichu').val('')
+    })
+
+</script>
 }
