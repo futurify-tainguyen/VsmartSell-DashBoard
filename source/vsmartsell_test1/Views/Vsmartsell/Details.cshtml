@@ -391,7 +391,7 @@
         });
 
         $http.get("/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
-            debugger;
+            //debugger;
             var ListGD = response.ListGD;
             $scope.ListGD = ListGD;
             $('#my-tab-content').removeAttr('hidden');
@@ -477,25 +477,29 @@
             var giahan = parseInt(thoihan)
             var newngay = ngay
             var newthang = thang + giahan
-            if (newthang > 12) {
-                newthang = newthang - 12
-                var newnam = nam + 1
-            }
-            else {
-                newthang = newthang
-                var newnam = nam
-            }
-            if (newthang < 10) {
-                var ngayhethan = newnam.toString() + "/0" + newthang.toString() + "/" + newngay.toString()
-            }
-            else {
-                var ngayhethan = newnam.toString() + "/" + newthang.toString() + "/" + newngay.toString()
-            }
+            //if (newthang > 12) {
+            //    newthang = newthang - 12
+            //    var newnam = nam + 1
+            //}
+            //else {
+            //    newthang = newthang
+            //    var newnam = nam
+            //}
+            //if (newthang < 10) {
+            //    var ngayhethan = newnam.toString() + "/0" + newthang.toString() + "/" + newngay.toString()
+            //}
+            //else {
+            //    var ngayhethan = newnam.toString() + "/" + newthang.toString() + "/" + newngay.toString()
+            //}
+            var old_ngayhethan = new Date($("#NgayHetHan").val());
+            old_ngayhethan = old_ngayhethan.setMonth(old_ngayhethan.getMonth() + giahan);
+            var new_ngayhethan = new Date(old_ngayhethan);
+            var ngayhethan = new_ngayhethan.getFullYear() + '/' + ('0' + (new_ngayhethan.getMonth() + 1)).slice(-2) + '/' + ('0' + new_ngayhethan.getDate()).slice(-2);
             var ngaygd = $('#ngaythanhtoan').val()
             var makh = Number($('#MaKH').val())
-            debugger
+            //debugger
             $.post("/vsmartsell/UpdateHistory", { makh: makh, ngaygd: ngaygd, ngayhethan: ngayhethan, sotien: sotien, nguoithu: nguoithu, thoihan: thoihan, cuocphi: cuocphi, tiengiam: tiengiam, note: note, paid: false }, function (data) {
-                debugger
+                //debugger
             });
         }
     })
