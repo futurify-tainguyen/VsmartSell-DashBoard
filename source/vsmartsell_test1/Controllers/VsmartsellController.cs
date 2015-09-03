@@ -54,6 +54,28 @@ namespace vsmartsell_test1.Controllers
             }
             return Json(false);
         }
+
+        public ActionResult Paid(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var gd = db.DSLichSuGD.Find(id);
+            if (gd == null)
+            {
+                return HttpNotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                gd.Paid = !gd.Paid;
+                db.Entry(gd).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(true);
+            }
+            return Json(false);
+        }
+
         // GET: /Vsmartsell/
         // lay thong tin 1 khach hang
         public ActionResult GetKH(int id)
