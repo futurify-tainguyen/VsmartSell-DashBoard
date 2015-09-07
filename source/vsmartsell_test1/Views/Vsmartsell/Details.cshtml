@@ -291,9 +291,12 @@
                                 <li class="">
                                     <a data-toggle="tab" href="#tab2"><i class="fa fa-info-circle"></i><span><strong>Thông tin gói cước</strong></span></a>
                                 </li>
+                            @if (ViewBag.makh > 0)
+                            {
                                 <li class="">
                                     <a data-toggle="tab" href="#tab3"><i class="fa fa-calendar"></i><span><strong>Lịch sử giao dịch khách hàng</strong></span></a>
                                 </li>
+                            }
                             </ul>
                         </div>
                         <div id="loadingicon"></div>
@@ -313,7 +316,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Số điện thoại :</strong>@Html.ValidationMessageFor(model => model.Phone, String.Empty, new { @style = "color:red;font-size:14px;!important" })
-                                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @placeholder = "xxxx-xxx-xxx || xxxxx-xxx-xxx" })
                                         
                                     </div>
                                     <div class="col-md-offset-6">
@@ -322,7 +325,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Email :</strong>@Html.ValidationMessageFor(model => model.Email, String.Empty, new { @style = "color:red;font-size:14px;!important" })
-                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "abc@email.com" })
                                         
                                     </div>
                                     <div class="col-offset-md-6">
@@ -387,8 +390,9 @@
 
                                 </ul>
                             </div>
-
-                            <div class="tab-pane" id="tab3" style="font-size: 20px;">
+                            @if (ViewBag.makh > 0)
+                            { 
+                                <div class="tab-pane" id="tab3" style="font-size: 20px;">
 
                                 <div class="widget-content padded">
                                     <ul>
@@ -428,14 +432,18 @@
                                                     <td></td>
                                                     <td><button class="btn btn-primary" data-toggle="modal" data-target="#chitietgdModal" ng-click="info(m.MaGD)">Chi tiết</button></td>
                                                 </tr>
-                                                <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="resethoadon">
+                                                    <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="resethoadon">
                                                     <i class="fa fa-shopping-cart"></i> Tạo hóa đơn
                                                 </button>
+                                                
+                                                
                                             </thead>
                                         </table>
                                     </ul>
                                 </div>
                             </div>
+                            }
+                            
                         </div>
                     </div>
 
@@ -533,6 +541,7 @@
     //thiết lập lại
     $('#thietlaplai').click(function () {
         $('.form-control').val('');
+        $(".field-validation-error").text('')
     })
     //thong bao save thanh cong
 
@@ -541,7 +550,7 @@
         $('#message').removeAttr('hidden');
         setTimeout(function () {
             $('#message').fadeOut();
-        }, 2000);
+        }, 4000);
     }
 
     $('#ngaythanhtoan').click(function () {
