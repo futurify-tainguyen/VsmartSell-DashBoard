@@ -149,6 +149,7 @@ namespace vsmartsell_test1.Controllers
             }
             var count = ListKH.Count();
             var numpage = (count - 1) / 10 + 1;
+            ViewBag.numpage = (count - 1) / 10 + 1;
             var List10KH = ListKH.Skip((id-1)*10).Take(10);
             return Json(new { List10KH = List10KH, numpage = numpage }, JsonRequestBehavior.AllowGet);
         }
@@ -160,7 +161,6 @@ namespace vsmartsell_test1.Controllers
         public ActionResult index()
         {
             var count = db.DSKhachHang.Count(m => m.Archive == false);
-            ViewBag.numpage = (count - 1) / 10 + 1;
             return View();
         }
 
