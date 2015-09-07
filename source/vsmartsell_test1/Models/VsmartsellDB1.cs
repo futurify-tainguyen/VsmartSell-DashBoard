@@ -19,12 +19,12 @@ namespace vsmartsell_test1.Models
 
         [Required(ErrorMessage = "Số điện thoại không được để trống.")]
         [StringLength(13)]
-        [RegularExpression(@"^((\d{5}-)|(\d{4}-))?\d{3}-\d{3}$", ErrorMessage = "Số điện thoại không hợp lệ (vd: xxxx-xxx-xxx).")]
+        [RegularExpression(@"^((\d{5}-)|(\d{4}-))?\d{3}-\d{3}$", ErrorMessage = "Số điện thoại không hợp lệ (vd: 12345-678-910).")]
         public string Phone { get; set; }
 
         [Required(ErrorMessage = "Email không được để trống.")]
-        [RegularExpression(@"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
-                @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$", ErrorMessage = "Email không hợp lệ (vd: abc@email.com).")]
+        [RegularExpression(@"[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?",
+            ErrorMessage = "Email không hợp lệ (vd: abc@email.com).")]
         public string Email { get; set; }
 
         public string LoaiKH { get; set; }
