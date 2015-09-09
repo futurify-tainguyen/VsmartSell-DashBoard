@@ -135,7 +135,7 @@
                                 <i class="fa fa-shopping-cart"></i>
                                 <span class="">Thanh toán</span>
                             </button>
-                            <button class="btn btn-danger" data-dismiss="modal">
+                            <button class="btn btn-danger" id="huythanhtoan" data-dismiss="modal">
                                 <i class="fa fa-trash-o"></i>Hủy
                             </button>
                         </div>
@@ -202,7 +202,7 @@
                                 <label class="control-label col-md-4"><strong>Tiền giảm</strong></label>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input class="form-control" id="tiengiam" type="text"><span class="input-group-addon">VNĐ</span>
+                                        <input class="form-control" id="tiengiam" type="number" value=0><span class="input-group-addon">VNĐ</span>
                                     </div>
                                 </div>
                             </div>
@@ -229,7 +229,7 @@
                                 <i class="fa fa-shopping-cart"></i>
                                 <span class="">Tạo hóa đơn</span>
                             </button>
-                            <button class="btn btn-danger" data-dismiss="modal">
+                            <button class="btn btn-danger" id="huyhoadon" data-dismiss="modal">
                                 <i class="fa fa-trash-o"></i>Hủy
                             </button>
                         </div>
@@ -272,7 +272,7 @@
 
                 <div class="col-md-12" style="padding-bottom:20px">
                     <div class="widget-container fluid-height clearfix">
-                        <div class="heading tabs" style="background:rgb(150, 150, 150)">
+                        <div class="heading tabs" style="background: rgb(150, 150, 150); height: 42px; padding: 7px 15px;">
                             @if (ViewBag.makh > 0)
                             {
                                 <strong style="color:white;font-size:20px">Thông tin khách hàng  </strong><strong style="color:#000000;font-size:20px;text-transform:uppercase"> @Html.DisplayTextFor(model => model.TenKH)</strong>
@@ -539,7 +539,6 @@
             return todate;
         };
         //songayconlai
-            debugger
             var hientai= new Date()
             var ngay = $("#NgayHetHan").val().substring(8, 10);
             var thang = $("#NgayHetHan").val().substring(5, 7);
@@ -580,27 +579,24 @@
                 
                 var makh = Number($('#MaKH').val())
                 
-                $.post("/vsmartsell/UpdateHistory", { makh: makh, ngaygd: ngaygd, ngayhethan: ngayhethan, sotien: sotien, nguoithu: nguoithu, thoihan: thoihan, cuocphi: cuocphi, tiengiam: tiengiam, note: note, paid: false }, function (data) {
-                    debugger                                       
+                $.post("/vsmartsell/UpdateHistory", { makh: makh, ngaygd: ngaygd, ngayhethan: ngayhethan, sotien: sotien, nguoithu: nguoithu, thoihan: thoihan, cuocphi: cuocphi, tiengiam: tiengiam, note: note, paid: false }, function (data) {                                   
                     $http.get("/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
-                        debugger;
                         var ListGD = response.ListGD;
                         $scope.ListGD = ListGD;
                     });
                 });
             }
+            $('#huyhoadon').trigger('click');
         })
         //thanh toán hóa đơn
         $('#thanhtoan').click(function () {
-            debugger
             $.post("/vsmartsell/Paid", {id: $.session.get('magd') }, function (data) {
-                debugger
                 $http.get("/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
-                    debugger;
                     var ListGD = response.ListGD;
                     $scope.ListGD = ListGD;
                 });
             });
+            $('#huythanhtoan').trigger('click');
         });
 
     });
@@ -644,7 +640,8 @@
         $('#thanhtien').val('')
         $('#tongtien').val('')
         $('#ghichu').val('')
+        $("#tiengiam").val(0);
     })
-
+   
 </script>
 }

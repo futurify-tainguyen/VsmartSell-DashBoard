@@ -132,3 +132,5 @@ C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.pdb
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.notify_day.resources
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.account_clone.resources
+C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.notify_day.resources
+C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.account_clone.resources
