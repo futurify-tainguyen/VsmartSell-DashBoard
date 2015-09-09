@@ -4,10 +4,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.gaviewid = "106032405";
 }
+
 <style>
-    .a {
+    .btn[disabled] {
+        color: white;
+        background: #808080;
     }
-    .disabled
+    #next.btn[disabled] {
+        opacity: 0.3;
+        color: #808080;
+        background: #fff;
+    }
+    #last.btn[disabled] {
+        opacity: 0.3;
+        color: #808080;
+        background: #fff;
+    }
+    #previous.btn[disabled] {
+        opacity: 0.3;
+        color: #808080;
+        background: #fff;
+    }
+    #first.btn[disabled] {
+        opacity: 0.3;
+        color: #808080;
+        background: #fff;
+    }
 </style>
 <head>
     <link href="~/Script/dao.css" rel="stylesheet" />
@@ -19,9 +41,10 @@
 </head>
 <div class="row">
 <div class="col-md-offset-10" style="float:right" >
-    <a class="btn btn-primary" href="/vsmartsell/create"><i class="fa fa-user"></i>Thêm mới khách hàng</a>
+    <a class="btn btn-primary" style="margin-bottom: 20px;" href="/vsmartsell/create"><i class="fa fa-user"></i>Thêm mới khách hàng</a>
 </div>
 </div>
+
 <body class="page-header-fixed bg-1" ng-app="IndexApp" >
     <div class="container-fluid main-content" ng-controller="indexcontrol">
         <div class="page-title">
@@ -39,7 +62,7 @@
                         <div class="dataTables_filter" id="dataTable1_filter">
                             <div class="navbar-form form-inline col-md-2 hidden-xs" style="float:right">
                                 <input id="timkiem" class="form-control"  placeholder="Tìm kiếm tên khách hàng" type="text">
-                                <button id="buttontimkiem" class="btn btn-success" ng-click="timkiem()">Tìm kiếm</button>
+                                <button style="font-size: x-small;" id="buttontimkiem" class="btn btn-default-outline" ng-click="timkiem()"><i class="glyphicon glyphicon-search"></i></button>
                             </div>
                           
                         </div>
@@ -49,8 +72,8 @@
 
                                     <th width="15%">
                                             Tên khách hàng
-                                            <span id="up1"><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down1" hidden><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                            <span id="up1"><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                            <span id="down1" hidden><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                         
                                     </th>
                                     <th >
@@ -61,34 +84,34 @@
                                     </th>
                                     <th>
                                         Loại khách hàng
-                                            <span id="up2"><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down2" hidden><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                            <span id="up2"><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                            <span id="down2" hidden><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                     </th>
                                     <th>
                                         Loại cước
                                       
-                                            <span id="up3"><button class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down3" hidden><button class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                            <span id="up3"><button class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                            <span id="down3" hidden><button class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                        
 
                                     </th>
                                     <th>
                                         Ngày đăng kí
                                         
-                                            <span id="up4"><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down4" hidden><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                            <span id="up4"><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                            <span id="down4" hidden><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                         
                                     </th>
                                     <th>
                                         Ngày hết hạn
-                                            <span id="up5"><button class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down5" hidden><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                            <span id="up5"><button class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                            <span id="down5" hidden><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                         
                                     </th>
                                     <th>
                                        Tên cửa hàng
-                                            <span id="up6"><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down6" hidden><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                            <span id="up6"><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                            <span id="down6" hidden><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                        
                                     </th>
                                     <th>
@@ -384,16 +407,14 @@
         // number page
         selectpage1 = function (i) {
             debugger
-            //$('.btn').click(function () {
-            //    $('.btn').removeAttr('disabled');
-            //    $(this).attr('disabled', 'disabled');
-            //})
+
             $http.post("/vsmartsell/GetList10KH", { id: i, sorttype: $.session.get("sorttype"), search: $.session.get("timkiem") }).success(function (response) {
+                debugger
                 $.session.set('nowpage', i, 0);
                 $scope.activePage = i;
                 $scope.List10KH = response.List10KH;
                 $('.btn').removeAttr('disabled');
-                $('#'+$.session.get('nowpage')+'').attr('disabled', 'disabled');
+                $('span').find('#' + $.session.get('nowpage') + '').attr('disabled', 'disabled');
                 if ($.session.get('nowpage') == 1) {
                     $('#first').attr('disabled', 'disabled');
                     $('#previous').attr('disabled', 'disabled');
@@ -429,7 +450,7 @@
                 $scope.List10KH = response.List10KH;
                 $scope.activePage = parseInt($.session.get('nowpage'));
                 $('.btn').removeAttr('disabled');
-                $('#' + $.session.get('nowpage') + '').attr('disabled', 'disabled');
+                $('span').find('#' + $.session.get('nowpage') + '').attr('disabled', 'disabled');
                 $('#previous').removeAttr('disabled');
                 if ($.session.get('nowpage') == 1) {
                     $('#previous').attr('disabled', 'disabled');
