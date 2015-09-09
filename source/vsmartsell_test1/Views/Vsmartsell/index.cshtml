@@ -11,22 +11,22 @@
         background: #808080;
     }
     #next.btn[disabled] {
-        opacity: 0.1;
+        opacity: 0.3;
         color: #808080;
         background: #fff;
     }
     #last.btn[disabled] {
-        opacity: 0.1;
+        opacity: 0.3;
         color: #808080;
         background: #fff;
     }
     #previous.btn[disabled] {
-        opacity: 0.1;
+        opacity: 0.3;
         color: #808080;
         background: #fff;
     }
     #first.btn[disabled] {
-        opacity: 0.1;
+        opacity: 0.3;
         color: #808080;
         background: #fff;
     }
@@ -41,7 +41,7 @@
 </head>
 <div class="row">
 <div class="col-md-offset-10" style="float:right" >
-    <a class="btn btn-primary" href="/vsmartsell/create"><i class="fa fa-user"></i>Thêm mới khách hàng</a>
+    <a class="btn btn-primary" style="margin-bottom: 20px;" href="/vsmartsell/create"><i class="fa fa-user"></i>Thêm mới khách hàng</a>
 </div>
 </div>
 
@@ -62,7 +62,7 @@
                         <div class="dataTables_filter" id="dataTable1_filter">
                             <div class="navbar-form form-inline col-md-2 hidden-xs" style="float:right">
                                 <input id="timkiem" class="form-control"  placeholder="Tìm kiếm tên khách hàng" type="text">
-                                <button id="buttontimkiem" class="btn btn-success" ng-click="timkiem()">Tìm kiếm</button>
+                                <button style="font-size: x-small;" id="buttontimkiem" class="btn btn-default-outline" ng-click="timkiem()"><i class="glyphicon glyphicon-search"></i></button>
                             </div>
                           
                         </div>
@@ -72,8 +72,8 @@
 
                                     <th width="15%">
                                             Tên khách hàng
-                                            <span id="up1"><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down1" hidden><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                            <span id="up1"><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                            <span id="down1" hidden><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                         
                                     </th>
                                     <th >
@@ -84,34 +84,34 @@
                                     </th>
                                     <th>
                                         Loại khách hàng
-                                            <span id="up2"><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down2" hidden><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                            <span id="up2"><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                            <span id="down2" hidden><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                     </th>
                                     <th>
                                         Loại cước
                                       
-                                            <span id="up3"><button class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down3" hidden><button class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                            <span id="up3"><button class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                            <span id="down3" hidden><button class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                        
 
                                     </th>
                                     <th>
                                         Ngày đăng kí
                                         
-                                            <span id="up4"><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down4" hidden><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                            <span id="up4"><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                            <span id="down4" hidden><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                         
                                     </th>
                                     <th>
                                         Ngày hết hạn
-                                            <span id="up5"><button class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down5" hidden><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                            <span id="up5"><button class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                            <span id="down5" hidden><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                         
                                     </th>
                                     <th>
                                        Tên cửa hàng
-                                            <span id="up6"><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down6" hidden><button  class="btn btn-xs btn-default"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                            <span id="up6"><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                            <span id="down6" hidden><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                        
                                     </th>
                                     <th>

@@ -35,8 +35,6 @@
 </style>
 <head>
     <link href="~/Scripts/style.css" rel="stylesheet" />
-    @*<link href="~/Scripts/bootstrap.min.css" rel="stylesheet" />*@
-    @*<link href="~/Script/bootstrap.css" rel="stylesheet" />*@
     <link href="~/Scripts/summernote.css" rel="stylesheet" />
     <link href="~/Scripts/font-awesome.css" rel="stylesheet" />
     <script src="~/Scripts/angular.min.js"></script> 
@@ -81,7 +79,7 @@
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4" for="disabledInput"><strong>Mã giao dịch</strong></label>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="" disabled placeholder="" type="text" value="{{infogd.MaGD}}">
+                                    <input class="form-control" id="magd{{infogd.MaGD}}" disabled placeholder="" type="text" value="{{infogd.MaGD}}">
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
@@ -133,10 +131,10 @@
                         </div>
 
                         <div class="col-md-8" style="float:right">
-                            @*<button type="button" id="edithoadon" class="btn btn-success">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                                <span class="">Chỉnh sửa</span>
-                            </button>*@
+                            <button type="button" id="thanhtoan" class="btn btn-success">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span class="">Thanh toán</span>
+                            </button>
                             <button class="btn btn-danger" data-dismiss="modal">
                                 <i class="fa fa-trash-o"></i>Hủy
                             </button>
@@ -152,7 +150,6 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
                         <h3 class="modal-title"><strong>Thanh toán tiền</strong></h3>
                     </div>
 
@@ -173,7 +170,7 @@
                                     <input class="form-control" id="nhanvienthutien" placeholder="" type="text">
                                 </div>
                             </div>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-12" hidden>
                                 <label class="control-label col-md-4" for="disabledInput"><strong>Mã giao dịch</strong></label>
                                 <div class="col-md-8">
                                     <input class="form-control" id="magiaodich" disabled placeholder="" type="text">
@@ -332,10 +329,6 @@
                                         <strong>Người hỗ trợ :</strong>@Html.ValidationMessageFor(model => model.HoTro, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextBoxFor(model => model.HoTro, new { @class = "form-control" })
                                     </div>
-                                    @*<div hidden class="col-md-6">
-                                <strong>mã khách hàng :</strong>
-                                @Html.EditorFor(model => model.MaKH)
-                            </div>*@
                                     <div hidden="" class="col-md-6">
                                         <strong>Mã khách hàng :</strong>
                                         <input class="form-control" data-val="true" data-val-number="The field MaKH must be a number." data-val-required="The MaKH field is required." id="MaKH" name="MaKH" type="text" value="@(Model != null ? Model.MaKH : 0)">
@@ -378,16 +371,14 @@
                                         @Html.TextBoxFor(model => model.NgayHetHan, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
                                        
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <strong>Mã thông tin ( phụ ) : </strong>@Html.ValidationMessageFor(model => model.Viewid, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextBoxFor(model => model.Viewid, new { @class = "form-control" })
                                     </div>
-                                    @*<div class="col-md-12">
-                                <strong>Ghi chú :</strong>
-                                @Html.TextAreaFor(model => model.Note, new { @class = "form-control", style = "max-width:700px", rows = "3" })
-                            </div>*@
-
-
+                                    <div class="col-md-offset-6">
+                                        <strong>Số ngày còn lại :</strong>
+                                        <input class="form-control" disabled value="{{kqsongayconlai}}" />
+                                    </div>
                                 </ul>
                             </div>
                             @if (ViewBag.makh > 0)
@@ -400,6 +391,9 @@
                                             <thead>
                                                 <tr>
                                                     <th style="font-size: 20px;">
+                                                        Mã hóa đơn
+                                                    </th>
+                                                    <th style="font-size: 20px;">
                                                         Ngày tạo hóa đơn
                                                     </th>
                                                     <th style="font-size: 20px;">
@@ -411,14 +405,20 @@
                                                     <th style="font-size: 20px;">
                                                         Ngày hết hạn
                                                     </th>
-                                                    <th style="font-size: 20px;">
+                                                    <th hidden style="font-size: 20px;">
                                                         Số ngày sắp hết hạn
+                                                    </th>
+                                                    <th style="font-size: 20px;">
+                                                        Tình trạng
                                                     </th>
                                                     <th style="font-size: 20px;">
                                                         Thao tác
                                                     </th>
                                                 </tr>
                                                 <tr ng-repeat="m in ListGD">
+                                                    <td>
+                                                        {{m.MaGD}}
+                                                    </td>
                                                     <td>
                                                         {{todate(m.NgayGD)}}
                                                     </td>
@@ -431,14 +431,15 @@
                                                     <td class="hidden-xs">
                                                         {{todate(m.NgayHetHan)  }}
                                                     </td>
-                                                    <td><strong style="color:red">{{songayconlai(todate(m.NgayGD),todate(m.NgayHetHan))}}</strong></td>
+                                                    <td hidden><strong style="color:red">{{songayconlai(todate(m.NgayGD),todate(m.NgayHetHan))}}</strong></td>
+                                                    <td>
+                                                        {{message(m.Paid)}}
+                                                    </td>
                                                     <td><button class="btn btn-primary" data-toggle="modal" data-target="#chitietgdModal" ng-click="info(m.MaGD)"><i class="glyphicon glyphicon-pencil"></i> Chi tiết</button></td>
                                                 </tr>
                                                     <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="resethoadon">
                                                     <i class="fa fa-shopping-cart"></i> Tạo hóa đơn
-                                                </button>
-                                                
-                                                
+                                                    </button>                      
                                             </thead>
                                         </table>
                                     </ul>
@@ -458,6 +459,7 @@
     }
 
 </body>
+
 @if (ViewBag.makh > 0)
 {
     <div class="col-md-12" style="padding: 0 0 0 0;">
@@ -465,28 +467,19 @@
     @Html.Partial("_gapiPartial")
 </div>
 }
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 <script src="~/Scripts/jquery.session.js"></script>
 <script src="~/Scripts/bootstrap-datepicker.js"></script>
     <script type="text/javascript">
-    $(".btn .btn-default").click(function () {
-        //alert();
-    })
-
     var loadingIcon = '<div class="sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div>'
     $('#my-tab-content').find('tbody').hide();
-    //$('#dataTable1').find('tbody').hide();
     $('#loadingicon').append(loadingIcon);
-
     var app = angular.module("IndexApp", [])
     app.controller('indexcontrol', function ($scope, $http) {
         $http.get("/Vsmartsell/GetKH/@ViewBag.makh").success(function (response) {
             var khachhang = response.khachhang[0];
             $scope.khachhang = khachhang;
-
-
             $http.get("/Vsmartsell/GetListGiaTien").success(function (response) {
                 for (var m in response.ListGiaTien) {
                     if (khachhang.LoaiGoi == response.ListGiaTien[m].LoaiGoi) {
@@ -496,27 +489,25 @@
                 }
             });
         });
+        //info lsgd
         $scope.info = function (obj) {
-            //var i = $scope.ListGD.indexOf(obj)
             for (var i in $scope.ListGD) {
                 if ($scope.ListGD[i].MaGD == obj) {
                     $scope.infogd = $scope.ListGD[i];
+                    $.session.set('magd', obj, 0);
                     break;
                 }
-                //$scope.infogd = $scope.ListGD[i];
             }
-            //$scope.infogd = $scope.ListGD[i];
-            //$("#chitietgdModal").modal('show');
         }
+        //get list lsgd
         $http.get("/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
-            //debugger;
             var ListGD = response.ListGD;
             $scope.ListGD = ListGD;
             $('#my-tab-content').removeAttr('hidden');
             $('.sk-circle').remove();
 
         });
-
+        //get list gia tien
         $http.get("/Vsmartsell/GetListGiaTien").success(function (response) {
             function changegia() {
                 var loaigoi = $("#LoaiGoi").val()
@@ -533,49 +524,54 @@
             }
             $("select").change(changegia);
         });
+        //function message
+        $scope.message = function (a) {
+            if (a == true)
+                var message = "Đã thanh toán";
+            else
+                var message = "Chưa thanh toán";
+            return message;
+        };
+        //set lai date
         $scope.todate = function (strdate) {
             var newdate = new Date(parseInt(strdate.substr(6)));
             var todate = ('0' + newdate.getDate()).slice(-2) + '-' + ('0' + (newdate.getMonth() + 1)).slice(-2) + '-' + newdate.getFullYear();
             return todate;
         };
         //songayconlai
-        $scope.songayconlai = function (hientai, hethan) {
             debugger
-            var datehientai = new Date(hientai);
-            datehientai = datehientai.setDate(datehientai.getDate())
-            var ngay = hethan.substring(0, 2)
-            var thang =hethan.substring(3, 5)
-            var nam = hethan.substring(6, 10)
+            var hientai= new Date()
+            var ngay = $("#NgayHetHan").val().substring(8, 10);
+            var thang = $("#NgayHetHan").val().substring(5, 7);
+            var nam = $("#NgayHetHan").val().substring(0, 4);
             var updatedate = thang + '/' + ngay + '/' + nam;
             var datehethan = new Date(updatedate);
-            datehethan = datehethan.setDate(datehethan.getDate())
-            var songayconlai = new Date(datehethan - datehientai);
-            songayconlai = songayconlai.getDate(songayconlai);
-            return songayconlai;
-        };
+            datehethan = datehethan.setDate(datehethan.getDate());
+            var songayconlai = new Date(datehethan - hientai);
+            songayconlai = songayconlai.getTime(songayconlai);
+            $scope.kqsongayconlai=parseInt(songayconlai / (24 * 60 * 60 * 1000));
         //tao hoa don
-        $('#cartnotice').click(function () {
-            debugger
+        $('#cartnotice').click(function () {            
             // int makh, DateTime ngaygd, DateTime ngayhethan, decimal sotien, string nguoithu, int thoihan, decimal cuocphi, decimal tiengiam, string note, bool paid
             var paid = confirm("Có chắc là muốn tạo hóa đơn chứ ?");
             if (paid == true) {
-                var note = $('#ghichu').val()
-                var tiengiam = $('#tiengiam').val()
-                var cuocphi = $('#cuocphi').val()
-                var thoihan = $('#thoihan').val()
-                var nguoithu = $('#nhanvienthutien').val()
-                var sotien = $('#tongtien').val()
+                var note = $('#ghichu').val();
+                var tiengiam = $('#tiengiam').val();
+                var cuocphi = $('#cuocphi').val();
+                var thoihan = $('#thoihan').val();
+                var nguoithu = $('#nhanvienthutien').val();
+                var sotien = $('#tongtien').val();
                 //date hethan
-                var nam = parseInt($('#NgayHetHan').val().substring(0, 4))
-                var thang = parseInt($('#NgayHetHan').val().substring(5, 7))                
-                var ngay = parseInt($('#NgayHetHan').val().substring(8, 10))
-                var giahan = parseInt(thoihan)
-                var newngay = ngay
-                var newthang = thang + giahan
+                var nam = parseInt($('#NgayHetHan').val().substring(0, 4));
+                var thang = parseInt($('#NgayHetHan').val().substring(5, 7));
+                var ngay = parseInt($('#NgayHetHan').val().substring(8, 10));
+                var giahan = parseInt(thoihan);
+                var newngay = ngay;
+                var newthang = thang + giahan;
                 //date thanh toan              
-                var nam1=$('#ngaythanhtoan').val().substring(6,10)
-                var thang1 = $('#ngaythanhtoan').val().substring(3, 5)
-                var ngay1=$('#ngaythanhtoan').val().substring(0,2)
+                var nam1 = $('#ngaythanhtoan').val().substring(6, 10);
+                var thang1 = $('#ngaythanhtoan').val().substring(3, 5);
+                var ngay1 = $('#ngaythanhtoan').val().substring(0, 2);
                 var ngaygd = thang1 + '/' + ngay1 + '/' + nam1;
                 var old_ngayhethan = new Date($("#NgayHetHan").val());
                 old_ngayhethan = old_ngayhethan.setMonth(old_ngayhethan.getMonth() + giahan);
@@ -583,101 +579,21 @@
                 var ngayhethan = new_ngayhethan.getFullYear() + '/' + ('0' + (new_ngayhethan.getMonth() + 1)).slice(-2) + '/' + ('0' + new_ngayhethan.getDate()).slice(-2);
                 
                 var makh = Number($('#MaKH').val())
-                //debugger
+                
                 $.post("/vsmartsell/UpdateHistory", { makh: makh, ngaygd: ngaygd, ngayhethan: ngayhethan, sotien: sotien, nguoithu: nguoithu, thoihan: thoihan, cuocphi: cuocphi, tiengiam: tiengiam, note: note, paid: false }, function (data) {
-                    debugger
-                    
-                    
+                    debugger                                       
                     $http.get("/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
                         debugger;
                         var ListGD = response.ListGD;
                         $scope.ListGD = ListGD;
                     });
                 });
-
             }
-
         })
-    });
-    //thiết lập lại
-    $('#thietlaplai').click(function () {
-        $('.form-control').val('');
-        $(".field-validation-error").text('')
-    })
-    //thong bao save thanh cong
-
-
-    if ($("#message").text() != "") {
-        $('#message').removeAttr('hidden');
-        setTimeout(function () {
-            $('#message').fadeOut();
-        }, 4000);
-    }
-
-    $('#ngaythanhtoan').click(function () {
-    });
-    $('#backindex').click(function () {
-
-    })
-    $('.datepicker').datepicker({
-        keyboardNavigation: false,
-        forceParse: false,
-        autoclose: true,
-        format: 'dd/mm/yyyy',
-    });
-    $('.form-control').click(function () {
-
-    })
-    $('#thoihan').focusout(function () {
-        var thanhtien;
-        thanhtien = Number($('#thoihan').val()) * Number($('#cuocphi').val());
-        $('#thanhtien').val(thanhtien);
-    })
-    $('#tiengiam').focusout(function () {
-        var tongtien;
-        tongtien = Number($('#thoihan').val()) * Number($('#cuocphi').val()) - Number($('#tiengiam').val());
-        $('#tongtien').val(tongtien);
-    })
-    @*//tao hoa don
-    $('#cartnotice').click(function () {
-        debugger
-        // int makh, DateTime ngaygd, DateTime ngayhethan, decimal sotien, string nguoithu, int thoihan, decimal cuocphi, decimal tiengiam, string note, bool paid
-        var paid = confirm("Có chắc là muốn tạo hóa đơn chứ ?");
-        if (paid == true) {
-            var note = $('#ghichu').val()
-            var tiengiam = $('#tiengiam').val()
-            var cuocphi = $('#cuocphi').val()
-            var thoihan = $('#thoihan').val()
-            var nguoithu = $('#nhanvienthutien').val()
-            var sotien = $('#tongtien').val()
-            var nam = parseInt($('#NgayHetHan').val().substring(0, 4))
-            var thang = parseInt($('#NgayHetHan').val().substring(5, 7))
-            var ngay = parseInt($('#NgayHetHan').val().substring(8, 10))
-            var giahan = parseInt(thoihan)
-            var newngay = ngay
-            var newthang = thang + giahan
-            //if (newthang > 12) {
-            //    newthang = newthang - 12
-            //    var newnam = nam + 1
-            //}
-            //else {
-            //    newthang = newthang
-            //    var newnam = nam
-            //}
-            //if (newthang < 10) {
-            //    var ngayhethan = newnam.toString() + "/0" + newthang.toString() + "/" + newngay.toString()
-            //}
-            //else {
-            //    var ngayhethan = newnam.toString() + "/" + newthang.toString() + "/" + newngay.toString()
-            //}
-            var old_ngayhethan = new Date($("#NgayHetHan").val());
-            old_ngayhethan = old_ngayhethan.setMonth(old_ngayhethan.getMonth() + giahan);
-            var new_ngayhethan = new Date(old_ngayhethan);
-            var ngayhethan = new_ngayhethan.getFullYear() + '/' + ('0' + (new_ngayhethan.getMonth() + 1)).slice(-2) + '/' + ('0' + new_ngayhethan.getDate()).slice(-2);
-            var ngaygd = $('#ngaythanhtoan').val()
-            var makh = Number($('#MaKH').val())
-            //debugger
-            $.post("/vsmartsell/UpdateHistory", { makh: makh, ngaygd: ngaygd, ngayhethan: ngayhethan, sotien: sotien, nguoithu: nguoithu, thoihan: thoihan, cuocphi: cuocphi, tiengiam: tiengiam, note: note, paid: false }, function (data) {
+        //thanh toán hóa đơn
+        $('#thanhtoan').click(function () {
+            debugger
+            $.post("/vsmartsell/Paid", {id: $.session.get('magd') }, function (data) {
                 debugger
                 $http.get("/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
                     debugger;
@@ -685,12 +601,40 @@
                     $scope.ListGD = ListGD;
                 });
             });
-           
-        }
-       
-    })*@
-        //set gia tri cuoc phi
-    //$('#cuocphi').val($('#giatien').val())
+        });
+
+    });
+    //thiết lập lại
+    $('#thietlaplai').click(function () {
+        $('.form-control').val('');
+        $(".field-validation-error").text('')
+    })
+    //thong bao save thanh cong
+    if ($("#message").text() != "") {
+        $('#message').removeAttr('hidden');
+        setTimeout(function () {
+            $('#message').fadeOut();
+        }, 4000);
+    }
+    //pickdate
+    $('.datepicker').datepicker({
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+    });
+    //focusout
+    $('#thoihan').focusout(function () {
+        var thanhtien;
+        thanhtien = Number($('#thoihan').val()) * Number($('#cuocphi').val());
+        $('#thanhtien').val(thanhtien);
+    })
+    //tong tien
+    $('#tiengiam').focusout(function () {
+        var tongtien;
+        tongtien = Number($('#thoihan').val()) * Number($('#cuocphi').val()) - Number($('#tiengiam').val());
+        $('#tongtien').val(tongtien);
+    })
     //reset hoa don
     $('#resethoadon').click(function () {
         $('#ngaythanhtoan').val('')
