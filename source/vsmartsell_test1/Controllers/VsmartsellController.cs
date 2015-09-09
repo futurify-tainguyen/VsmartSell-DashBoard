@@ -19,6 +19,7 @@ namespace vsmartsell_test1.Controllers
         {
             var ListGD = from m in db.DSLichSuGD
                          where m.MaKH == id
+                         orderby m.MaGD descending
                          select m;
             return Json(new { ListGD = ListGD }, JsonRequestBehavior.AllowGet);
         }
