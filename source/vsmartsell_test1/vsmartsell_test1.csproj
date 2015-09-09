@@ -211,6 +211,14 @@
     <Compile Include="Migrations\201508310919442_ignore_accent.Designer.cs">
       <DependentUpon>201508310919442_ignore_accent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509080847575_notify_day.cs" />
+    <Compile Include="Migrations\201509080847575_notify_day.Designer.cs">
+      <DependentUpon>201509080847575_notify_day.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509090425419_account_clone.cs" />
+    <Compile Include="Migrations\201509090425419_account_clone.Designer.cs">
+      <DependentUpon>201509090425419_account_clone.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -431,6 +439,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508310919442_ignore_accent.resx">
       <DependentUpon>201508310919442_ignore_accent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509080847575_notify_day.resx">
+      <DependentUpon>201509080847575_notify_day.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509090425419_account_clone.resx">
+      <DependentUpon>201509090425419_account_clone.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

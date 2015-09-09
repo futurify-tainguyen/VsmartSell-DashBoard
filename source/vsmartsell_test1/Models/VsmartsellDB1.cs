@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace vsmartsell_test1.Models
 {
-    public enum SortType { makh, kh1, kh2, ch1, ch2, loai1, loai2, goi1, goi2, batdau1, batdau2, ketthuc1, ketthuc2}
+    public enum SortType { makh, kh1, kh2, ch1, ch2, loai1, loai2, goi1, goi2, batdau1, batdau2, ketthuc1, ketthuc2, hotro1, hotro2}
     public class KhachHang
     {
         [Key]
@@ -53,6 +53,7 @@ namespace vsmartsell_test1.Models
         public string Note { get; set; }
         //public ICollection<LichSuGD> DSLichSuGD { get; set; }
         public string Viewid { get; set; }
+        public DateTime? Notify { get; set; }
     }
 
     public class LichSuGD
@@ -88,11 +89,22 @@ namespace vsmartsell_test1.Models
         public decimal GiaTien { get; set; }
     }
 
+    public class NguoiDung
+    {
+        [Key]
+        public string userid { get; set; }
+        public string username { get; set; }
+        public string firstname { get; set; }
+        public string lastname { get; set; }
+        public string email { get; set; }
+    }
+
     public class VsmartsellDBContext : DbContext
     {
         public DbSet<KhachHang> DSKhachHang { get; set; }
         public DbSet<LichSuGD> DSLichSuGD { get; set; }
         public DbSet<BangGia> DSGia { get; set; }
+        public DbSet<NguoiDung> DSNguoiDung { get; set; }
         public VsmartsellDBContext()
             : base("DefaultConnection")
         {

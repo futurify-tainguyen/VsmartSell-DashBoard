@@ -64,12 +64,15 @@ namespace vsmartsell_test1.Models
         public string ConfirmPassword { get; set; }
 
         // New Fields added to extend Application User class:
+        [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
+        [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Required]
         public string Email { get; set; }
 
         // Return a pre-poulated instance of AppliationUser:

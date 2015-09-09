@@ -15,6 +15,7 @@ namespace vsmartsell_test1.Models
     [Authorize]
     public class AccountController : Controller
     {
+        VsmartsellDBContext db1 = new VsmartsellDBContext();
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
@@ -192,6 +193,14 @@ namespace vsmartsell_test1.Models
                 if (result.Succeeded)
                 {
                     //await SignInAsync(user, isPersistent: false);
+                    NguoiDung newclone = new NguoiDung();
+                    newclone.userid = user.Id;
+                    newclone.username = user.UserName;
+                    newclone.firstname = user.FirstName;
+                    newclone.lastname = user.LastName;
+                    newclone.email = user.Email;
+                    db1.DSNguoiDung.Add(newclone);
+                    db1.SaveChanges();
                     return RedirectToAction("Index", "Account");
                 }
                 else

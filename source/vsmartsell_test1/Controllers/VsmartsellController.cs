@@ -68,7 +68,7 @@ namespace vsmartsell_test1.Controllers
             }
             if (ModelState.IsValid)
             {
-                gd.Paid = !gd.Paid;
+                gd.Paid = true;
                 db.Entry(gd).State = EntityState.Modified;
                 db.SaveChanges();
                 return Json(true);
@@ -146,6 +146,10 @@ namespace vsmartsell_test1.Controllers
                     ListKH = ListKH.OrderBy(m => m.NgayHetHan); break;
                 case SortType.ketthuc2:
                     ListKH = ListKH.OrderByDescending(m => m.NgayHetHan); break;
+                case SortType.hotro1:
+                    ListKH = ListKH.OrderBy(m => m.HoTro); break;
+                case SortType.hotro2:
+                    ListKH = ListKH.OrderByDescending(m => m.HoTro); break;
             }
             var count = ListKH.Count();
             var numpage = (count - 1) / 10 + 1;
