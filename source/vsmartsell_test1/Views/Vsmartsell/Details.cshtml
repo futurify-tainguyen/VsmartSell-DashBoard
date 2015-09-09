@@ -58,7 +58,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
-                        <h3 class="modal-title"><strong>Thanh toán tiền</strong></h3>
+                        <h3 class="modal-title"><strong>Chi tiết hóa đơn</strong></h3>
                     </div>
 
                     <div class="modal-footer" style="margin-top:0px">
@@ -104,7 +104,7 @@
                                 <label class="control-label col-md-4"><strong>Thành tiền</strong></label>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input class="form-control" id="" disabled type="text" value=""><span id="clickthanhtien" class="input-group-addon">VNĐ</span>
+                                        <input class="form-control" id="" disabled type="text" value="{{infogd.ThoiHan*infogd.CuocPhi}}"><span id="clickthanhtien" class="input-group-addon">VNĐ</span>
                                     </div>
                                 </div>
                             </div>
@@ -133,10 +133,10 @@
                         </div>
 
                         <div class="col-md-8" style="float:right">
-                            <button type="button" class="btn btn-success">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span class="" id="cartnotice">Tạo hóa đơn</span>
-                            </button>
+                            @*<button type="button" id="edithoadon" class="btn btn-success">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                                <span class="">Chỉnh sửa</span>
+                            </button>*@
                             <button class="btn btn-danger" data-dismiss="modal">
                                 <i class="fa fa-trash-o"></i>Hủy
                             </button>
@@ -228,9 +228,9 @@
 
 
                         <div class="col-md-8" style="float:right">
-                            <button type="button" class="btn btn-success">
+                            <button type="button" id="cartnotice" class="btn btn-success">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span class="" id="cartnotice">Tạo hóa đơn</span>
+                                <span class="">Tạo hóa đơn</span>
                             </button>
                             <button class="btn btn-danger" data-dismiss="modal">
                                 <i class="fa fa-trash-o"></i>Hủy
@@ -414,7 +414,9 @@
                                                     <th style="font-size: 20px;">
                                                         Số ngày sắp hết hạn
                                                     </th>
-                                                    <th></th>
+                                                    <th style="font-size: 20px;">
+                                                        Thao tác
+                                                    </th>
                                                 </tr>
                                                 <tr ng-repeat="m in ListGD">
                                                     <td>
@@ -429,8 +431,8 @@
                                                     <td class="hidden-xs">
                                                         {{todate(m.NgayHetHan)  }}
                                                     </td>
-                                                    <td></td>
-                                                    <td><button class="btn btn-primary" data-toggle="modal" data-target="#chitietgdModal" ng-click="info(m.MaGD)">Chi tiết</button></td>
+                                                    <td><strong style="color:red">{{songayconlai(todate(m.NgayGD),todate(m.NgayHetHan))}}</strong></td>
+                                                    <td><button class="btn btn-primary" data-toggle="modal" data-target="#chitietgdModal" ng-click="info(m.MaGD)"><i class="glyphicon glyphicon-pencil"></i> Chi tiết</button></td>
                                                 </tr>
                                                     <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="resethoadon">
                                                     <i class="fa fa-shopping-cart"></i> Tạo hóa đơn
@@ -536,7 +538,66 @@
             var todate = ('0' + newdate.getDate()).slice(-2) + '-' + ('0' + (newdate.getMonth() + 1)).slice(-2) + '-' + newdate.getFullYear();
             return todate;
         };
+        //songayconlai
+        $scope.songayconlai = function (hientai, hethan) {
+            debugger
+            var datehientai = new Date(hientai);
+            datehientai = datehientai.setDate(datehientai.getDate())
+            var ngay = hethan.substring(0, 2)
+            var thang =hethan.substring(3, 5)
+            var nam = hethan.substring(6, 10)
+            var updatedate = thang + '/' + ngay + '/' + nam;
+            var datehethan = new Date(updatedate);
+            datehethan = datehethan.setDate(datehethan.getDate())
+            var songayconlai = new Date(datehethan - datehientai);
+            songayconlai = songayconlai.getDate(songayconlai);
+            return songayconlai;
+        };
+        //tao hoa don
+        $('#cartnotice').click(function () {
+            debugger
+            // int makh, DateTime ngaygd, DateTime ngayhethan, decimal sotien, string nguoithu, int thoihan, decimal cuocphi, decimal tiengiam, string note, bool paid
+            var paid = confirm("Có chắc là muốn tạo hóa đơn chứ ?");
+            if (paid == true) {
+                var note = $('#ghichu').val()
+                var tiengiam = $('#tiengiam').val()
+                var cuocphi = $('#cuocphi').val()
+                var thoihan = $('#thoihan').val()
+                var nguoithu = $('#nhanvienthutien').val()
+                var sotien = $('#tongtien').val()
+                //date hethan
+                var nam = parseInt($('#NgayHetHan').val().substring(0, 4))
+                var thang = parseInt($('#NgayHetHan').val().substring(5, 7))                
+                var ngay = parseInt($('#NgayHetHan').val().substring(8, 10))
+                var giahan = parseInt(thoihan)
+                var newngay = ngay
+                var newthang = thang + giahan
+                //date thanh toan              
+                var nam1=$('#ngaythanhtoan').val().substring(6,10)
+                var thang1 = $('#ngaythanhtoan').val().substring(3, 5)
+                var ngay1=$('#ngaythanhtoan').val().substring(0,2)
+                var ngaygd = thang1 + '/' + ngay1 + '/' + nam1;
+                var old_ngayhethan = new Date($("#NgayHetHan").val());
+                old_ngayhethan = old_ngayhethan.setMonth(old_ngayhethan.getMonth() + giahan);
+                var new_ngayhethan = new Date(old_ngayhethan);
+                var ngayhethan = new_ngayhethan.getFullYear() + '/' + ('0' + (new_ngayhethan.getMonth() + 1)).slice(-2) + '/' + ('0' + new_ngayhethan.getDate()).slice(-2);
+                
+                var makh = Number($('#MaKH').val())
+                //debugger
+                $.post("/vsmartsell/UpdateHistory", { makh: makh, ngaygd: ngaygd, ngayhethan: ngayhethan, sotien: sotien, nguoithu: nguoithu, thoihan: thoihan, cuocphi: cuocphi, tiengiam: tiengiam, note: note, paid: false }, function (data) {
+                    debugger
+                    
+                    
+                    $http.get("/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
+                        debugger;
+                        var ListGD = response.ListGD;
+                        $scope.ListGD = ListGD;
+                    });
+                });
 
+            }
+
+        })
     });
     //thiết lập lại
     $('#thietlaplai').click(function () {
@@ -577,8 +638,9 @@
         tongtien = Number($('#thoihan').val()) * Number($('#cuocphi').val()) - Number($('#tiengiam').val());
         $('#tongtien').val(tongtien);
     })
-    //tao hoa don
+    @*//tao hoa don
     $('#cartnotice').click(function () {
+        debugger
         // int makh, DateTime ngaygd, DateTime ngayhethan, decimal sotien, string nguoithu, int thoihan, decimal cuocphi, decimal tiengiam, string note, bool paid
         var paid = confirm("Có chắc là muốn tạo hóa đơn chứ ?");
         if (paid == true) {
@@ -616,10 +678,17 @@
             var makh = Number($('#MaKH').val())
             //debugger
             $.post("/vsmartsell/UpdateHistory", { makh: makh, ngaygd: ngaygd, ngayhethan: ngayhethan, sotien: sotien, nguoithu: nguoithu, thoihan: thoihan, cuocphi: cuocphi, tiengiam: tiengiam, note: note, paid: false }, function (data) {
-                //debugger
+                debugger
+                $http.get("/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
+                    debugger;
+                    var ListGD = response.ListGD;
+                    $scope.ListGD = ListGD;
+                });
             });
+           
         }
-    })
+       
+    })*@
         //set gia tri cuoc phi
     //$('#cuocphi').val($('#giatien').val())
     //reset hoa don
