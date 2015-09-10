@@ -38,7 +38,6 @@
     <link href="~/Scripts/summernote.css" rel="stylesheet" />
     <link href="~/Scripts/font-awesome.css" rel="stylesheet" />
     <script src="~/Scripts/angular.min.js"></script> 
-    <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
     <link href="~/Scripts/datepicker3.css" rel="stylesheet" />
     <link href="~/Script/dao.css" rel="stylesheet" />
     <link href="~/Scripts/font-awesome.min.css" rel="stylesheet" />
@@ -50,7 +49,7 @@
     <div class="row">
         <!-- Trigger the modal with a button -->
         <div class="modal fade" id="chitietgdModal" role="dialog">
-            <div class="modal-dialog" style="margin-left">
+            <div class="modal-dialog">
 
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -132,7 +131,7 @@
 
                         <div class="col-md-8" style="float:right">
                             <button type="button" id="thanhtoan" class="btn btn-success">
-                                <i class="fa fa-shopping-cart"></i>
+                                <i class="fa fa-plus"></i>
                                 <span class="">Thanh toán</span>
                             </button>
                             <button class="btn btn-danger" id="huythanhtoan" data-dismiss="modal">
@@ -145,12 +144,12 @@
         </div>
 
         <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog" style="margin-left">
+            <div class="modal-dialog">
 
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title"><strong>Thanh toán tiền</strong></h3>
+                        <h3 class="modal-title"><strong>Tạo hóa đơn</strong></h3>
                     </div>
 
                     <div class="modal-footer" style="margin-top:0px">
@@ -283,7 +282,7 @@
                             }
                             <ul class="nav nav-tabs pull-right" data-tabs="tabs" id="tabs">
                                 <li class="active">
-                                    <a data-toggle="tab" href="#tab1"><i class="glyphicon glyphicon-user"></i><span><strong> &nbsp;Thông tin khách hàng</strong></span></a>
+                                    <a data-toggle="tab" href="#tab1"><i class="fa fa-user"></i><span><strong>Thông tin khách hàng</strong></span></a>
                                 </li>
                                 <li class="">
                                     <a data-toggle="tab" href="#tab2"><i class="fa fa-info-circle"></i><span><strong>Thông tin gói cước</strong></span></a>
@@ -291,7 +290,10 @@
                             @if (ViewBag.makh > 0)
                             {
                                 <li class="">
-                                    <a data-toggle="tab" href="#tab3"><i class="fa fa-calendar"></i><span><strong>Thông tin giao dịch khách hàng</strong></span></a>
+                                    <a data-toggle="tab" href="#tab3"><i class="fa fa-list"></i><span><strong>Thông tin giao dịch</strong></span></a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#tab4"><i class="fa fa-bar-chart-o"></i><span><strong>Thông tin sử dụng</strong></span></a>
                                 </li>
                             }
                             </ul>
@@ -435,8 +437,9 @@
                                                     <td>
                                                         {{message(m.Paid)}}
                                                     </td>
-                                                    <td><button class="btn btn-primary" data-toggle="modal" data-target="#chitietgdModal" ng-click="info(m.MaGD)"><i class="glyphicon glyphicon-pencil"></i> Chi tiết</button></td>
+                                                    <td><button style="margin-bottom: 0px;" class="btn btn-primary" data-toggle="modal" data-target="#chitietgdModal" ng-click="info(m.MaGD)"><i class="glyphicon glyphicon-pencil"></i> Chi tiết</button></td>
                                                 </tr>
+                                                    <span style="float:left">Tổng số tiền đã thanh toán: {{tongtiengd}}</span>
                                                     <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="resethoadon">
                                                     <i class="glyphicon glyphicon-plus"></i> Tạo hóa đơn
                                                     </button>                      
@@ -445,6 +448,10 @@
                                     </ul>
                                 </div>
                             </div>
+                                
+                                <div class="tab-pane" id="tab4">
+                                    @Html.Partial("_gapiPartial")
+                                </div>
                             }
                             
                         </div>
@@ -460,12 +467,6 @@
 
 </body>
 
-@if (ViewBag.makh > 0)
-{
-    <div class="col-md-12" style="padding: 0 0 0 0;">
-
-    @Html.Partial("_gapiPartial")
-</div>
 }
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -473,7 +474,6 @@
 <script src="~/Scripts/bootstrap-datepicker.js"></script>
     <script type="text/javascript">
     var loadingIcon = '<div class="sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div>'
-    $('#my-tab-content').find('tbody').hide();
     $('#loadingicon').append(loadingIcon);
     var app = angular.module("IndexApp", [])
     app.controller('indexcontrol', function ($scope, $http) {
@@ -503,6 +503,12 @@
         $http.get("/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
             var ListGD = response.ListGD;
             $scope.ListGD = ListGD;
+            $scope.tongtiengd = 0;
+            for (i in ListGD) {
+                if (ListGD[i].Paid == true) {
+                    $scope.tongtiengd += ListGD[i].SoTien;
+                }
+            }
             $('#my-tab-content').removeAttr('hidden');
             $('.sk-circle').remove();
 
@@ -594,6 +600,12 @@
                 $http.get("/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
                     var ListGD = response.ListGD;
                     $scope.ListGD = ListGD;
+                    $scope.tongtiengd = 0;
+                    for (i in ListGD) {
+                        if (ListGD[i].Paid == true) {
+                            $scope.tongtiengd += ListGD[i].SoTien;
+                        }
+                    }
                 });
             });
             $('#huythanhtoan').trigger('click');

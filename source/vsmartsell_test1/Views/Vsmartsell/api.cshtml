@@ -1,19 +1,28 @@
 ﻿@{
     ViewBag.Title = "Analytics";
+    ViewBag.gaviewid = "105411908";
 }
+<style>
+    #auth-button {
+        background-color: #e8e8e8 !important;
+        padding-top: 0px;
+        padding-bottom: 10px;
+    }
 
+    .colorinformation {
+        color: blue;
+    }
+
+    a:hover {
+        color: blue;
+        text-decoration: underline;
+    }
+</style>
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        #auth-button{
-            background-color: none;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-    </style>
     <title>Embed API Demo</title>
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    @*<link rel="stylesheet" href="~/Content/bootstrap.min.css">*@
     <!--tracking code-->
     <script>
         function secondsToHms(d) {
@@ -23,18 +32,6 @@
             var s = Math.floor(d % 3600 % 60);
             return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s);
         }
-        //var item = [[2, 5], [1, 6], [3, 4]]
-        //item = item.sort(function (a, b) {
-        //    if (a[1] > b[1]) {
-        //        return 1;
-        //    }
-        //    if (a[1] < b[1]) {
-        //        return -1;
-        //    }
-        //    // a must be equal to b
-        //    return 0;
-        //});
-        //var aaa = item;
         //(function (i, s, o, g, r, a, m) {
         //    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
         //        (i[r].q = i[r].q || []).push(arguments)
@@ -50,29 +47,30 @@
 
     <!-- Step 1: Create the containing elements. -->
     <div class="container">
+        <h4 class="col-md-12">Thông tin sử dụng phần mềm</h4>
         <div class="col-md-3" id="active-users-container"></div>
         <div class="col-md-9">
-            <a data-toggle="modal" data-target="#eventsModal">Activities in last 3 days</a>
+            <a data-toggle="modal" class="colorinformation" data-target="#eventsModal">Activities in last 3 days</a>
         </div>
 
         <div class="col-md-3">Users today : <span id="today"></span> </div>
         <div class="col-md-3">Users in last 7 days : <span id="7days"></span> </div>
         <div class="col-md-3">Users in last 30 days : <span id="30days"></span> </div>
         <div class="col-md-3">
-            <a data-toggle="modal" data-target="#userModal">Chi tiết</a>
+            <a data-toggle="modal" class="colorinformation" data-target="#userModal">Chi tiết</a>
         </div>
 
         <div class="col-md-3">Most viewed in last 30 days : </div>
         <div class="col-md-3"> <span id="pagepath"></span> </div>
         <div class="col-md-3">Viewed : <span id="pageviews"></span> </div>
         <div class="col-md-3">
-            <a data-toggle="modal" data-target="#pageviewsModal">Chi tiết</a>
+            <a data-toggle="modal" class="colorinformation" data-target="#pageviewsModal">Chi tiết</a>
         </div>
 
         <div class="col-md-3">Transactions in last 30 days : <span id="transactions"></span> </div>
         <div class="col-md-6">Revenue : <span id="revenue"></span> VND </div>
         <div class="col-md-3">
-            <a data-toggle="modal" data-target="#transactionModal">Chi tiết</a>
+            <a data-toggle="modal" class="colorinformation" data-target="#transactionModal">Chi tiết</a>
         </div>
     </div>
 
@@ -147,7 +145,7 @@
             </div>
         </div>
     </div>
-
+    <br />
 
     @*Users in last 30 days : <span id="30days"></span> <br />
         Users in last 7 days : <span id="7days"></span> <br />
@@ -158,7 +156,9 @@
         <section id="pageviewstable"></section>
         <section id="view-selector"></section>
         <section id="timeline"></section>*@
-    <section id="auth-button"></section>
+    <div class="col-md-12" style="padding:0 0 0 0">
+        <section id="auth-button" style="background-color:#ffffff"></section>
+    </div>
     <!-- Step 2: Load the library. -->
 
     <script>
@@ -217,13 +217,13 @@
                     }, 3000);
                 });
             });
-            activeUsers.set({ 'ids': 'ga:106032405' }).execute();
+            activeUsers.set({ 'ids': 'ga:@ViewBag.gaviewid' }).execute();
 
             // Step 5: Create the report.
             //get users data
             var users = new gapi.analytics.report.Data({
                 query: {
-                    'ids': 'ga:106032405',
+                    'ids': 'ga:@ViewBag.gaviewid',
                     'dimensions': 'ga:date',
                     'metrics': 'ga:users',
                     'start-date': '30daysAgo',
@@ -259,7 +259,7 @@
             var timeline = new gapi.analytics.googleCharts.DataChart({
                 reportType: 'ga',
                 query: {
-                    'ids': 'ga:106032405',
+                    'ids': 'ga:@ViewBag.gaviewid',
                     'dimensions': 'ga:date',
                     'metrics': 'ga:users',
                 },
@@ -274,7 +274,7 @@
             var usernametable = new gapi.analytics.googleCharts.DataChart({
                 reportType: 'ga',
                 query: {
-                    'ids': 'ga:106032405',
+                    'ids': 'ga:@ViewBag.gaviewid',
                     'metrics': 'ga:sessions',
                     'dimensions': 'ga:dimension2,ga:date',
                 },
@@ -288,7 +288,7 @@
             //get pageviews data
             var pageviews = new gapi.analytics.report.Data({
                 query: {
-                    'ids': 'ga:106032405',
+                    'ids': 'ga:@ViewBag.gaviewid',
                     'dimensions': 'ga:pagePath',
                     'metrics': 'ga:pageviews',
                     'start-date': '30daysAgo',
@@ -322,7 +322,7 @@
             var page = new gapi.analytics.report.Data({
                 //reportType: 'ga',
                 query: {
-                    'ids': 'ga:106032405',
+                    'ids': 'ga:@ViewBag.gaviewid',
                     'dimensions': 'ga:pagePath',
                     'metrics': 'ga:pageviews,ga:timeOnPage',
                 },
@@ -346,7 +346,7 @@
             var money = new gapi.analytics.report.Data({
                 reportType: 'ga',
                 query: {
-                    'ids': 'ga:106032405',
+                    'ids': 'ga:@ViewBag.gaviewid',
                     'metrics': 'ga:transactions,ga:transactionRevenue',
                     'start-date': '30daysAgo',
                     'end-date': 'today',
@@ -369,7 +369,7 @@
             var transactionstable = new gapi.analytics.googleCharts.DataChart({
                 reportType: 'ga',
                 query: {
-                    'ids': 'ga:106032405',
+                    'ids': 'ga:@ViewBag.gaviewid',
                     'metrics': 'ga:transactions,ga:transactionRevenue',
                     'dimensions': 'ga:date',
                     filters: 'ga:transactions!=0'
@@ -385,11 +385,12 @@
             var events = new gapi.analytics.googleCharts.DataChart({
                 reportType: 'ga',
                 query: {
-                    'ids': 'ga:106032405',
+                    'ids': 'ga:@ViewBag.gaviewid',
                     'metrics': 'ga:totalEvents',
                     'dimensions': 'ga:eventCategory,ga:eventLabel',
                     'start-date': '3daysAgo',
                     'end-date': 'today',
+                    filters: 'ga:hostname=~localhost'
                 },
                 chart: {
                     type: 'TABLE',

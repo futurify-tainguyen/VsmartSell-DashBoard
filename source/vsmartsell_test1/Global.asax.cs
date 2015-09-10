@@ -64,9 +64,9 @@ namespace vsmartsell_test1
         // Asynchronously do the 'service' works
         private void DoWork()
         {
-            SendMailForInvoice();
-            SendMailForNearEnd();
-            SendMailAfterEnd();
+            //SendMailForInvoice();
+            //SendMailForNearEnd();
+            //SendMailAfterEnd();
         }
 
         private void SendMailForInvoice()
@@ -88,7 +88,7 @@ namespace vsmartsell_test1
                     }
                     string Mail_from = "vsmartselldashboard@gmail.com";
                     string password = "futurify0404";
-                    string Mail_to = "levanducdao92@gmail.com";
+                    string Mail_to = "tainguyenx3@gmail.com";
                     string Mail_subject = "Nhắc nhở về hóa đơn chưa thanh toán (" + today.ToLongDateString() + ")";
                     string Mail_body = msg + "\nDanh sách trên là các hóa đơn đã được tạo nhưng chưa được thanh toán.\nThư này để nhắc nhở việc thu tiền các khách hàng có tên trong danh sách trên.\nThân.";
                     MailMessage MM = new MailMessage(Mail_from, Mail_to, Mail_subject, Mail_body);
