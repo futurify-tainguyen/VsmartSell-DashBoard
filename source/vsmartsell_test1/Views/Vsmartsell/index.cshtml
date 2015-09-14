@@ -6,7 +6,16 @@
 }
 
 <style>
-    .btn[disabled] {
+    .updown {
+        width: 25px !important;
+    }
+    .fa-angle-up {
+        margin-left: 3px !important;
+    }
+    .fa-angle-down {
+        margin-left: 3px !important;
+    }
+     .btn[disabled] {
         color: white;
         background: #808080;
     }
@@ -72,8 +81,8 @@
 
                                     <th width="15%">
                                             Tên khách hàng
-                                            <span id="up1"><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down1" hidden><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                        <span class="sort" id="up1"><button style="width:25px" id="kh1" class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                        <span class ="sort" id="down1" hidden><button style="width:25px" id="kh2" class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></spanclass>
                                         
                                     </th>
                                     <th >
@@ -84,42 +93,39 @@
                                     </th>
                                     <th>
                                         Loại khách hàng
-                                            <span id="up2"><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down2" hidden><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                        <span class="sort" id="up2"><button style="width:25px" id="loai1" class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                        <span class="sort" id="down2" hidden><button style="width:25px" id="loai2" class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></buttonstyle></span>
                                     </th>
                                     <th>
-                                        Loại cước
-                                      
-                                            <span id="up3"><button class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down3" hidden><button class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
-                                       
-
+                                        Loại cước                                   
+                                        <span class ="sort" id="up3"><button style="width:25px" id="goi1" class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                            <span class="sort" id="down3" hidden><button style="width:25px" id="goi2" class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>                                       
                                     </th>
                                     <th>
                                         Ngày đăng kí
                                         
-                                            <span id="up4"><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down4" hidden><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                        <span class="sort" id="up4"><button style="width:25px" id="batdau1" class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                        <span class="sort" id="down4" hidden><button style="width:25px" id="batdau2" class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                         
                                     </th>
                                     <th>
                                         Ngày hết hạn
-                                            <span id="up5"><button class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down5" hidden><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                        <span class="sort" id="up5"><button style="width:25px" id="ketthuc1" class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                        <span class="sort" id="down5" hidden><button style="width:25px" id="ketthuc2" class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                         
                                     </th>
                                     <th>
                                        Tên cửa hàng
-                                            <span id="up6"><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down6" hidden><button  class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                        <span class="sort" id="up6"><button style="width:25px" id="ch1" class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                        <span class="sort" id="down6" class="updown" hidden><button id="ch2" style="width:25px" class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                        
                                     </th>
                                     <th>
                                         Người hỗ trợ
-                                            <span id="up7"><button class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
-                                            <span id="down7" hidden><button class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
+                                        <span class="sort" id="up7"><button style="width:25px" id="hotro1" class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-up"></span></button></span>
+                                        <span class="sort" id="down7" hidden><button style="width:25px" id="hotro2" class="btn btn-xs btn-default-outline"><span style="margin-left:7px" class="fa fa-angle-down"></span></button></span>
                                     </th>
-                                    <th>
+                                    <th style=" padding-left: 25px; ">
                                         Thao tác
                                     </th>
                                 </tr>
@@ -403,6 +409,51 @@
                     $('#first').attr('disabled', 'disabled');
                     $('#1').attr('disabled', 'disabled');
                 }
+                switch($.session.get("sorttype"))
+                {
+                    case "kh1": document.getElementById("kh1").style.backgroundColor = 'rgb(1, 1, 1)';
+                                document.getElementById("kh2").style.backgroundColor = 'rgb(1, 1, 1)';
+                                break;
+                    case "kh2": document.getElementById("kh1").style.backgroundColor = 'rgb(1, 1, 1)';
+                                document.getElementById("kh2").style.backgroundColor = 'rgb(1, 1, 1)';
+                                break;
+                    case "ch1": document.getElementById("ch1").style.backgroundColor = 'rgb(1, 1, 1)';
+                                document.getElementById("ch2").style.backgroundColor = 'rgb(1, 1, 1)';
+                                break;
+                    case "ch2": document.getElementById("ch1").style.backgroundColor = 'rgb(1, 1, 1)';
+                                document.getElementById("ch2").style.backgroundColor = 'rgb(1, 1, 1)';
+                                break;
+                    case "loai1": document.getElementById("loai1").style.backgroundColor = 'rgb(1, 1, 1)';
+                                  document.getElementById("loai2").style.backgroundColor = 'rgb(1, 1, 1)';
+                                  break;
+                    case "loai2": document.getElementById("loai1").style.backgroundColor = 'rgb(1, 1, 1)';
+                                  document.getElementById("loai2").style.backgroundColor = 'rgb(1, 1, 1)';
+                                  break;
+                    case "goi1": document.getElementById("goi1").style.backgroundColor = 'rgb(1, 1, 1)';
+                                 document.getElementById("goi2").style.backgroundColor = 'rgb(1, 1, 1)';
+                                 break;
+                    case "goi2": document.getElementById("goi1").style.backgroundColor = 'rgb(1, 1, 1)';
+                                 document.getElementById("goi2").style.backgroundColor = 'rgb(1, 1, 1)';
+                                 break;
+                    case "batdau1": document.getElementById("batdau1").style.backgroundColor = 'rgb(1, 1, 1)';
+                                    document.getElementById("batdau2").style.backgroundColor = 'rgb(1, 1, 1)';
+                                    break;
+                    case "batdau2": document.getElementById("batdau1").style.backgroundColor = 'rgb(1, 1, 1)';
+                                    document.getElementById("batdau2").style.backgroundColor = 'rgb(1, 1, 1)';
+                                    break;
+                    case "ketthuc1": document.getElementById("ketthuc1").style.backgroundColor = 'rgb(1, 1, 1)';
+                                     document.getElementById("ketthuc2").style.backgroundColor = 'rgb(1, 1, 1)';
+                                     break;
+                    case "ketthuc2": document.getElementById("ketthuc1").style.backgroundColor = 'rgb(1, 1, 1)';
+                                     document.getElementById("ketthuc2").style.backgroundColor = 'rgb(1, 1, 1)';
+                                     break;
+                    case "hotro1": document.getElementById("hotro1").style.backgroundColor = 'rgb(1, 1, 1)';
+                                   document.getElementById("hotro2").style.backgroundColor = 'rgb(1, 1, 1)';
+                                   break;
+                    case "hotro2": document.getElementById("hotro1").style.backgroundColor = 'rgb(1, 1, 1)';
+                                   document.getElementById("hotro2").style.backgroundColor = 'rgb(1, 1, 1)';
+                                   break;
+                }
             });
         }
         // number page
@@ -526,18 +577,25 @@
         $('#up1').click(function () {
             $('#up1').hide();
             $('#down1').removeAttr('hidden');
-            $('#down1').show();
+            $('#down1').show()
+            $('.btn-default-outline').css('backgroundColor', '');
             $.session.set("sorttype", "kh1", 0);
+            if ($.session.get("sorttype") == "kh1") {
+                document.getElementById("kh2").style.backgroundColor = 'rgb(1, 1, 1)';
+            }           
             $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "kh1", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
-
         })
         //sort by name
         $('#down1').click(function () {
             $('#down1').hide();
             $('#up1').show();
+            $('.btn-default-outline').css('backgroundColor', '');
             $.session.set("sorttype", "kh2", 0);
+            if ($.session.get("sorttype") == "kh2") {
+                document.getElementById("kh1").style.backgroundColor = 'rgb(1, 1, 1)';
+            }
             $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "kh2", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
@@ -547,7 +605,11 @@
             $('#up2').hide();
             $('#down2').removeAttr('hidden');
             $('#down2').show();
+            $('.btn-default-outline').css('backgroundColor', '');
             $.session.set("sorttype", "loai1", 0);
+            if ($.session.get("sorttype") == "loai1") {
+                document.getElementById("loai2").style.backgroundColor = 'rgb(1, 1, 1)';
+            }
             $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "loai1", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
@@ -556,7 +618,11 @@
         $('#down2').click(function () {
             $('#down2').hide();
             $('#up2').show();
+            $('.btn-default-outline').css('backgroundColor', '');
             $.session.set("sorttype", "loai2", 0);
+            if ($.session.get("sorttype") == "loai2") {
+                document.getElementById("loai1").style.backgroundColor = 'rgb(1, 1, 1)';
+            }
             $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "loai2", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
@@ -566,7 +632,11 @@
             $('#up3').hide();
             $('#down3').removeAttr('hidden');
             $('#down3').show();
+            $('.btn-default-outline').css('backgroundColor', '');
             $.session.set("sorttype", "goi1", 0);
+            if ($.session.get("sorttype") == "goi1") {
+                document.getElementById("goi2").style.backgroundColor = 'rgb(1, 1, 1)';
+            }
             $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "goi1", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
@@ -575,7 +645,11 @@
         $('#down3').click(function () {
             $('#down3').hide();
             $('#up3').show();
+            $('.btn-default-outline').css('backgroundColor', '');
             $.session.set("sorttype", "goi2", 0);
+            if ($.session.get("sorttype") == "goi2") {
+                document.getElementById("goi1").style.backgroundColor = 'rgb(1, 1, 1)';
+            }
             $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "goi2", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
@@ -585,7 +659,11 @@
             $('#up4').hide();
             $('#down4').removeAttr('hidden');
             $('#down4').show();
+            $('.btn-default-outline').css('backgroundColor', '');
             $.session.set("sorttype", "batdau1", 0);
+            if ($.session.get("sorttype") == "batdau1") {
+                document.getElementById("batdau2").style.backgroundColor = 'rgb(1, 1, 1)';
+            }
             $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "batdau1", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
@@ -594,7 +672,11 @@
         $('#down4').click(function () {
             $('#down4').hide();
             $('#up4').show();
+            $('.btn-default-outline').css('backgroundColor', '');
             $.session.set("sorttype", "batdau2", 0);
+            if ($.session.get("sorttype") == "batdau2") {
+                document.getElementById("batdau1").style.backgroundColor = 'rgb(1, 1, 1)';
+            }
             $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "batdau2", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
@@ -604,7 +686,11 @@
             $('#up5').hide();
             $('#down5').removeAttr('hidden');
             $('#down5').show();
+            $('.btn-default-outline').css('backgroundColor', '');
             $.session.set("sorttype", "ketthuc1", 0);
+            if ($.session.get("sorttype") == "ketthuc1") {
+                document.getElementById("ketthuc2").style.backgroundColor = 'rgb(1, 1, 1)';
+            }
             $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ketthuc1", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
@@ -613,7 +699,11 @@
         $('#down5').click(function () {
             $('#down5').hide();
             $('#up5').show();
+            $('.btn-default-outline').css('backgroundColor', '');
             $.session.set("sorttype", "ketthuc2", 0);
+            if ($.session.get("sorttype") == "ketthuc2") {
+                document.getElementById("ketthuc1").style.backgroundColor = 'rgb(1, 1, 1)';
+            }
             $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ketthuc2", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
@@ -623,7 +713,11 @@
             $('#up6').hide();
             $('#down6').removeAttr('hidden');
             $('#down6').show();
+            $('.btn-default-outline').css('backgroundColor', '');
             $.session.set("sorttype", "ch1", 0);
+            if ($.session.get("sorttype") == "ch1") {
+                document.getElementById("ch2").style.backgroundColor = 'rgb(1, 1, 1)';
+            }
             $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ch1", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
@@ -632,7 +726,11 @@
         $('#down6').click(function () {
             $('#down6').hide();
             $('#up6').show();
+            $('.btn-default-outline').css('backgroundColor', '');
             $.session.set("sorttype", "ch2", 0);
+            if ($.session.get("sorttype") == "ch2") {
+                document.getElementById("ch1").style.backgroundColor = 'rgb(1, 1, 1)';
+            }
             $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "ch2", search:$.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
@@ -642,7 +740,11 @@
             $('#up7').hide();
             //$('#down7').removeAttr('hidden');
             $('#down7').show();
+            $('.btn-default-outline').css('backgroundColor', '');
             $.session.set("sorttype", "hotro1", 0);
+            if ($.session.get("sorttype") == "hotro1") {
+                document.getElementById("hotro2").style.backgroundColor = 'rgb(1, 1, 1)';
+            }
             $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "hotro1", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
@@ -651,7 +753,11 @@
         $('#down7').click(function () {
             $('#down7').hide();
             $('#up7').show();
+            $('.btn-default-outline').css('backgroundColor', '');
             $.session.set("sorttype", "hotro2", 0);
+            if ($.session.get("sorttype") == "hotro2") {
+                document.getElementById("hotro1").style.backgroundColor = 'rgb(1, 1, 1)';
+            }
             $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: "hotro2", search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
             });
