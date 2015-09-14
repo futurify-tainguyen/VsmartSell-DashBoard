@@ -103,6 +103,49 @@ namespace vsmartsell_test1.Controllers
             return Json(new { ListGiaTien = ListGiaTien }, JsonRequestBehavior.AllowGet);
         }
 
+        // them 1 loai goi
+        public ActionResult AddLoaiGoi(string loaigoi, decimal giatien)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach(var goi in db.DSGia)
+                {
+                    if (goi.LoaiGoi == loaigoi)
+                    {
+                        return Json(new {error = "Đã có tên loại gói này."}, JsonRequestBehavior.AllowGet );
+                    }
+                }
+                BangGia newgoi = new BangGia();
+                newgoi.LoaiGoi = loaigoi;
+                newgoi.GiaTien = giatien;
+                db.DSGia.Add(newgoi);
+                db.SaveChanges();
+                return Json(true);
+            }
+            return Json(false);
+        }
+
+        public ActionResult EditLoaiGoi(string oldloaigoi, string newloaigoi, decimal newgiatien)
+        {
+            var newgoi = db.DSGia.Find(oldloaigoi);
+            if (ModelState.IsValid)
+            {
+                foreach (var goi in db.DSGia.Except(new List<BangGia> {newgoi} ))
+                {
+                    if (goi.LoaiGoi == newloaigoi)
+                    {
+                        return Json(new { error = "Đã có tên loại gói này." }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                newgoi.LoaiGoi = newloaigoi;
+                newgoi.GiaTien = newgiatien;
+                db.Entry(newgoi).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(true);
+            }
+            return Json(false);
+        }
+
         // lay danh sach tat ca khach hang
         public ActionResult GetListKH()
         {
@@ -169,6 +212,11 @@ namespace vsmartsell_test1.Controllers
             return View();
         }
 
+        public ActionResult controlpanel()
+        {
+            return View();
+        }
+
         // thay doi trang thai archive cua 1 khach hang
         [HttpPost]
         public ActionResult EditArchive(int? id)
@@ -214,7 +262,7 @@ namespace vsmartsell_test1.Controllers
         // POST: /Vsmartsell/Details/5 , edit in details
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult details([Bind(Include = "MaKH,TenKH,Phone,Email,LoaiKH,LoaiGoi,NgayDangKy,NgayHetHan,TenCH,DiaChi,HoTro,Archive,Note,Viewid")] KhachHang khachhang)
+        public ActionResult details([Bind(Include = "MaKH,TenKH,Phone,Email,LoaiKH,LoaiGoi,GiaGoi,NgayDangKy,NgayHetHan,TenCH,DiaChi,HoTro,Archive,Note,Viewid")] KhachHang khachhang)
         {
             if (ModelState.IsValid)
             {
