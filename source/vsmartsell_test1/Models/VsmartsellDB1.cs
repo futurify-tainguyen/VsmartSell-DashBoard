@@ -99,6 +99,22 @@ namespace vsmartsell_test1.Models
         public string email { get; set; }
     }
 
+    public class NoticeMail
+    {
+        public int ID { get; set; }
+
+        [Required]
+        public string MailType { get; set; }
+
+        [Required(ErrorMessage = "Hãy ghi tên người nhận mail vào.")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = " Email không được để trống.")]
+        [RegularExpression(@"[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?",
+            ErrorMessage = " Email không hợp lệ (vd: abc@email.com).")]
+        public string Email { get; set; }
+    }
+
     public class MailInvoice
     {
         public int ID { get; set; }
@@ -144,6 +160,7 @@ namespace vsmartsell_test1.Models
         public DbSet<LichSuGD> DSLichSuGD { get; set; }
         public DbSet<BangGia> DSGia { get; set; }
         public DbSet<NguoiDung> DSNguoiDung { get; set; }
+        public DbSet<NoticeMail> DSNoticeMail { get; set; }
         public DbSet<MailInvoice> DSMailInvoice { get; set; }
         public DbSet<MailNearEnd> DSMailNearEnd { get; set; }
         public DbSet<MailAfterEnd> DSMailAfterEnd { get; set; }

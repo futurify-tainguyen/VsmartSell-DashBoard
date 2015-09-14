@@ -1,4 +1,5 @@
-﻿@model vsmartsell_test1.Models.KhachHang
+﻿@using Microsoft.AspNet.Identity;
+@model vsmartsell_test1.Models.KhachHang
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
         if (ViewBag.makh > 0) { 
@@ -51,7 +52,7 @@
 </head>
 
 <div id="message" hidden class="alert alert-success col-md-4 col-md-offset-4" style="position:fixed;text-align:center"><strong>@TempData["userMsg"]</strong></div>
-    
+<div id="stringuserid" hidden>@User.Identity.GetUserId()</div>
 
 <body class="page-header-fixed bg-1" ng-app="IndexApp" ng-controller="indexcontrol">
     <div class="row">
@@ -174,7 +175,7 @@
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Nhân viên thu tiền</strong></label>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="nhanvienthutien" placeholder="" type="text">
+                                    <input class="form-control" id="nhanvienthutien" placeholder="" type="text" value="{{fullname}}">
                                 </div>
                             </div>
                             <div class="form-group col-md-12" hidden>
@@ -623,6 +624,24 @@
             });
             $('#huythanhtoan').trigger('click');
         });
+        $('#resethoadon').click(function () {
+            $http.get("/Vsmartsell/GetListUser").success(function (response) {
+                var ListUser = response.ListUser;
+                for (i in ListUser) {
+                    if (ListUser[i].userid == $("#stringuserid").text()) {
+                        $scope.fullname = ListUser[i].firstname + " " + ListUser[i].lastname;
+                    }
+                }
+            });
+            $('#ngaythanhtoan').val('')
+            //$('#nhanvienthutien').val('')
+            $('#thoihan').val('')
+            $('#tiengiam').val('')
+            $('#thanhtien').val('')
+            $('#tongtien').val('')
+            $('#ghichu').val('')
+            $("#tiengiam").val(0);
+        })
 
     });
     //thiết lập lại
@@ -657,16 +676,24 @@
         $('#tongtien').val(tongtien);
     })
     //reset hoa don
-    $('#resethoadon').click(function () {
-        $('#ngaythanhtoan').val('')
-        $('#nhanvienthutien').val('')
-        $('#thoihan').val('')
-        $('#tiengiam').val('')
-        $('#thanhtien').val('')
-        $('#tongtien').val('')
-        $('#ghichu').val('')
-        $("#tiengiam").val(0);
-    })
+    //$('#resethoadon').click(function () {
+    //    $http.get("/Vsmartsell/GetListUser").success(function (response) {
+    //        var ListUser = response.ListUser;
+    //        for (i in ListUser) {
+    //            if (ListUser[i].userid == $("#stringuserid").text()) {
+    //                $scope.fullname = ListUser[i].firstname + " " + ListUser[i].lastname;
+    //            }
+    //        }
+    //    });
+    //    $('#ngaythanhtoan').val('')
+    //    //$('#nhanvienthutien').val('')
+    //    $('#thoihan').val('')
+    //    $('#tiengiam').val('')
+    //    $('#thanhtien').val('')
+    //    $('#tongtien').val('')
+    //    $('#ghichu').val('')
+    //    $("#tiengiam").val(0);
+    //})
    
 </script>
 }

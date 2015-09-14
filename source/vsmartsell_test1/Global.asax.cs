@@ -78,26 +78,49 @@ namespace vsmartsell_test1
                           where p.Paid == false && (DbFunctions.TruncateTime(p.NgayGD) < DbFunctions.TruncateTime(today))
                           select new { dsgd = p, tenkh = m.TenKH};
                 gds = gds.Where(a => (DbFunctions.DiffDays(a.dsgd.NgayGD, today) % 7) == 0);
+                var nguoithus = from p in db.DSNguoiDung
+                        join m in gds on p.userid equals m.dsgd.NguoiThu
+                        orderby p.userid
+                        select new { info = p};
+                nguoithus = nguoithus.Distinct();
                 var size = gds.Count();
-                string msg = "";
+                //string msg = "";
+                string Mail_from = "vsmartselldashboard@gmail.com";
+                string password = "futurify0404";
+                string Mail_subject = "Nhắc nhở về hóa đơn chưa thanh toán (" + today.ToLongDateString() + ")";
                 if (size != 0)
                 {
-                    foreach (var gd in gds)
+                    foreach (var nguoithu in nguoithus)
                     {
-                        msg += "Mã hóa đơn: " + gd.dsgd.MaGD + "  ---  Khách hàng: " + gd.tenkh.ToUpper() + "  ---  Ngày tạo hóa đơn: " + gd.dsgd.NgayGD.ToString("dd/MM/yyyy") + ".\n";
+                        string msg = "";
+                        foreach (var gd in gds)
+                        {
+                            if (nguoithu.info.userid == gd.dsgd.NguoiThu)
+                            {
+                                msg += "Mã hóa đơn: " + gd.dsgd.MaGD + "  ---  Khách hàng: " + gd.tenkh.ToUpper() + "  ---  Ngày tạo hóa đơn: " + gd.dsgd.NgayGD.ToString("dd/MM/yyyy") +
+                                    "  ---  http://localhost:3469/vsmartsell/details/" + gd.dsgd.MaKH + " \n";
+                            }
+                        }
+                        //string Mail_from = "vsmartselldashboard@gmail.com";
+                        //string password = "futurify0404";
+                        string Mail_to = nguoithu.info.email;
+                        //string Mail_subject = "Nhắc nhở về hóa đơn chưa thanh toán (" + today.ToLongDateString() + ")";
+                        string Mail_body = msg + "\nDanh sách trên là các hóa đơn đã được tạo nhưng chưa được thanh toán.\nThư này để nhắc nhở việc thu tiền các khách hàng có tên trong danh sách trên.\nThân.";
+                        MailMessage MM = new MailMessage(Mail_from, Mail_to, Mail_subject, Mail_body);
+                        foreach (var mail in db.DSNoticeMail)
+                        {
+                            if (mail.MailType == "invoice")
+                            {
+                                MM.To.Add(mail.Email);
+                            }
+                        }
+                        SmtpClient SC = new SmtpClient();
+                        SC.Host = "Smtp.gmail.com";
+                        SC.Port = 587;
+                        SC.Credentials = new System.Net.NetworkCredential(Mail_from, password);
+                        SC.EnableSsl = true;
+                        SC.Send(MM);
                     }
-                    string Mail_from = "vsmartselldashboard@gmail.com";
-                    string password = "futurify0404";
-                    string Mail_to = "tainguyenx3@gmail.com";
-                    string Mail_subject = "Nhắc nhở về hóa đơn chưa thanh toán (" + today.ToLongDateString() + ")";
-                    string Mail_body = msg + "\nDanh sách trên là các hóa đơn đã được tạo nhưng chưa được thanh toán.\nThư này để nhắc nhở việc thu tiền các khách hàng có tên trong danh sách trên.\nThân.";
-                    MailMessage MM = new MailMessage(Mail_from, Mail_to, Mail_subject, Mail_body);
-                    SmtpClient SC = new SmtpClient();
-                    SC.Host = "Smtp.gmail.com";
-                    SC.Port = 587;
-                    SC.Credentials = new System.Net.NetworkCredential(Mail_from, password);
-                    SC.EnableSsl = true;
-                    SC.Send(MM);
                 }
                 db.Dispose();
         }
