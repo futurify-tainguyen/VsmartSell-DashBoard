@@ -413,6 +413,7 @@
     <Content Include="Views\Vsmartsell\create.cshtml" />
     <Content Include="Views\Vsmartsell\api.cshtml" />
     <Content Include="Views\Shared\_gapiPartial.cshtml" />
+    <Content Include="Views\Vsmartsell\controlpanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Scripts/font-awesome.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        body a {
+            color: white;
+        }
+
+        a:hover {
+            color: #666666;
+            text-decoration: none;
+        }
+        .nav-tabs > li.active > a,
+        .nav-tabs > li.active > a:hover,
+        .nav-tabs > li.active > a:focus {
+            color: #555 !important;
+            cursor: default;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-bottom-color: transparent;
+        }
+        .col-md-9 {
+            padding-right: 0px;
+        }
+        .col-md-4 {
+            text-align: center;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12" style="padding-bottom:20px">
+                <div class="widget-container fluid-height clearfix">
+                    <div class="heading tabs" style="background: rgb(150, 150, 150); height: 42px; padding: 7px 15px;">
+                        <strong style="color:white;font-size:20px">Bảng điều khiển  </strong><strong style="color:#000000;font-size:20px;text-transform:uppercase"> kh333</strong>
+                        <ul class="nav nav-tabs pull-right col-md-9" data-tabs="tabs" id="tabs">
+                            <li class="active col-md-4" style="text-align:center">
+                                <a data-toggle="tab" href="#tab1"><i class="fa fa-user"></i><span><strong>Danh sách loại gói</strong></span></a>
+                            </li>
+                            <li class="col-md-4" style="text-align:center">
+                                <a data-toggle="tab" href="#tab2"><i class="fa fa-info-circle"></i><span><strong>Bảng 2</strong></span></a>
+                            </li>
+                            <li class="col-md-4" style="text-align:center">
+                                <a data-toggle="tab" href="#tab3"><i class="fa fa-list"></i><span><strong>Bảng 3</strong></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="loadingicon"></div>
+                    <div class="tab-content padded" id="my-tab-content" style="background:rgb(251, 251, 248);">
+
+                        <div class="tab-pane active" id="tab1" style="font-size:20px;line-height: 50px;">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-size: 20px;">
+                                                Loại gói
+                                            </th>
+                                            <th style="font-size: 20px;">
+                                                Giá gói
+                                            </th>   
+                                            <th style="font-size: 20px;">
+                                                Thao tác
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                          </div>
+
+                            <div class="tab-pane" id="tab2" style="font-size: 20px;line-height:50px">
+
+
+                            </div>
+
+                            <div class="tab-pane" id="tab3" style="font-size: 20px;">
+
+
+                            </div>
+
+                        </div>
+                </div>
+            </div>
+            </div>
+    </div>
+</body>
+</html>
