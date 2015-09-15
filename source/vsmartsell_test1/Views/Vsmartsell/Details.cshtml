@@ -375,7 +375,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Giá gói sử dụng :</strong>
-                                        <input disabled id="giatien" type="text" class="form-control" value="{{GiaTien}}">
+                                        @Html.TextBoxFor(model => model.GiaGoi, new { @class = "form-control", @value = "{{GiaTien}}" })
+                                        @*<input id="giatien" type="text" class="form-control" value="{{GiaTien}}">*@
                                     </div>
                                     <div class="col-md-offset-6">
                                         <strong>Ngày hết hạn :</strong>@Html.ValidationMessageFor(model => model.NgayHetHan, String.Empty, new { @style = "color:red;font-size:14px;!important" })
@@ -533,7 +534,7 @@
 
                     if (loaigoi == response.ListGiaTien[m].LoaiGoi) {
                         giagoi = response.ListGiaTien[m].GiaTien;
-                        $("#giatien").val(giagoi);
+                        $("#GiaGoi").val(giagoi);
                         break;
                     }
 
