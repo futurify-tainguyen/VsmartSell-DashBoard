@@ -32,13 +32,51 @@ namespace vsmartsell_test1.Controllers
                          select m;
             return Json(new { ListGD = ListGD }, JsonRequestBehavior.AllowGet);
         }
-        // lay 1 lich su giao dich tham chieu theo MaGD
-        public ActionResult GetGD(int? id)
+        // lay 10 lich su giao dich, id: ma khach hang (0 = all), filter: loc du lieu (-1 = all, 0 = chua thanh toan, 1 = da thanh toan)
+        public ActionResult GetList10GD(int id = 0, int page = 1, string sorttype = "magd2", string search = "", int filter = -1)
         {
-            var lsgd = from m in db.DSLichSuGD
-                       where m.MaGD == id
-                       select m;
-            return Json( lsgd, JsonRequestBehavior.AllowGet);
+            var ListGD = from m in db.DSLichSuGD
+                         join p in db.DSNguoiDung on m.NguoiThu equals p.userid
+                         select new { gds = m, name = p.firstname + " " + p.lastname};
+            if (id > 0)
+            {
+                ListGD = ListGD.Where(m => m.gds.MaKH == id);
+            }
+            switch (filter)
+            {
+                case 0:
+                    ListGD = ListGD.Where(m => m.gds.Paid == false); break;
+                case 1:
+                    ListGD = ListGD.Where(m => m.gds.Paid == true); break;
+            }
+            ListGD = ListGD.Where(m => m.name.Contains(search));
+            switch (sorttype)
+            {
+                case "magd1":
+                    ListGD = ListGD.OrderBy(m => m.gds.MaGD); break;
+                case "magd2":
+                    ListGD = ListGD.OrderByDescending(m => m.gds.MaGD); break;
+                case "tien1":
+                    ListGD = ListGD.OrderBy(m => m.gds.SoTien); break;
+                case "tien2":
+                    ListGD = ListGD.OrderByDescending(m => m.gds.SoTien); break;
+                case "name1":
+                    ListGD = ListGD.OrderBy(m => m.name); break;
+                case "name2":
+                    ListGD = ListGD.OrderByDescending(m => m.name); break;
+                case "tao1":
+                    ListGD = ListGD.OrderBy(m => m.gds.NgayGD); break;
+                case "tao2":
+                    ListGD = ListGD.OrderByDescending(m => m.gds.NgayGD); break;
+                case "het1":
+                    ListGD = ListGD.OrderBy(m => m.gds.NgayHetHan); break;
+                case "het2":
+                    ListGD = ListGD.OrderByDescending(m => m.gds.NgayHetHan); break;
+            }
+            var count = ListGD.Count();
+            var numpage = (count - 1) / 10 + 1;
+            var List10GD = ListGD.Skip((id - 1) * 10).Take(10);
+            return Json(new { List10GD = List10GD, numpage = numpage }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -121,7 +159,7 @@ namespace vsmartsell_test1.Controllers
                 {
                     if (goi.LoaiGoi == loaigoi)
                     {
-                        return Json(new {error = "Đã có tên loại gói này."}, JsonRequestBehavior.AllowGet );
+                        return Json(new {error = "Đã có tên loại gói này, vui lòng dùng tên khác."}, JsonRequestBehavior.AllowGet );
                     }
                 }
                 BangGia newgoi = new BangGia();
@@ -135,9 +173,9 @@ namespace vsmartsell_test1.Controllers
         }
 
         //chinh sua loai goi / gia goi
-        public ActionResult EditLoaiGoi(string newloaigoi, decimal newgiatien)
+        public ActionResult EditGiaGoi(string loaigoi, decimal newgiatien)
         {
-            var newgoi = db.DSGia.Find(newloaigoi);
+            var newgoi = db.DSGia.Find(loaigoi);
             if (ModelState.IsValid)
             {
                 newgoi.GiaTien = newgiatien;
@@ -164,7 +202,7 @@ namespace vsmartsell_test1.Controllers
             }
             if (error != "")
             {
-                error += "\nDanh sách trên là những khách hàng đang sử dụng loại gói này.\nHãy sửa lại info loại gói của họ trước khi xóa.";
+                error += "\nDanh sách trên là những khách hàng đang sử dụng loại gói này.\nHãy chỉnh sửa loại gói của họ sang loại gói khác trước khi xóa.";
                 return Json(new { error }, JsonRequestBehavior.AllowGet);
             }
             var goi = db.DSGia.Find(loaigoi);
@@ -282,7 +320,6 @@ namespace vsmartsell_test1.Controllers
             }
             var count = ListKH.Count();
             var numpage = (count - 1) / 10 + 1;
-            ViewBag.numpage = (count - 1) / 10 + 1;
             var List10KH = ListKH.Skip((id-1)*10).Take(10);
             return Json(new { List10KH = List10KH, numpage = numpage }, JsonRequestBehavior.AllowGet);
         }

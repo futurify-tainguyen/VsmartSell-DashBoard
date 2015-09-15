@@ -106,7 +106,6 @@ namespace vsmartsell_test1.Models
         [Required]
         public string MailType { get; set; }
 
-        [Required(ErrorMessage = "Hãy ghi tên người nhận mail vào.")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = " Email không được để trống.")]
