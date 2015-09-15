@@ -24,28 +24,38 @@
             border-bottom-color: transparent;
         }
         .col-md-9 {
-            padding-right: 0px;
+            padding-right: 0px !important;
         }
         .col-md-4 {
-            text-align: center;
-            padding-left: 0px;
-            padding-right: 0px;
+            text-align: center !important;
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+        .form-control {
+            margin-bottom: 20px;
         }
     </style>
+    <link href="~/Scripts/style.css" rel="stylesheet" />
+    <link href="~/Scripts/summernote.css" rel="stylesheet" />
+    <link href="~/Scripts/font-awesome.css" rel="stylesheet" />
+    <script src="~/Scripts/angular.min.js"></script>
+    <link href="~/Scripts/datepicker3.css" rel="stylesheet" />
+    <link href="~/Script/dao.css" rel="stylesheet" />
+    @*<link href="~/Scripts/font-awesome.min.css" rel="stylesheet" />*@
 </head>
-<body>
+<body ng-app="IndexApp" ng-controller="indexcontrol">
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-12" style="padding-bottom:20px">
                 <div class="widget-container fluid-height clearfix">
                     <div class="heading tabs" style="background: rgb(150, 150, 150); height: 42px; padding: 7px 15px;">
-                        <strong style="color:white;font-size:20px">Bảng điều khiển  </strong><strong style="color:#000000;font-size:20px;text-transform:uppercase"> kh333</strong>
+                        <strong style="color:white;font-size:20px">Bảng điều khiển  </strong>
                         <ul class="nav nav-tabs pull-right col-md-9" data-tabs="tabs" id="tabs">
                             <li class="active col-md-4" style="text-align:center">
                                 <a data-toggle="tab" href="#tab1"><i class="fa fa-user"></i><span><strong>Danh sách loại gói</strong></span></a>
                             </li>
                             <li class="col-md-4" style="text-align:center">
-                                <a data-toggle="tab" href="#tab2"><i class="fa fa-info-circle"></i><span><strong>Bảng 2</strong></span></a>
+                                <a data-toggle="tab" href="#tab2"><i class="fa fa-info-circle"></i><span><strong>Quản lý gửi mail</strong></span></a>
                             </li>
                             <li class="col-md-4" style="text-align:center">
                                 <a data-toggle="tab" href="#tab3"><i class="fa fa-list"></i><span><strong>Bảng 3</strong></span></a>
@@ -53,51 +63,195 @@
                         </ul>
                     </div>
                     <div id="loadingicon"></div>
-                    <div class="tab-content padded" id="my-tab-content" style="background:rgb(251, 251, 248);">
-
+                    <div class="tab-content padded" hidden id="my-tab-content" style="background:rgb(251, 251, 248);">
                         <div class="tab-pane active" id="tab1" style="font-size:20px;line-height: 50px;">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="font-size: 20px;">
-                                                Loại gói
-                                            </th>
-                                            <th style="font-size: 20px;">
-                                                Giá gói
-                                            </th>   
-                                            <th style="font-size: 20px;">
-                                                Thao tác
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="font-size: 20px;">
+                                            Loại gói
+                                        </th>
+                                        <th style="font-size: 20px;">
+                                            Giá gói
+                                        </th>
+                                        <th style="font-size: 20px;">
+                                            Thao tác
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="m in ListGiaTien">
+                                        <td>{{m.LoaiGoi}}</td>
+                                        <td>{{m.GiaTien}}</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane " id="tab2" style="font-size: 20px;line-height:50px">
+                            <div class="container" style="max-width:inherit">
+                                <div class="col-lg-4">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="font-size: 20px; text-align: center;">
+                                                    Email khách hàng sắp hết hạn
+                                                    <button id="saphethan" style="margin-bottom: 0px;" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal1">
+                                                        <i class="glyphicon glyphicon-user"></i> Thêm
+                                                    </button>
+                                                    <!-- Modal -->
+                                                    <div id="myModal1" class="modal fade" role="dialog">
+                                                        <div class="modal-dialog">
 
-                                            </td>
-                                            <td>
+                                                            <!-- Modal content-->
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                    <h4 class="modal-title">Thêm email khách hàng sắp hết hạn</h4>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="container" style="max-width:inherit">
+                                                                        @*<div class="col-lg-4">Loại email</div>
+                                                                        <div class="col-lg-8"><input id="loai1" class="form-control" type="text" /></div>
+                                                                        <div class="col-lg-4">Tên email</div>
+                                                                        <div class="col-lg-8"><input id="name1" class="form-control" type="text" /></div>*@
+                                                                        <div class="col-lg-4">Email</div>
+                                                                        <div class="col-lg-8"><input id="email1" class="form-control" type="text" /></div>
+                                                                    </div>
 
-                                            </td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                          </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button id="saphethan1" style="margin-bottom: 0px;" class="btn btn-primary">
+                                                                        <i class="glyphicon glyphicon-user"></i> Thêm
+                                                                    </button>
+                                                                    <button id="huy1" type="button" class="btn btn-danger" data-dismiss="modal">
+                                                                        <i class="glyphicon glyphicon-trash"></i>Close
+                                                                    </button>
+                                                                </div>
+                                                            </div>
 
-                            <div class="tab-pane" id="tab2" style="font-size: 20px;line-height:50px">
-
-
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="n in ListMail |filter:'nearend'">
+                                                <td>{{n.Email}} </td>
+                                                <td>
+                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-primary">
+                                                        <i class="glyphicon glyphicon-pencil"></i> sửa
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-danger">
+                                                        <i class="glyphicon glyphicon-trash"></i> xóa
+                                                    </button>
+                                                </td>
+                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-lg-4">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="font-size: 20px; text-align: center;">
+                                                    Email khách hàng đã hêt hạn
+                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-primary">
+                                                        <i class="glyphicon glyphicon-user"></i> Thêm
+                                                    </button>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="n in ListMail |filter:'afterend'">
+                                                <td>{{n.Email}} </td>
+                                                <td>
+                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-primary">
+                                                        <i class="glyphicon glyphicon-pencil"></i> sửa
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-danger">
+                                                        <i class="glyphicon glyphicon-trash"></i> xóa
+                                                    </button>
+                                                </td>
+                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-lg-4">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="font-size: 20px;text-align:center;">
+                                                    Email hóa đơn chưa thanh toán
+                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-primary">
+                                                        <i class="glyphicon glyphicon-user"></i> Thêm
+                                                    </button>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="n in ListMail |filter:'invoice'">
+                                                <td>{{n.Email}} </td>
+                                                <td>
+                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-primary">
+                                                        <i class="glyphicon glyphicon-pencil"></i> sửa
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-danger">
+                                                        <i class="glyphicon glyphicon-trash"></i> xóa
+                                                    </button>
+                                                </td>
+                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-
-                            <div class="tab-pane" id="tab3" style="font-size: 20px;">
-
-
-                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab3" style="font-size: 20px;">
 
                         </div>
+                    </div>
                 </div>
             </div>
-            </div>
+        </div>
     </div>
 </body>
 </html>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    
+    <script src="~/Scripts/jquery.session.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+
+        var loadingIcon = '<div class="sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div>'
+        $('#loadingicon').append(loadingIcon);
+        var app = angular.module("IndexApp", [])
+        app.controller('indexcontrol', function ($scope, $http) {
+            //get list hoa don
+            $http.get("/Vsmartsell/GetListGiaTien").success(function (response) {
+                $scope.ListGiaTien = response.ListGiaTien;
+                $('#my-tab-content').removeAttr('hidden');
+                $('.sk-circle').remove();
+            });
+            //get email ListNoticeMail
+            $http.get("/Vsmartsell/ListNoticeMail").success(function (response) {
+                $scope.ListMail = response.ListMail;
+            });
+            //them email sap het han (string mailtype, string name, string email)
+            $("#saphethan1").click(function () {
+                $.post("/vsmartsell/AddNoticeMail", { mailtype:"nearend",name:"test" ,email: $("#email1").val() }, function (data) {
+                    debugger
+                });
+            });
+        });
+    </script>
+}
