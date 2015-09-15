@@ -81,7 +81,7 @@
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Nhân viên thu tiền</strong></label>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="" placeholder="" type="text" value="{{infogd.NguoiThu}}">
+                                    <input disabled class="form-control" id="" placeholder="" type="text" value="{{idtoname(infogd.NguoiThu)}}">
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
@@ -175,7 +175,7 @@
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Nhân viên thu tiền</strong></label>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="nhanvienthutien" placeholder="" type="text" value="{{fullname}}">
+                                    <input disabled class="form-control" id="nhanvienthutien" placeholder="" type="text" value="{{fullname}}">
                                 </div>
                             </div>
                             <div class="form-group col-md-12" hidden>
@@ -440,7 +440,7 @@
                                                         {{m.SoTien}}
                                                     </td>
                                                     <td>
-                                                        {{m.NguoiThu}}
+                                                        {{idtoname(m.NguoiThu)}}
                                                     </td>
                                                     <td class="hidden-xs">
                                                         {{todate(m.NgayHetHan)  }}
@@ -506,6 +506,14 @@
             for (var i in $scope.ListGD) {
                 if ($scope.ListGD[i].MaGD == obj) {
                     $scope.infogd = $scope.ListGD[i];
+                    $http.get("/Vsmartsell/GetListUser").success(function (response) {
+                        var ListUser = response.ListUser;
+                        for (i in ListUser) {
+                            if (ListUser[i].userid == $scope.infogd.NguoiThu) {
+                                $scope.infogdfullname = ListUser[i].firstname + " " + ListUser[i].lastname;
+                            }
+                        }
+                    });
                     $.session.set('magd', obj, 0);
                     break;
                 }
@@ -525,6 +533,23 @@
             $('.sk-circle').remove();
 
         });
+
+        //get list nguoi dung
+        $http.get("/Vsmartsell/GetListUser").success(function (response) {
+            var ListUser = response.ListUser;
+            $scope.ListUser = ListUser;
+        });
+
+        //convert id nguoi dung => ten nguoi dung
+        $scope.idtoname = function (obj) {
+            for (i in $scope.ListUser) {
+                if ($scope.ListUser[i].userid == obj) {
+                    var a = $scope.ListUser[i].firstname + " " + $scope.ListUser[i].lastname;
+                    return a;
+                }
+            }
+            return "NULL";
+        }
         //get list gia tien
         $http.get("/Vsmartsell/GetListGiaTien").success(function (response) {
             function changegia() {

@@ -177,6 +177,14 @@ namespace vsmartsell_test1.Controllers
             return Json(true);
         }
 
+        //lay danh sach gui mai
+        public ActionResult ListNoticeMail()
+        {
+            var a = from m in db.DSNoticeMail
+                    select m;
+            return Json(new { ListMail = a }, JsonRequestBehavior.AllowGet);
+        }
+
         //them email vao danh sach gui mail invoice
         public ActionResult AddNoticeMail(string mailtype, string name, string email)
         {
