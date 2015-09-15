@@ -135,5 +135,10 @@ C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.notify_day.resources
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.account_clone.resources
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.giagoi_add.resources
+<<<<<<< HEAD
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.giagoi_add.resources
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.SendMail_add.resources
+=======
+C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.SendMail_add.resources
+C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.noticemail_add.resources
+>>>>>>> b8ee0a20c8852aaebe0060f9f5e19aeaedeb8408

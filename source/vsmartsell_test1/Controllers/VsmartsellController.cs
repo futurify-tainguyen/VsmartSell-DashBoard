@@ -7,12 +7,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using vsmartsell_test1.Models;
+using Microsoft.AspNet.Identity;
 
 namespace vsmartsell_test1.Controllers
 {
     public class vsmartsellController : Controller
     {
         private VsmartsellDBContext db = new VsmartsellDBContext();
+
+        //lay danh sach user
+        public ActionResult GetListUser()
+        {
+            var ListUser = from m in db.DSNguoiDung
+                           select m;
+            return Json(new { ListUser = ListUser }, JsonRequestBehavior.AllowGet);
+        }
 
         // lay danh sach lich su giao dich cua 1 khach hang
         public ActionResult GetListGD(int? id)
@@ -43,7 +52,7 @@ namespace vsmartsell_test1.Controllers
                 newls.NgayGD = ngaygd;
                 newls.NgayHetHan = ngayhethan;
                 newls.SoTien = sotien;
-                newls.NguoiThu = nguoithu;
+                newls.NguoiThu = User.Identity.GetUserId();
                 newls.CuocPhi = cuocphi;
                 newls.ThoiHan = thoihan;
                 newls.TienGiam = tiengiam;
@@ -125,25 +134,93 @@ namespace vsmartsell_test1.Controllers
             return Json(false);
         }
 
-        public ActionResult EditLoaiGoi(string oldloaigoi, string newloaigoi, decimal newgiatien)
+        //chinh sua loai goi / gia goi
+        public ActionResult EditLoaiGoi(string newloaigoi, decimal newgiatien)
         {
-            var newgoi = db.DSGia.Find(oldloaigoi);
+            var newgoi = db.DSGia.Find(newloaigoi);
             if (ModelState.IsValid)
             {
-                foreach (var goi in db.DSGia.Except(new List<BangGia> {newgoi} ))
-                {
-                    if (goi.LoaiGoi == newloaigoi)
-                    {
-                        return Json(new { error = "Đã có tên loại gói này." }, JsonRequestBehavior.AllowGet);
-                    }
-                }
-                newgoi.LoaiGoi = newloaigoi;
                 newgoi.GiaTien = newgiatien;
                 db.Entry(newgoi).State = EntityState.Modified;
                 db.SaveChanges();
                 return Json(true);
             }
             return Json(false);
+        }
+
+        //xoa 1 loai goi
+        public ActionResult DelLoaiGoi(string loaigoi)
+        {
+            var error = "";
+            var khs = from m in db.DSKhachHang
+                      where m.Archive == false
+                      select m;
+            foreach (var kh in khs)
+            {
+                if (kh.LoaiGoi == loaigoi)
+                {
+                    error += "MaKH: " + kh.MaKH + ", TenKH: " + kh.TenKH + ".\n";
+                }
+            }
+            if (error != "")
+            {
+                error += "\nDanh sách trên là những khách hàng đang sử dụng loại gói này.\nHãy sửa lại info loại gói của họ trước khi xóa.";
+                return Json(new { error }, JsonRequestBehavior.AllowGet);
+            }
+            var goi = db.DSGia.Find(loaigoi);
+            if (goi == null)
+            {
+                return HttpNotFound();
+            }
+            db.DSGia.Remove(goi);
+            db.SaveChanges();
+            return Json(true);
+        }
+
+        //them email vao danh sach gui mail invoice
+        public ActionResult AddNoticeMail(string mailtype, string name, string email)
+        {
+            if (ModelState.IsValid)
+            {
+                NoticeMail newmail = new NoticeMail();
+                newmail.MailType = mailtype;
+                newmail.Name = name;
+                newmail.Email = email;
+                db.DSNoticeMail.Add(newmail);
+                db.SaveChanges();
+                return Json(true);
+            }
+            return Json(false);
+        }
+        //sua email trong danh sach gui mail invoice
+        public ActionResult EditNoticeMail(int? id, string name, string email)
+        {
+            var newmail = db.DSNoticeMail.Find(id);
+            if (newmail == null)
+            {
+                return HttpNotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                newmail.Name = name;
+                newmail.Email = email;
+                db.Entry(newmail).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(true);
+            }
+            return Json(false);
+        }
+        //xoa email khoi danh sach gui mail invoice
+        public ActionResult DelNoticeMail(int? id)
+        {
+            var mail = db.DSNoticeMail.Find(id);
+            if (mail == null)
+            {
+                return HttpNotFound();
+            }
+            db.DSNoticeMail.Remove(mail);
+            db.SaveChanges();
+            return Json(true);
         }
 
         // lay danh sach tat ca khach hang
