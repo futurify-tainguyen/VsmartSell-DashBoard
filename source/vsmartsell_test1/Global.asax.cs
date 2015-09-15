@@ -17,7 +17,7 @@ namespace vsmartsell_test1
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        private const string DummyPageUrl = "http://localhost:3469/home/about";
+        private const string DummyPageUrl = "http://localhost:3469/home/index";
         private const string DummyCacheItemKey = "dummy";
         protected void Application_Start()
         {
@@ -35,7 +35,9 @@ namespace vsmartsell_test1
             if (null != HttpContext.Current.Cache[DummyCacheItemKey]) return;
 
             HttpContext.Current.Cache.Add(DummyCacheItemKey, "Test", null, DateTime.MaxValue,
-                TimeSpan.FromMinutes(1), CacheItemPriority.NotRemovable,
+                //TimeSpan.FromMinutes(1),
+                TimeSpan.FromDays(1),
+                CacheItemPriority.NotRemovable,
                 new CacheItemRemovedCallback(CacheItemRemovedCallback));
         }
 
@@ -64,15 +66,16 @@ namespace vsmartsell_test1
         // Asynchronously do the 'service' works
         private void DoWork()
         {
-            //SendMailForInvoice();
-            //SendMailForNearEnd();
-            //SendMailAfterEnd();
+            DateTime today = DateTime.Now;
+            VsmartsellDBContext db = new VsmartsellDBContext();
+            SendMailForInvoice(today,db);
+            SendMailForNearEnd(today, db);
+            SendMailAfterEnd(today, db);
+            db.Dispose();
         }
 
-        private void SendMailForInvoice()
+        private void SendMailForInvoice(DateTime today, VsmartsellDBContext db)
         {
-                DateTime today = DateTime.Now;
-                VsmartsellDBContext db = new VsmartsellDBContext();
                 var gds = from p in db.DSLichSuGD
                           join m in db.DSKhachHang on p.MaKH equals m.MaKH
                           where p.Paid == false && (DbFunctions.TruncateTime(p.NgayGD) < DbFunctions.TruncateTime(today))
@@ -101,10 +104,7 @@ namespace vsmartsell_test1
                                     "  ---  http://localhost:3469/vsmartsell/details/" + gd.dsgd.MaKH + " \n";
                             }
                         }
-                        //string Mail_from = "vsmartselldashboard@gmail.com";
-                        //string password = "futurify0404";
                         string Mail_to = nguoithu.info.email;
-                        //string Mail_subject = "Nhắc nhở về hóa đơn chưa thanh toán (" + today.ToLongDateString() + ")";
                         string Mail_body = msg + "\nDanh sách trên là các hóa đơn đã được " + nguoithu.info.firstname.ToUpper() + " " + nguoithu.info.lastname.ToUpper() +
                             " tạo nhưng chưa được thanh toán.\nThư này để nhắc nhở việc thu tiền các khách hàng có tên trong danh sách trên.\nThân.";
                         MailMessage MM = new MailMessage(Mail_from, Mail_to, Mail_subject, Mail_body);
@@ -123,13 +123,10 @@ namespace vsmartsell_test1
                         SC.Send(MM);
                     }
                 }
-                db.Dispose();
         }
 
-        private void SendMailForNearEnd()
+        private void SendMailForNearEnd(DateTime today, VsmartsellDBContext db)
         {
-            DateTime today = DateTime.Now;
-            VsmartsellDBContext db = new VsmartsellDBContext();
             var khs = from p in db.DSKhachHang
                       where p.Archive == false && (DbFunctions.TruncateTime(p.NgayHetHan) > DbFunctions.TruncateTime(today))
                       select p;
@@ -169,13 +166,10 @@ namespace vsmartsell_test1
                     SC.Send(MM);
                 }
             }
-            db.Dispose();
         }
 
-        private void SendMailAfterEnd()
+        private void SendMailAfterEnd(DateTime today, VsmartsellDBContext db)
         {
-            DateTime today = DateTime.Now;
-            VsmartsellDBContext db = new VsmartsellDBContext();
             var khs = from p in db.DSKhachHang
                       where p.Archive == false && (DbFunctions.TruncateTime(p.NgayHetHan) < DbFunctions.TruncateTime(today))
                       select p;
@@ -215,7 +209,6 @@ namespace vsmartsell_test1
                     SC.Send(MM);
                 }
             }
-            db.Dispose();
         }
 
         protected void Application_BeginRequest(Object sender, EventArgs e)
