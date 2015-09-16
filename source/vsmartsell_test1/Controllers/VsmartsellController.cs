@@ -44,7 +44,11 @@ namespace vsmartsell_test1.Controllers
                 ListGD = ListGD.Where(m => m.gds.MaKH == id);
             }
             var ListGDPaid = ListGD.Where(m => m.gds.Paid == true);
-            var tongtien = ListGDPaid.Sum(m => m.gds.SoTien);
+            decimal tongtien = 0;
+            if (ListGDPaid.Count() > 0)
+            {
+                tongtien = ListGDPaid.Sum(m => m.gds.SoTien);
+            }
             switch (filter)
             {
                 case 0:
