@@ -31,10 +31,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-1 col-md-10">
+                    <div class="col-md-offset-5 col-md-7">
                         <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+                            @Html.CheckBoxFor(m => m.RememberMe, new { style = "display:block; margin-left:16px; margin-right:8px;" })
+                            @Html.LabelFor(m => m.RememberMe, new { style = "float:left;" })
                         </div>
                     </div>
                 </div>

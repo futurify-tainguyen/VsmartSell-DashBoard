@@ -190,6 +190,8 @@ namespace vsmartsell_test1.Models
                 //var user = new ApplicationUser() { UserName = model.UserName };
                 var user = model.GetUser();
                 var result = await UserManager.CreateAsync(user, model.Password);
+                var idManager = new IdentityManager();
+                idManager.AddUserToRole(user.Id, "User");
                 if (result.Succeeded)
                 {
                     //await SignInAsync(user, isPersistent: false);
