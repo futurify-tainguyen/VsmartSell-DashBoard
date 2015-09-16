@@ -8,7 +8,7 @@
 }
 <style>
     body a {
-        color: white;
+        color: #2D7AFE;
     }
 
     a:hover {
@@ -286,36 +286,36 @@
 
                 <div class="col-md-12" style="padding-bottom:20px">
                     <div class="widget-container fluid-height clearfix">
-                        <div class="heading tabs" style="background: rgb(150, 150, 150); height: 42px; padding: 7px 15px;">
+                        <div class="heading tabs" style="">
                             @if (ViewBag.makh > 0)
                             {
-                                <strong style="color:white;font-size:20px">Thông tin khách hàng  </strong><strong style="color:#000000;font-size:20px;text-transform:uppercase"> @Html.DisplayTextFor(model => model.TenKH)</strong>
+                                <strong style="font-size:20px">Thông tin khách hàng  </strong><strong style="color:#000000;font-size:20px;text-transform:uppercase"> @Html.DisplayTextFor(model => model.TenKH)</strong>
                             }
                             else
                             {
-                                <strong style="color:white;font-size:20px">Thêm mới khách hàng  </strong>
+                                <strong style="font-size:20px">Thêm mới khách hàng  </strong>
                             }
                             <ul class="nav nav-tabs pull-right" data-tabs="tabs" id="tabs">
                                 <li class="active">
-                                    <a data-toggle="tab" href="#tab1"><i class="fa fa-user"></i><span><strong>Thông tin khách hàng</strong></span></a>
+                                    <a data-toggle="tab" href="#tab1"><i class="fa fa-user"></i><span>Thông tin khách hàng</span></a>
                                 </li>
                                 <li class="">
-                                    <a data-toggle="tab" href="#tab2"><i class="fa fa-info-circle"></i><span><strong>Thông tin gói cước</strong></span></a>
+                                    <a data-toggle="tab" href="#tab2"><i class="fa fa-info-circle"></i><span>Thông tin gói cước</span></a>
                                 </li>
                             @if (ViewBag.makh > 0)
                             {
                                 <li class="">
-                                    <a data-toggle="tab" href="#tab3"><i class="fa fa-list"></i><span><strong>Thông tin giao dịch</strong></span></a>
+                                    <a data-toggle="tab" href="#tab3"><i class="fa fa-list"></i><span>Thông tin giao dịch</span></a>
                                 </li>
                                 <li class="">
-                                    <a data-toggle="tab" href="#tab4"><i class="fa fa-bar-chart-o"></i><span><strong>Thông tin sử dụng</strong></span></a>
+                                    <a data-toggle="tab" href="#tab4"><i class="fa fa-bar-chart-o"></i><span>Thông tin sử dụng</span></a>
                                 </li>
                             }
                             </ul>
                         </div>
                         <div id="loadingicon"></div>
-                        <div class="tab-content padded" hidden id="my-tab-content" style="background:rgb(251, 251, 248);">
-                            <div class="tab-pane active" id="tab1" style="font-size:20px;line-height: 50px;">
+                        <div class="tab-content padded" hidden id="my-tab-content" style="">
+                            <div class="tab-pane active" id="tab1" style="font-size:20px;line-height: 50px;">   
                                 <ul> 
 
                                     <div class="col-md-6">

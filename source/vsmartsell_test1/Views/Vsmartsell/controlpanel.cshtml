@@ -7,7 +7,7 @@
     <title>@ViewBag.Title</title>
     <style>
         body a {
-            color: white;
+            color: #2D7AFE;
         }
 
         a:hover {
@@ -48,8 +48,8 @@
         <div class="col-md-12">
             <div class="col-md-12" style="padding-bottom:20px">
                 <div class="widget-container fluid-height clearfix">
-                    <div class="heading tabs" style="background: rgb(150, 150, 150); height: 42px; padding: 7px 15px;">
-                        <strong style="color:white;font-size:20px">Bảng điều khiển  </strong>
+                    <div class="heading tabs" style="">
+                        <strong style="font-size:20px">Bảng điều khiển  </strong>
                         <ul class="nav nav-tabs pull-right col-md-9" data-tabs="tabs" id="tabs">
                             <li class="active col-md-4" style="text-align:center">
                                 <a data-toggle="tab" href="#tab1"><i class="fa fa-user"></i><span><strong>Danh sách loại gói</strong></span></a>
@@ -63,7 +63,7 @@
                         </ul>
                     </div>
                     <div id="loadingicon"></div>
-                    <div class="tab-content padded" hidden id="my-tab-content" style="background:rgb(251, 251, 248);">
+                    <div class="tab-content padded" hidden id="my-tab-content" style="">
                         <div class="tab-pane active" id="tab1" style="font-size:20px;line-height: 50px;">
                             <table class="table table-striped">
                                 <thead>
@@ -94,8 +94,12 @@
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
+                                                <th hidden></th>
                                                 <th style="font-size: 20px; text-align: center;">
                                                     Email khách hàng sắp hết hạn
+                                                    
+                                                </th>
+                                                <th>
                                                     <button id="saphethan" style="margin-bottom: 0px;" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal1">
                                                         <i class="glyphicon glyphicon-user"></i> Thêm
                                                     </button>
@@ -111,18 +115,23 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <div class="container" style="max-width:inherit">
-                                                                        @*<div class="col-lg-4">Loại email</div>
-                                                                        <div class="col-lg-8"><input id="loai1" class="form-control" type="text" /></div>
-                                                                        <div class="col-lg-4">Tên email</div>
-                                                                        <div class="col-lg-8"><input id="name1" class="form-control" type="text" /></div>*@
                                                                         <div class="col-lg-4">Email</div>
                                                                         <div class="col-lg-8"><input id="email1" class="form-control" type="text" /></div>
                                                                     </div>
 
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button id="saphethan1" style="margin-bottom: 0px;" class="btn btn-primary">
+                                                                    <button id="saphethan1" style="margin-bottom: 0px;" class="btn btn-success">
                                                                         <i class="glyphicon glyphicon-user"></i> Thêm
+                                                                    </button>
+                                                                    <button id="dahethan1" style="margin-bottom: 0px;" class="btn btn-success">
+                                                                        <i class="glyphicon glyphicon-user"></i> Thêm
+                                                                    </button>
+                                                                    <button id="chuathanhtoan1" style="margin-bottom: 0px;" class="btn btn-success">
+                                                                        <i class="glyphicon glyphicon-user"></i> Thêm
+                                                                    </button>
+                                                                    <button id="saphethan2" style="margin-bottom: 0px;" class="btn btn-success">
+                                                                        <i class="glyphicon glyphicon-pencil"></i> Sửa
                                                                     </button>
                                                                     <button id="huy1" type="button" class="btn btn-danger" data-dismiss="modal">
                                                                         <i class="glyphicon glyphicon-trash"></i>Close
@@ -137,18 +146,16 @@
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="n in ListMail |filter:'nearend'">
+                                                <td hidden>{{n.ID}}</td>
                                                 <td>{{n.Email}} </td>
                                                 <td>
-                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-primary">
+                                                    <button id="sua1" style="margin-bottom: 0px;" class="btn btn-xs btn-primary" ng-click="suasaphethan(n.ID,n.Email)" data-toggle="modal" data-target="#myModal1">
                                                         <i class="glyphicon glyphicon-pencil"></i> sửa
                                                     </button>
-                                                </td>
-                                                <td>
-                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-danger">
+                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-danger" ng-click="xoasaphethan(n.ID)">
                                                         <i class="glyphicon glyphicon-trash"></i> xóa
                                                     </button>
-                                                </td>
-                                                
+                                                </td>                                               
                                             </tr>
                                         </tbody>
                                     </table>
@@ -158,8 +165,10 @@
                                         <thead>
                                             <tr>
                                                 <th style="font-size: 20px; text-align: center;">
-                                                    Email khách hàng đã hêt hạn
-                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-primary">
+                                                    Email khách hàng đã hêt hạn                                                    
+                                                </th>
+                                                <th>
+                                                    <button id="dahethan" style="margin-bottom: 0px;" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal1">
                                                         <i class="glyphicon glyphicon-user"></i> Thêm
                                                     </button>
                                                 </th>
@@ -167,18 +176,16 @@
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="n in ListMail |filter:'afterend'">
+                                                <td hidden>{{n.ID}}</td>
                                                 <td>{{n.Email}} </td>
                                                 <td>
-                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-primary">
+                                                    <button id="sua2" style="margin-bottom: 0px;" class="btn btn-xs btn-primary" ng-click="suadahethan(n.ID,n.Email)" data-toggle="modal" data-target="#myModal1">
                                                         <i class="glyphicon glyphicon-pencil"></i> sửa
                                                     </button>
-                                                </td>
-                                                <td>
-                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-danger">
+                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-danger" ng-click="xoadahethan(n.ID)">
                                                         <i class="glyphicon glyphicon-trash"></i> xóa
                                                     </button>
                                                 </td>
-                                                
                                             </tr>
                                         </tbody>
                                     </table>
@@ -188,28 +195,28 @@
                                         <thead>
                                             <tr>
                                                 <th style="font-size: 20px;text-align:center;">
-                                                    Email hóa đơn chưa thanh toán
-                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-primary">
+                                                    Email hóa đơn chưa thanh toán                                                    
+                                                </th>
+                                                <th>
+                                                    <button id="chuathanhtoan" style="margin-bottom: 0px;" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal1">
                                                         <i class="glyphicon glyphicon-user"></i> Thêm
                                                     </button>
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr><td>Gửi mặc định: Người tạo hóa đơn.</td></tr>
+                                            <tr><td>Gửi mặc định: Người tạo hóa đơn.</td><td></td></tr>
                                             <tr ng-repeat="n in ListMail |filter:'invoice'">
+                                                <td hidden>{{n.ID}}</td>
                                                 <td>{{n.Email}} </td>
                                                 <td>
-                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-primary">
+                                                    <button id ="sua3" style="margin-bottom: 0px;" class="btn btn-xs btn-primary" ng-click="suachuathanhtoan(n.ID,n.Email)" data-toggle="modal" data-target="#myModal1">
                                                         <i class="glyphicon glyphicon-pencil"></i> sửa
                                                     </button>
-                                                </td>
-                                                <td>
-                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-danger">
+                                                    <button style="margin-bottom: 0px;" class="btn btn-xs btn-danger" ng-click="xoachuathanhtoan(n.ID)">
                                                         <i class="glyphicon glyphicon-trash"></i> xóa
                                                     </button>
-                                                </td>
-                                                
+                                                </td>          
                                             </tr>
                                         </tbody>
                                     </table>
@@ -243,16 +250,144 @@
                 $('#my-tab-content').removeAttr('hidden');
                 $('.sk-circle').remove();
             });
+            //ham load list email lai             
+            reloademail = function()
+            {
+                $http.get("/Vsmartsell/ListNoticeMail").success(function (response) {
+                    $scope.ListMail = response.ListMail;
+                });
+            }
             //get email ListNoticeMail
             $http.get("/Vsmartsell/ListNoticeMail").success(function (response) {
                 $scope.ListMail = response.ListMail;
             });
-            //them email sap het han (string mailtype, string name, string email)
+            //--------sap het han--------
+            //khi them mat button edit
+            $('#saphethan').click(function () {
+                $("#email1").val("");
+                $("#saphethan1").show();
+                $("#saphethan2").hide();
+                $("#dahethan1").hide();
+                $("#chuathanhtoan1").hide();
+            })
+            //them email sap het han (string mailtype, string name, string email)           
             $("#saphethan1").click(function () {
                 $.post("/vsmartsell/AddNoticeMail", { mailtype:"nearend",name:"test" ,email: $("#email1").val() }, function (data) {
-                    debugger
                 });
+                reloademail();
+                $('#huy1').trigger('click');
             });
+            //khi sua mat button them
+            $scope.suasaphethan = function(a,b)
+            {
+                $("#email1").val(b);
+                $("#saphethan2").show();
+                $("#saphethan1").hide();
+                $("#dahethan1").hide();
+                $("#chuathanhtoan1").hide();
+                //sua email sap het han (int? id, string name, string email)
+                $("#saphethan2").click(function () {
+                    $.post("/vsmartsell/EditNoticeMail", { id: a, name: "test", email: $("#email1").val() }, function (data) {
+                    });
+                    reloademail();
+                    $('#huy1').trigger('click');
+                });
+            }
+            //xoa email sap het han (int? id)
+            $scope.xoasaphethan = function (a) {
+                var strconfirm = confirm("Are you sure you want to delete?");
+                if (strconfirm == true) {
+                    $.post("/vsmartsell/DelNoticeMail", { id: a }, function (data) {
+                        reloademail();
+                    });
+                }
+            }
+
+            //--------da het han--------
+            //khi them mat button edit
+            $('#dahethan').click(function () {
+                $("#email1").val("");
+                $("#saphethan1").show();
+                $("#saphethan2").hide();
+                $("#saphethan1").hide();
+                $("#chuathanhtoan1").hide();
+            })
+            //them email da het han (string mailtype, string name, string email)           
+            $("#dahethan1").click(function () {
+                $.post("/vsmartsell/AddNoticeMail", { mailtype: "afterend", name: "test1", email: $("#email1").val() }, function (data) {
+                });
+                reloademail();
+                $('#huy1').trigger('click');
+            });
+            //khi sua mat button them
+            $scope.suadahethan = function (a, b) {
+                $("#email1").val(b);
+                $("#saphethan2").show();
+                $("#dahethan1").hide();
+                $("#saphethan1").hide();
+                $("#chuathanhtoan1").hide();
+                //sua email sap het han (int? id, string name, string email)
+                $("#saphethan2").click(function () {
+                    $.post("/vsmartsell/EditNoticeMail", { id: a, name: "test1", email: $("#email1").val() }, function (data) {
+                    });
+                    reloademail();
+                    $('#huy1').trigger('click');
+                });
+            }
+            //xoa email sap het han (int? id)
+            $scope.xoadahethan = function (a) {
+                var strconfirm = confirm("Are you sure you want to delete?");
+                if (strconfirm == true) {
+                    $.post("/vsmartsell/DelNoticeMail", { id: a }, function (data) {
+                        reloademail();
+                    });
+                }
+            }
+
+            //--------HD chua thanh toan--------
+            //khi them mat button edit
+            $('#chuathanhtoan').click(function () {
+                $("#email1").val("");
+                $("#saphethan1").show();
+                $("#saphethan2").hide();
+                $("#saphethan1").hide();
+                $("#dahethan1").hide();
+            })
+            //them email da het han (string mailtype, string name, string email)           
+            $("#chuathanhtoan1").click(function () {
+                $.post("/vsmartsell/AddNoticeMail", { mailtype: "invoice", name: "test2", email: $("#email1").val() }, function (data) {
+                });
+                reloademail();
+                $('#huy1').trigger('click');
+            });
+            //khi sua mat button them
+            $scope.suachuathanhtoan = function (a, b) {
+                $("#email1").val(b);
+                $("#saphethan2").show();
+                $("#dahethan1").hide();
+                $("#saphethan1").hide();
+                $("#chuathanhtoan1").hide();
+                //sua email sap het han (int? id, string name, string email)
+                $("#saphethan2").click(function () {
+                    $.post("/vsmartsell/EditNoticeMail", { id: a, name: "test2", email: $("#email1").val() }, function (data) {
+                    });
+                    reloademail();
+                    $('#huy1').trigger('click');
+                });
+            }
+            //xoa email sap het han (int? id)
+            $scope.xoachuathanhtoan = function (a) {
+                var strconfirm = confirm("Are you sure you want to delete?");
+                if (strconfirm == true) {
+                    $.post("/vsmartsell/DelNoticeMail", { id: a }, function (data) {
+                        reloademail();
+                    });
+                }
+
+            }
+
+
+
         });
     </script>
 }
