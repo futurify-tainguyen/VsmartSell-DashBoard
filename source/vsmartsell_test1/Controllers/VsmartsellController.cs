@@ -67,9 +67,9 @@ namespace vsmartsell_test1.Controllers
                     ListGD = ListGD.OrderBy(m => m.gds.SoTien); break;
                 case "tien2":
                     ListGD = ListGD.OrderByDescending(m => m.gds.SoTien); break;
-                case "name1":
+                case "ten1":
                     ListGD = ListGD.OrderBy(m => m.name); break;
-                case "name2":
+                case "ten2":
                     ListGD = ListGD.OrderByDescending(m => m.name); break;
                 case "tao1":
                     ListGD = ListGD.OrderBy(m => m.gds.NgayGD); break;
