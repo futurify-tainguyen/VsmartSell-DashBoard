@@ -187,7 +187,7 @@ namespace vsmartsell_test1.Controllers
             {
                 foreach (var oldgoi in db.DSGia)
                 {
-                    if (goi.LoaiGoi == oldgoi.LoaiGoi)
+                    if (goi.LoaiGoi != loaigoi && oldgoi.LoaiGoi == loaigoi)
                     {
                         return Json(new { error = "Đã có tên loại gói này, vui lòng dùng tên khác." }, JsonRequestBehavior.AllowGet);
                     }
