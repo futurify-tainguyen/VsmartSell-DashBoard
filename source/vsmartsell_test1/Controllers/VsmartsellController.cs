@@ -36,11 +36,18 @@ namespace vsmartsell_test1.Controllers
         public ActionResult GetList10GD(int id = 0, int page = 1, string sorttype = "magd2", string search = "", int filter = -1)
         {
             var ListGD = from m in db.DSLichSuGD
-                         join p in db.DSNguoiDung on m.NguoiThu equals p.userid
-                         select new { gds = m, name = p.firstname + " " + p.lastname};
+                         join p in db.DSNguoiDung on m.NguoiThu equals p.userid into t
+                         from p in t.DefaultIfEmpty()
+                         select new { gds = m, name = p == null ? ("NULL") : (p.firstname + " " + p.lastname) };
             if (id > 0)
             {
                 ListGD = ListGD.Where(m => m.gds.MaKH == id);
+            }
+            var ListGDPaid = ListGD.Where(m => m.gds.Paid == true);
+            decimal tongtien = 0;
+            if (ListGDPaid.Count() > 0)
+            {
+                tongtien = ListGDPaid.Sum(m => m.gds.SoTien);
             }
             switch (filter)
             {
@@ -60,9 +67,9 @@ namespace vsmartsell_test1.Controllers
                     ListGD = ListGD.OrderBy(m => m.gds.SoTien); break;
                 case "tien2":
                     ListGD = ListGD.OrderByDescending(m => m.gds.SoTien); break;
-                case "name1":
+                case "ten1":
                     ListGD = ListGD.OrderBy(m => m.name); break;
-                case "name2":
+                case "ten2":
                     ListGD = ListGD.OrderByDescending(m => m.name); break;
                 case "tao1":
                     ListGD = ListGD.OrderBy(m => m.gds.NgayGD); break;
@@ -75,8 +82,8 @@ namespace vsmartsell_test1.Controllers
             }
             var count = ListGD.Count();
             var numpage = (count - 1) / 10 + 1;
-            var List10GD = ListGD.Skip((id - 1) * 10).Take(10);
-            return Json(new { List10GD = List10GD, numpage = numpage }, JsonRequestBehavior.AllowGet);
+            var List10GD = ListGD.Skip((page - 1) * 10).Take(10);
+            return Json(new { List10GD = List10GD, numpage = numpage , tongtien = tongtien}, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -328,12 +335,16 @@ namespace vsmartsell_test1.Controllers
         {
             return View();
         }
+
+        [Authorize(Roles = "Admin,CanEdit,User")]
         public ActionResult index()
         {
             var count = db.DSKhachHang.Count(m => m.Archive == false);
+            ViewBag.ReturnUrl = Url.Action("index");
             return View();
         }
 
+        [Authorize(Roles = "Admin,CanEdit,User")]
         public ActionResult controlpanel()
         {
             return View();
@@ -362,6 +373,7 @@ namespace vsmartsell_test1.Controllers
             return Json(false);
         }
         // GET: /Vsmartsell/Details/5
+        [Authorize(Roles = "Admin,CanEdit,User")]
         public ActionResult details(int? id)
         {
             if (id == null)
@@ -402,7 +414,7 @@ namespace vsmartsell_test1.Controllers
         }
 
         // GET: /Vsmartsell/Create
-  
+        [Authorize(Roles = "Admin,CanEdit,User")]
         public ActionResult create()
         {
             var listgoi = from m in db.DSGia

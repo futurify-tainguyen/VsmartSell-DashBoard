@@ -39,6 +39,10 @@
     #true {
         color: #60c560;
     }
+    #pagebutton[disabled] {
+        color: white;
+        background: #808080;
+    }
 </style>
 <head>
 
@@ -64,7 +68,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
-                        <h3 class="modal-title"><strong>Chi tiết hóa đơn</strong></h3>
+                        <h3 class="modal-title"><strong>Chi tiết hóa đơn</strong> <span style="float:right;">Mã số : {{infogd.gds.MaGD}}</span></h3>
                     </div>
 
                     <div class="modal-footer" style="margin-top:0px">
@@ -74,41 +78,41 @@
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Ngày tạo</strong></label>
                                 <div class="col-md-8">
-                                    <input disabled class="form-control" id="" placeholder="" type="text" value="{{todate(infogd.NgayGD)}}">
+                                    <input disabled class="form-control" id="" placeholder="" type="text" value="{{todate(infogd.gds.NgayGD)}}">
                                 </div>
 
                             </div>
                             <div class="form-group col-md-12">
-                                <label class="control-label col-md-4"><strong>Nhân viên thu tiền</strong></label>
+                                <label class="control-label col-md-4"><strong>Người tạo</strong></label>
                                 <div class="col-md-8">
-                                    <input disabled class="form-control" id="" placeholder="" type="text" value="{{idtoname(infogd.NguoiThu)}}">
+                                    <input disabled class="form-control" id="" placeholder="" type="text" value="{{infogd.name}}">
                                 </div>
                             </div>
-                            <div class="form-group col-md-12">
+                            @*<div class="form-group col-md-12">
                                 <label class="control-label col-md-4" for="disabledInput"><strong>Mã giao dịch</strong></label>
                                 <div class="col-md-8">
                                     <input disabled class="form-control" id="magd{{infogd.MaGD}}" placeholder="" type="text" value="{{infogd.MaGD}}">
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Thời hạn</strong></label>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input disabled id="" type="text" class="form-control" value="{{infogd.ThoiHan}}"><span class="input-group-addon"> tháng</span>
+                                        <input disabled id="" type="text" class="form-control" value="{{infogd.gds.ThoiHan}}"><span class="input-group-addon"> tháng</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Ngày hết hạn</strong></label>
                                 <div class="col-md-8">
-                                    <input disabled id="" type="text" class="form-control" value="{{todate(infogd.NgayHetHan)}}">
+                                    <input disabled id="" type="text" class="form-control" value="{{todate(infogd.gds.NgayHetHan)}}">
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Cước phí</strong></label>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input disabled id="" type="text" class="form-control" value="{{infogd.CuocPhi}}"><span class="input-group-addon">/tháng</span>
+                                        <input disabled id="" type="text" class="form-control" value="{{infogd.gds.CuocPhi}}"><span class="input-group-addon">/tháng</span>
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +120,7 @@
                                 <label class="control-label col-md-4"><strong>Thành tiền</strong></label>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input disabled class="form-control" id="" type="text" value="{{infogd.ThoiHan*infogd.CuocPhi}}"><span id="clickthanhtien" class="input-group-addon">VNĐ</span>
+                                        <input disabled class="form-control" id="" type="text" value="{{infogd.gds.ThoiHan*infogd.gds.CuocPhi}}"><span id="clickthanhtien" class="input-group-addon">VNĐ</span>
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +128,7 @@
                                 <label class="control-label col-md-4"><strong>Tiền giảm</strong></label>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input disabled class="form-control" id="" type="text" value="{{infogd.TienGiam}}"><span class="input-group-addon">VNĐ</span>
+                                        <input disabled class="form-control" id="" type="text" value="{{infogd.gds.TienGiam}}"><span class="input-group-addon">VNĐ</span>
                                     </div>
                                 </div>
                             </div>
@@ -132,14 +136,14 @@
                                 <label class="control-label col-md-4" for="disabledInput"><strong>Tổng tiền</strong></label>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input disabled class="form-control" id="" placeholder="" type="text" value="{{infogd.SoTien}}"><span class="input-group-addon">VNĐ</span>
+                                        <input disabled class="form-control" id="" placeholder="" type="text" value="{{infogd.gds.SoTien}}"><span class="input-group-addon">VNĐ</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label col-md-4"><strong>Ghi chú</strong></label>
                                 <div class="col-md-8">
-                                    <input disabled class="form-control" id="" placeholder="" type="text" value="{{infogd.Note}}">
+                                    <input disabled class="form-control" id="" placeholder="" type="text" value="{{infogd.gds.Note}}">
                                 </div>
                             </div>
                         </div>
@@ -150,7 +154,7 @@
                                 <span class="">Thanh toán</span>
                             </button>
                             <button class="btn btn-danger" id="huythanhtoan" data-dismiss="modal">
-                                <i class="fa fa-trash-o"></i>Hủy
+                                <i class="fa fa-trash-o"></i>Thoát
                             </button>
                         </div>
                     </div>
@@ -172,14 +176,14 @@
 
                         <div class="col-md-10" style="width:490px">
                             <div class="form-group col-md-12">
-                                <label class="control-label col-md-4"><strong>Ngày thanh toán</strong></label>
+                                <label class="control-label col-md-4"><strong>Ngày tạo</strong></label>
                                 <div class="input-group date datepicker col-md-8" data-date-autoclose="true" style="width:292px" data-date-format="dd-mm-yyyy">
                                     <input class="form-control" id="ngaythanhtoan" style="margin-left:5px" placeholder="" type="text"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
 
                             </div>
                             <div class="form-group col-md-12">
-                                <label class="control-label col-md-4"><strong>Nhân viên thu tiền</strong></label>
+                                <label class="control-label col-md-4"><strong>Người tạo</strong></label>
                                 <div class="col-md-8">
                                     <input disabled class="form-control" id="nhanvienthutien" placeholder="" type="text" value="{{fullname}}">
                                 </div>
@@ -313,8 +317,8 @@
                             }
                             </ul>
                         </div>
-                        <div id="loadingicon"></div>
-                        <div class="tab-content padded" hidden id="my-tab-content" style="">
+                        @*<div id="loadingicon"></div>*@
+                        <div class="tab-content padded" id="my-tab-content" style="">
                             <div class="tab-pane active" id="tab1" style="font-size:20px;line-height: 50px;">   
                                 <ul> 
 
@@ -346,7 +350,7 @@
                                         <strong>Người hỗ trợ :</strong>@Html.ValidationMessageFor(model => model.HoTro, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextBoxFor(model => model.HoTro, new { @class = "form-control" })
                                     </div>
-                                    <div hidden="" class="col-md-6">
+                                    <div hidden class="col-md-6">
                                         <strong>Mã khách hàng :</strong>
                                         <input class="form-control" data-val="true" data-val-number="The field MaKH must be a number." data-val-required="The MaKH field is required." id="MaKH" name="MaKH" type="text" value="@(Model != null ? Model.MaKH : 0)">
                                     </div>
@@ -405,28 +409,49 @@
                                 <div class="tab-pane" id="tab3" style="font-size: 20px;">
 
                                 <div class="widget-content padded">
+                                    Tổng số tiền đã thanh toán: {{tongtiengd}}
+                                    <div><br /></div>
+                                    <div class="form-group">
+                                        <div class="input-group col-md-3">
+                                            <input id="stringsearch" type="text" class="form-control" placeholder="Tìm kiếm tên người tạo">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" onclick="searchname()"> <i class="glyphicon glyphicon-search"></i> </button>
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-4" style="font-size:16px; padding-top:6px;" for="sel1">Lọc hóa đơn:</label>
+                                            <select class="form-control" style="width:auto;" id="sel1" onclick="filterpaid()">
+                                                <option value="-1">Tất cả</option>
+                                                <option value="1">Đã thanh toán</option>
+                                                <option value="0">Chưa thanh toán</option>
+                                            </select>
+                                        </div>
+                                        <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="resethoadon">
+                                            <i class="glyphicon glyphicon-plus"></i> Tạo hóa đơn
+                                        </button>
+                                    </div>
                                 
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th style="font-size: 20px;">
+                                                    <th class="sort-table" id="magd" style="font-size: 20px;">
                                                         Mã hóa đơn
                                                     </th>
-                                                    <th style="font-size: 20px;">
+                                                    <th class="sort-table" id="tao" style="font-size: 20px;">
                                                         Ngày tạo
                                                     </th>
-                                                    <th style="font-size: 20px;">
+                                                    <th class="sort-table" id="tien" style="font-size: 20px;">
                                                         Số tiền trả
                                                     </th>
-                                                    <th style="font-size: 20px;">
+                                                    <th class="sort-table" id="ten" style="font-size: 20px;">
                                                         Người tạo
                                                     </th>
-                                                    <th style="font-size: 20px;">
+                                                    <th class="sort-table" id="het" style="font-size: 20px;">
                                                         Ngày hết hạn
                                                     </th>
-                                                    <th hidden style="font-size: 20px;">
+                                                    @*<th hidden style="font-size: 20px;">
                                                         Số ngày sắp hết hạn
-                                                    </th>
+                                                    </th>*@
                                                     <th style="font-size: 20px;">
                                                         Tình trạng
                                                     </th>
@@ -436,45 +461,40 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="m in ListGD">
+                                                <tr ng-repeat="m in List10GD">
                                                     <td>
-                                                        {{m.MaGD}}
+                                                        {{m.gds.MaGD}}
                                                     </td>
                                                     <td>
-                                                        {{todate(m.NgayGD)}}
+                                                        {{todate(m.gds.NgayGD)}}
                                                     </td>
                                                     <td>
-                                                        {{m.SoTien}}
+                                                        {{m.gds.SoTien}}
                                                     </td>
                                                     <td>
-                                                        {{idtoname(m.NguoiThu)}}
+                                                        {{m.name}}
                                                     </td>
                                                     <td class="hidden-xs">
-                                                        {{todate(m.NgayHetHan)  }}
+                                                        {{todate(m.gds.NgayHetHan)  }}
                                                     </td>
-                                                    <td hidden><strong style="color:red">{{songayconlai(todate(m.NgayGD),todate(m.NgayHetHan))}}</strong></td>
-                                                    <td id="{{m.Paid}}">
-                                                        {{message(m.Paid)}}
+                                                    @*<td hidden><strong style="color:red">{{songayconlai(todate(m.NgayGD),todate(m.NgayHetHan))}}</strong></td>*@
+                                                    <td id="{{m.gds.Paid}}">
+                                                        {{message(m.gds.Paid)}}
                                                     </td>
-                                                    <td><button style="margin-bottom: 0px; font-size: 13px; padding-top: 4px; padding-bottom: 4px;" class="btn btn-primary" data-toggle="modal" data-target="#chitietgdModal" ng-click="info(m.MaGD)"><i class="glyphicon glyphicon-pencil"></i> Chi tiết</button></td>
+                                                    <td><button style="margin-bottom: 0px; font-size: 13px; padding-top: 4px; padding-bottom: 4px;" class="btn btn-primary" data-toggle="modal" data-target="#chitietgdModal" ng-click="info(m.gds.MaGD)"><i class="glyphicon glyphicon-pencil"></i> Chi tiết</button></td>
                                                 </tr>
-                                                <span style="float:left">Tổng số tiền đã thanh toán: {{tongtiengd}}</span>
-                                                <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="resethoadon">
-                                                    <i class="glyphicon glyphicon-plus"></i> Tạo hóa đơn
-                                                </button>
                                             </tbody>
                                         </table>
+                                    <div class="pagination" id="page">
+                                    </div>
                                 </div>
                             </div>
-                                
                                 <div class="tab-pane" id="tab4">
                                     @Html.Partial("_gapiPartial")
                                 </div>
                             }
-                            
                         </div>
                     </div>
-
                 </div>
 
 
@@ -485,7 +505,7 @@
 
 </body>
 
-}
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -509,12 +529,13 @@
             //});
             $scope.GiaTien = Number($("#GiaGoi").val());
         });
-        //info lsgd
+        //info cua 1 lich su giao dich
         $scope.info = function (obj) {
-            for (var i in $scope.ListGD) {
-                if ($scope.ListGD[i].MaGD == obj) {
-                    $scope.infogd = $scope.ListGD[i];
-                    if ($scope.infogd.Paid == true) {
+            for (var i in $scope.List10GD) {
+                debugger;
+                if ($scope.List10GD[i].gds.MaGD == obj) {
+                    $scope.infogd = $scope.List10GD[i];
+                    if ($scope.infogd.gds.Paid == true) {
                         $("#thanhtoan").hide();
                     }
                     else { $("#thanhtoan").show(); }
@@ -523,20 +544,6 @@
                 }
             }
         }
-        //get list lsgd
-        $http.get("/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
-            var ListGD = response.ListGD;
-            $scope.ListGD = ListGD;
-            $scope.tongtiengd = 0;
-            for (i in ListGD) {
-                if (ListGD[i].Paid == true) {
-                    $scope.tongtiengd += ListGD[i].SoTien;
-                }
-            }
-            $('#my-tab-content').removeAttr('hidden');
-            $('.sk-circle').remove();
-
-        });
 
         //get list nguoi dung
         $http.get("/Vsmartsell/GetListUser").success(function (response) {
@@ -544,17 +551,6 @@
             $scope.ListUser = ListUser;
         });
 
-        //convert id nguoi dung => ten nguoi dung
-        $scope.idtoname = function (obj) {
-            for (i in $scope.ListUser) {
-                if ($scope.ListUser[i].userid == obj) {
-                    var a = $scope.ListUser[i].firstname + " " + $scope.ListUser[i].lastname;
-                    return a;
-                }
-            }
-            return "NULL";
-        }
-        //get list gia tien
         $http.get("/Vsmartsell/GetListGiaTien").success(function (response) {
             function changegia() {
                 var loaigoi = $("#LoaiGoi").val()
@@ -586,19 +582,19 @@
             return todate;
         };
         //songayconlai
-            var hientai= new Date()
-            var ngay = $("#NgayHetHan").val().substring(8, 10);
-            var thang = $("#NgayHetHan").val().substring(5, 7);
-            var nam = $("#NgayHetHan").val().substring(0, 4);
-            var updatedate = thang + '/' + ngay + '/' + nam;
-            var datehethan = new Date(updatedate);
-            datehethan = datehethan.setDate(datehethan.getDate());
-            var songayconlai = new Date(datehethan - hientai);
-            songayconlai = songayconlai.getTime(songayconlai);
-            var diff = parseInt(songayconlai / (24 * 60 * 60 * 1000));
-            $scope.kqsongayconlai= (diff<0)?diff:(diff+1);
+        var hientai= new Date()
+        var ngay = $("#NgayHetHan").val().substring(8, 10);
+        var thang = $("#NgayHetHan").val().substring(5, 7);
+        var nam = $("#NgayHetHan").val().substring(0, 4);
+        var updatedate = thang + '/' + ngay + '/' + nam;
+        var datehethan = new Date(updatedate);
+        datehethan = datehethan.setDate(datehethan.getDate());
+        var songayconlai = new Date(datehethan - hientai);
+        songayconlai = songayconlai.getTime(songayconlai);
+        var diff = parseInt(songayconlai / (24 * 60 * 60 * 1000));
+        $scope.kqsongayconlai= (diff<0)?diff:(diff+1);
         //tao hoa don
-        $('#cartnotice').click(function () {            
+        $('#cartnotice').click(function () {
             // int makh, DateTime ngaygd, DateTime ngayhethan, decimal sotien, string nguoithu, int thoihan, decimal cuocphi, decimal tiengiam, string note, bool paid
             var paid = confirm("Có chắc là muốn tạo hóa đơn chứ ?");
             if (paid == true) {
@@ -615,7 +611,7 @@
                 var giahan = parseInt(thoihan);
                 var newngay = ngay;
                 var newthang = thang + giahan;
-                //date thanh toan              
+                //date thanh toan
                 var nam1 = $('#ngaythanhtoan').val().substring(6, 10);
                 var thang1 = $('#ngaythanhtoan').val().substring(3, 5);
                 var ngay1 = $('#ngaythanhtoan').val().substring(0, 2);
@@ -624,14 +620,12 @@
                 old_ngayhethan = old_ngayhethan.setMonth(old_ngayhethan.getMonth() + giahan);
                 var new_ngayhethan = new Date(old_ngayhethan);
                 var ngayhethan = new_ngayhethan.getFullYear() + '/' + ('0' + (new_ngayhethan.getMonth() + 1)).slice(-2) + '/' + ('0' + new_ngayhethan.getDate()).slice(-2);
-                
+
                 var makh = Number($('#MaKH').val())
-                
-                $.post("/vsmartsell/UpdateHistory", { makh: makh, ngaygd: ngaygd, ngayhethan: ngayhethan, sotien: sotien, nguoithu: nguoithu, thoihan: thoihan, cuocphi: cuocphi, tiengiam: tiengiam, note: note, paid: false }, function (data) {                                   
-                    $http.get("/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
-                        var ListGD = response.ListGD;
-                        $scope.ListGD = ListGD;
-                    });
+
+                $.post("/vsmartsell/UpdateHistory", { makh: makh, ngaygd: ngaygd, ngayhethan: ngayhethan, sotien: sotien, nguoithu: nguoithu, thoihan: thoihan, cuocphi: cuocphi, tiengiam: tiengiam, note: note, paid: false }, function (data) {
+                    page = 1; sorttype = "magd2"; search = ""; filter = -1; //reload list10gd sau khi tao hoa don
+                    loadlistgd();
                 });
             }
             $('#huyhoadon').trigger('click');
@@ -639,16 +633,7 @@
         //thanh toán hóa đơn
         $('#thanhtoan').click(function () {
             $.post("/vsmartsell/Paid", {id: $.session.get('magd') }, function (data) {
-                $http.get("/Vsmartsell/GetListGD/@ViewBag.makh").success(function (response) {
-                    var ListGD = response.ListGD;
-                    $scope.ListGD = ListGD;
-                    $scope.tongtiengd = 0;
-                    for (i in ListGD) {
-                        if (ListGD[i].Paid == true) {
-                            $scope.tongtiengd += ListGD[i].SoTien;
-                        }
-                    }
-                });
+                loadlistgd(); //update lai list10gd sau khi thanh toan hoa don
             });
             $('#huythanhtoan').trigger('click');
         });
@@ -669,8 +654,70 @@
             $('#tongtien').val('')
             $('#ghichu').val('')
             $("#tiengiam").val(0);
-        })
+        });
 
+        //hien danh sach hoa don, khoi tao
+        var page = 1; var sorttype = "magd2"; var search = ""; var filter = -1; //cac bien khoi tao
+        if (Number($("#MaKH").val()) > 0) { //neu co makh, get danh sach hoa don cua khach hang do khi vua load page
+            loadlistgd();
+        }
+        //function click for pagination buttons
+        selectpage = function (obj) {
+            page = obj;
+            loadlistgd();
+        }
+        //function get danh sach 10 hoa don
+        function loadlistgd() {
+            $("#page").children().remove();
+            $http.post("/vsmartsell/GetList10GD", { id: $("#MaKH").val(), page: page, sorttype: sorttype, search: search, filter: filter }).success(function (response) {
+                $scope.List10GD = response.List10GD;
+                var numpage = response.numpage;
+                $scope.tongtiengd = response.tongtien;
+                //show pagination buttons
+                $('#page').append('<a class="btn btn-default-outline" id="first" onclick="selectpage(1)" value="1" > << </a>');
+                $('#page').append('<a class="btn btn-default-outline" id="prev" onclick="selectpage(' + (page - 1) + ')" > < </a> ');
+                if (page == 1) { $("#prev").attr('disabled', true); }
+                for (var i = 1; i <= numpage; i++) {
+                    var buttonpage = '<a class="btn btn-default-outline" onclick="selectpage(' + i + ')" value="' + i + '" id="pagebutton" >' + i + '</a>';
+                    $('#page').append(buttonpage);
+                }
+                $('#page').append(' <a class="btn btn-default-outline" id="next" onclick="selectpage(' + (page + 1) + ')" > > </a>');
+                if (page == numpage) { $("#next").attr('disabled', true); }
+                $('#page').append('<a class="btn btn-default-outline" id="last" onclick="selectpage(' + numpage + ')" value="' + numpage + '" > >> </a>');
+                $('#page').children("[value=" + page + "]").attr('disabled', true);
+            });
+        }
+        //function sort
+        $('.sort-table').click(function () {
+            if ($('.sorttable_asc').length > 0) {
+                if ($(this).children('.sorttable_asc').length > 0) {
+                    $('.sorttable_asc').remove();
+                    $(this).append('<span class="sorttable_desc" id="2">▴</span>');
+                    sorttype = $(this).attr('id') + $(this).children('.sorttable_desc').attr('id');
+                }
+                else {
+                    $('.sorttable_asc').remove();
+                    $(this).append('<span class="sorttable_asc" id="1">▾</span>');
+                    sorttype = $(this).attr('id') + $(this).children('.sorttable_asc').attr('id');
+                }
+            }
+            else {
+                $('.sorttable_desc').remove();
+                $(this).append('<span class="sorttable_asc" id="1">▾</span>');
+                sorttype = $(this).attr('id') + $(this).children('.sorttable_asc').attr('id');
+            }
+            loadlistgd();
+        });
+        //function search ten nguoi tao hoa don
+        searchname = function () {
+            search = $('#stringsearch').val();
+            loadlistgd();
+        }
+        //function filter tinh trang hoa don
+        filterpaid = function () {
+            filter = Number($('#sel1').val());
+            loadlistgd();
+        }
     });
     //thiết lập lại
     $('#thietlaplai').click(function () {
@@ -728,6 +775,5 @@
     //    $('#ghichu').val('')
     //    $("#tiengiam").val(0);
     //})
-   
 </script>
 }

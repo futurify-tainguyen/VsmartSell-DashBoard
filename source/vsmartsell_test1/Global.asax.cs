@@ -45,7 +45,7 @@ namespace vsmartsell_test1
         public void CacheItemRemovedCallback(string key, object value, CacheItemRemovedReason reason)
         {
             // Do the service works
-            DoWork();
+            //DoWork();
 
             // We need to register another cache item which will expire again in one
             // minute. However, as this callback occurs without any HttpContext, we do not
