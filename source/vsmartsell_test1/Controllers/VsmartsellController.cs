@@ -185,6 +185,13 @@ namespace vsmartsell_test1.Controllers
             var goi = db.DSGia.Find(id);
             if (ModelState.IsValid)
             {
+                foreach (var oldgoi in db.DSGia)
+                {
+                    if (goi.LoaiGoi == oldgoi.LoaiGoi)
+                    {
+                        return Json(new { error = "Đã có tên loại gói này, vui lòng dùng tên khác." }, JsonRequestBehavior.AllowGet);
+                    }
+                }
                 goi.LoaiGoi = loaigoi;
                 goi.GiaTien = giatien;
                 db.Entry(goi).State = EntityState.Modified;
