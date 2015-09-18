@@ -360,11 +360,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Địa chỉ :</strong>@Html.ValidationMessageFor(model => model.DiaChi, String.Empty, new { @style = "color:red;font-size:14px;!important" })
-                                        @Html.TextAreaFor(model => model.DiaChi, new { @class = " form-control", style = "max-width:700px", rows = "3" })
+                                        @Html.TextAreaFor(model => model.DiaChi, new { @class = " form-control", style = "max-width:700px; resize:none;", rows = "3" })
                                     </div>
                                     <div class="col-md-offset-6">
                                         <strong>Ghi chú :</strong>@Html.ValidationMessageFor(model => model.Note, String.Empty, new { @style = "color:red;font-size:14px;!important" })
-                                        @Html.TextAreaFor(model => model.Note, new { @class = " form-control", style = "max-width:700px", rows = "3" })
+                                        @Html.TextAreaFor(model => model.Note, new { @class = " form-control", style = "max-width:700px; resize:none;", rows = "3" })
                                     </div>
 
 
@@ -541,7 +541,7 @@
         });
         //set default selected for loai goi when load page by khachhang's magoi
         var cur_magoi = $('#MaGoi').val();
-        $('select option[value="'+cur_magoi+'"]').attr("selected", true);
+        $('#select option[value="'+cur_magoi+'"]').attr("selected", true);
 
         //info cua 1 lich su giao dich
         $scope.info = function (obj) {
@@ -579,7 +579,7 @@
                     }
                 }
             }
-            $("select").change(changegia);
+            $("#select").change(changegia);
         });
         //function message
         $scope.message = function (a) {
