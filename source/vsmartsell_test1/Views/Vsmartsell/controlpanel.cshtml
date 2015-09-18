@@ -52,41 +52,34 @@
                         <strong style="font-size:20px">Bảng điều khiển  </strong>
                         <ul class="nav nav-tabs pull-right col-md-9" data-tabs="tabs" id="tabs">
                             <li class="active col-md-4" style="text-align:center">
-                                <a data-toggle="tab" href="#tab1"><i class="fa fa-user"></i><span><strong>Danh sách loại gói</strong></span></a>
+                                <a data-toggle="tab" href="#tab1"><i class="fa fa-user"></i><span>Danh sách loại gói</span></a>
                             </li>
                             <li class="col-md-4" style="text-align:center">
-                                <a data-toggle="tab" href="#tab2"><i class="fa fa-info-circle"></i><span><strong>Quản lý gửi mail</strong></span></a>
+                                <a data-toggle="tab" href="#tab2"><i class="fa fa-info-circle"></i><span>Quản lý gửi mail</span></a>
                             </li>
                             <li class="col-md-4" style="text-align:center">
-                                <a data-toggle="tab" href="#tab3"><i class="fa fa-list"></i><span><strong>Bảng 3</strong></span></a>
+                                <a data-toggle="tab" href="#tab3"><i class="fa fa-list"></i><span>Bảng 3</span></a>
                             </li>
                         </ul>
                     </div>
                     <div id="loadingicon"></div>
                     <div class="tab-content padded" hidden id="my-tab-content" style="">
+                        @*---------------TAB1 LoaiGoi---------------*@
                         <div class="tab-pane active" id="tab1" style="font-size:20px;line-height: 50px;">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="font-size: 20px;">
-                                            Loại gói
-                                        </th>
-                                        <th style="font-size: 20px;">
-                                            Giá gói
-                                        </th>
-                                        <th style="font-size: 20px;">
-                                            Thao tác
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="m in ListGiaTien">
-                                        <td>{{m.LoaiGoi}}</td>
-                                        <td>{{m.GiaTien}}</td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="col-md-12">
+                                <div class="col-md-4 ." ng-repeat="n in ListGiaTien">
+                                    <div class="item social-widget twitter isotope-item" style="position: absolute; left: 0px; top: 0px; opacity: 1; transform: translate3d(1110px, 0px, 0px) scale3d(1, 1, 1);">
+                                        <i class="fa fa-twitter"></i>
+                                        <div class="social-data">
+                                            <h1>
+                                                16k
+                                            </h1>
+                                            Followers
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
                         <div class="tab-pane " id="tab2" style="font-size: 20px;line-height:50px">
                             <div class="container" style="max-width:inherit">
@@ -111,7 +104,7 @@
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                    <h4 class="modal-title">Thêm email khách hàng sắp hết hạn</h4>
+                                                                    <h4 class="modal-title">Thêm email khách hàng </h4>
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <div class="container" style="max-width:inherit">
@@ -239,7 +232,7 @@
     <script src="~/Scripts/jquery.session.js"></script>
     <script src="~/Scripts/bootstrap-datepicker.js"></script>
     <script type="text/javascript">
-
+        document.getElementById("bangdieukhien").style.color = "blue";
         var loadingIcon = '<div class="sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div>'
         $('#loadingicon').append(loadingIcon);
         var app = angular.module("IndexApp", [])
@@ -250,17 +243,58 @@
                 $('#my-tab-content').removeAttr('hidden');
                 $('.sk-circle').remove();
             });
+            //funciton parseint
+            parseint = function(a)
+            {
+                return Number(a);
+            }
+
             //ham load list email lai             
             reloademail = function()
             {
+                document.getElementById("bangdieukhien").style.color = "blue";
                 $http.get("/Vsmartsell/ListNoticeMail").success(function (response) {
                     $scope.ListMail = response.ListMail;
+                });
+                $http.get("/Vsmartsell/GetListGiaTien").success(function (response) {
+                    $scope.ListGiaTien = response.ListGiaTien;
                 });
             }
             //get email ListNoticeMail
             $http.get("/Vsmartsell/ListNoticeMail").success(function (response) {
                 $scope.ListMail = response.ListMail;
             });
+            //--------loai goi--------
+            //them  AddLoaiGoi(string loaigoi, decimal giatien)       
+            $("#taogoi1").click(function () {
+                $.post("/vsmartsell/AddLoaiGoi", { loaigoi: $("#loaigoi").val(), giatien: Number($("#giagoi").val()) }, function (data) {
+                });
+                reloademail();
+                $('#huy').trigger('click');
+            });
+            //khi them mat button edit trong loai goi
+            $('#taogoi').click(function () {
+                document.getElementById("loaigoi").disabled = "";
+                $("#loaigoi").val("");
+                $("#giagoi").val("");
+                $("#taogoi1").show();
+                $("#taogoi2").hide();
+            })
+            // sua gia goi EditGiaGoi(string loaigoi, decimal newgiatien)
+            $scope.taogoi = function (a, b) {
+                debugger
+                document.getElementById("loaigoi").disabled = "true";
+                $("#loaigoi").val(a);
+                $("#giagoi").val(b);
+                $("#taogoi2").show();
+                $("#taogoi1").hide();
+                $("#taogoi2").click(function () {
+                    $.post("/vsmartsell/EditGiaGoi", { loaigoi: $("#loaigoi").val(), newgiatien: Number($("#giagoi").val()) }, function (data) {
+                    });
+                    reloademail();
+                    $('#huy').trigger('click');
+                });
+            }
             //--------sap het han--------
             //khi them mat button edit
             $('#saphethan').click(function () {
@@ -275,7 +309,7 @@
                 $.post("/vsmartsell/AddNoticeMail", { mailtype:"nearend",name:"test" ,email: $("#email1").val() }, function (data) {
                 });
                 reloademail();
-                $('#huy1').trigger('click');
+                $('#huy').trigger('click');
             });
             //khi sua mat button them
             $scope.suasaphethan = function(a,b)
