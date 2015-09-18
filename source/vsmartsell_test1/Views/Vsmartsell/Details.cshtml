@@ -374,9 +374,16 @@
                             <div class="tab-pane" id="tab2" style="font-size: 20px;line-height:50px">
 
                                 <ul>
+                                    @Html.HiddenFor(model => model.MaGoi)
                                     <div class="col-md-6">
-                                        <strong>Gói sử dụng : </strong>@Html.ValidationMessageFor(model => model.LoaiGoi, String.Empty, new { @style = "color:red;font-size:14px;!important" })
-                                        @Html.DropDownListFor(model => model.LoaiGoi, new SelectList(ViewBag.listgoi),new { @class = "form-control" })
+                                        <strong>Gói sử dụng : </strong>@*@Html.ValidationMessageFor(model => model.MaGoi, String.Empty, new { @style = "color:red;font-size:14px;!important" })
+                                        @Html.DropDownListFor(model => model.MaGoi, new SelectList(ViewBag.listgoi),new { @class = "form-control" })*@
+                                        <select class="form-control" style="width:inherit;" id="select">
+                                            @foreach (var goi in ViewBag.listgoi)
+                                            {
+                                                <option value="@goi.MaGoi">@goi.LoaiGoi</option>
+                                            }
+                                        </select>
 
                                     </div>
                                     <div class="col-md-offset-6">
@@ -420,7 +427,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label class="col-md-4" style="font-size:16px; padding-top:6px;" for="sel1">Lọc hóa đơn:</label>
-                                            <select class="form-control" style="width:auto;" id="sel1" onclick="filterpaid()">
+                                            <select class="form-control" style="width:auto;" id="sel1">
                                                 <option value="-1">Tất cả</option>
                                                 <option value="1">Đã thanh toán</option>
                                                 <option value="0">Chưa thanh toán</option>
@@ -529,6 +536,10 @@
             //});
             $scope.GiaTien = Number($("#GiaGoi").val());
         });
+        //set default selected for loai goi when load page by khachhang's magoi
+        var cur_magoi = $('#MaGoi').val();
+        $('select option[value="'+cur_magoi+'"]').attr("selected", true);
+
         //info cua 1 lich su giao dich
         $scope.info = function (obj) {
             for (var i in $scope.List10GD) {
@@ -553,16 +564,16 @@
 
         $http.get("/Vsmartsell/GetListGiaTien").success(function (response) {
             function changegia() {
-                var loaigoi = $("#LoaiGoi").val()
-                var giagoi;
-                for (var m in response.ListGiaTien) {
-
-                    if (loaigoi == response.ListGiaTien[m].LoaiGoi) {
-                        giagoi = response.ListGiaTien[m].GiaTien;
+                var magoi = $("#select").val()
+                var giagoi = 0;
+                var listgia = response.ListGiaTien;
+                for (var m in listgia) {
+                    if (magoi == listgia[m].MaGoi) {
+                        giagoi = listgia[m].GiaTien;
                         $("#GiaGoi").val(giagoi);
+                        $('#MaGoi').val(magoi);
                         break;
                     }
-
                 }
             }
             $("select").change(changegia);
@@ -714,7 +725,9 @@
             loadlistgd();
         }
         //function filter tinh trang hoa don
-        filterpaid = function () {
+        $('#sel1').change(filterpaid);
+        function filterpaid() {
+            page = 1;
             filter = Number($('#sel1').val());
             loadlistgd();
         }

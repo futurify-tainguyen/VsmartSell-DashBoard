@@ -8,7 +8,7 @@
 @Html.HiddenFor(model => model.RoleName)
 <tr>
     <td style="text-align:center">
-        @Html.CheckBoxFor(model => model.Selected)
+        @Html.CheckBoxFor(model => model.Selected, new { style = "display:block; margin-left:16px; margin-right:8px;" })
     </td>
     <td>
         @Html.DisplayFor(model => model.RoleName)

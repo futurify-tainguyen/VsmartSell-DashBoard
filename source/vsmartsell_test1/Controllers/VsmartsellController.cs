@@ -180,13 +180,14 @@ namespace vsmartsell_test1.Controllers
         }
 
         //chinh sua loai goi / gia goi
-        public ActionResult EditGiaGoi(string loaigoi, decimal newgiatien)
+        public ActionResult EditGoi(int id, string loaigoi, decimal giatien)
         {
-            var newgoi = db.DSGia.Find(loaigoi);
+            var goi = db.DSGia.Find(id);
             if (ModelState.IsValid)
             {
-                newgoi.GiaTien = newgiatien;
-                db.Entry(newgoi).State = EntityState.Modified;
+                goi.LoaiGoi = loaigoi;
+                goi.GiaTien = giatien;
+                db.Entry(goi).State = EntityState.Modified;
                 db.SaveChanges();
                 return Json(true);
             }
@@ -194,7 +195,7 @@ namespace vsmartsell_test1.Controllers
         }
 
         //xoa 1 loai goi
-        public ActionResult DelLoaiGoi(string loaigoi)
+        public ActionResult DelLoaiGoi(int magoi)
         {
             var error = "";
             var khs = from m in db.DSKhachHang
@@ -202,7 +203,7 @@ namespace vsmartsell_test1.Controllers
                       select m;
             foreach (var kh in khs)
             {
-                if (kh.LoaiGoi == loaigoi)
+                if (kh.MaGoi == magoi)
                 {
                     error += "MaKH: " + kh.MaKH + ", TenKH: " + kh.TenKH + ".\n";
                 }
@@ -212,7 +213,7 @@ namespace vsmartsell_test1.Controllers
                 error += "\nDanh sách trên là những khách hàng đang sử dụng loại gói này.\nHãy chỉnh sửa loại gói của họ sang loại gói khác trước khi xóa.";
                 return Json(new { error }, JsonRequestBehavior.AllowGet);
             }
-            var goi = db.DSGia.Find(loaigoi);
+            var goi = db.DSGia.Find(magoi);
             if (goi == null)
             {
                 return HttpNotFound();
@@ -289,41 +290,42 @@ namespace vsmartsell_test1.Controllers
         {
             //id is page number
             var ListKH = from m in db.DSKhachHang
+                         join p in db.DSGia on m.MaGoi equals p.MaGoi
                          where m.Archive == false
-                         select m;    
-            ListKH = ListKH.Where(m => m.TenKH.Contains(search));
+                         select new { kh = m, goi = p };    
+            ListKH = ListKH.Where(m => m.kh.TenKH.Contains(search));
             switch (sorttype)
             {
                 case SortType.makh:
-                    ListKH = ListKH.OrderBy(m => m.MaKH); break;
+                    ListKH = ListKH.OrderBy(m => m.kh.MaKH); break;
                 case SortType.kh1:
-                    ListKH = ListKH.OrderBy(m => m.TenKH); break;
+                    ListKH = ListKH.OrderBy(m => m.kh.TenKH); break;
                 case SortType.kh2:
-                    ListKH = ListKH.OrderByDescending(m => m.TenKH); break;
+                    ListKH = ListKH.OrderByDescending(m => m.kh.TenKH); break;
                 case SortType.ch1:
-                    ListKH = ListKH.OrderBy(m => m.TenCH); break;
+                    ListKH = ListKH.OrderBy(m => m.kh.TenCH); break;
                 case SortType.ch2:
-                    ListKH = ListKH.OrderByDescending(m => m.TenCH); break;
+                    ListKH = ListKH.OrderByDescending(m => m.kh.TenCH); break;
                 case SortType.loai1:
-                    ListKH = ListKH.OrderBy(m => m.LoaiKH); break;
+                    ListKH = ListKH.OrderBy(m => m.kh.LoaiKH); break;
                 case SortType.loai2:
-                    ListKH = ListKH.OrderByDescending(m => m.LoaiKH); break;
+                    ListKH = ListKH.OrderByDescending(m => m.kh.LoaiKH); break;
                 case SortType.goi1:
-                    ListKH = ListKH.OrderBy(m => m.LoaiGoi); break;
+                    ListKH = ListKH.OrderBy(m => m.goi.LoaiGoi); break;
                 case SortType.goi2:
-                    ListKH = ListKH.OrderByDescending(m => m.LoaiGoi); break;
+                    ListKH = ListKH.OrderByDescending(m => m.goi.LoaiGoi); break;
                 case SortType.batdau1:
-                    ListKH = ListKH.OrderBy(m => m.NgayDangKy); break;
+                    ListKH = ListKH.OrderBy(m => m.kh.NgayDangKy); break;
                 case SortType.batdau2:
-                    ListKH = ListKH.OrderByDescending(m => m.NgayDangKy); break;
+                    ListKH = ListKH.OrderByDescending(m => m.kh.NgayDangKy); break;
                 case SortType.ketthuc1:
-                    ListKH = ListKH.OrderBy(m => m.NgayHetHan); break;
+                    ListKH = ListKH.OrderBy(m => m.kh.NgayHetHan); break;
                 case SortType.ketthuc2:
-                    ListKH = ListKH.OrderByDescending(m => m.NgayHetHan); break;
+                    ListKH = ListKH.OrderByDescending(m => m.kh.NgayHetHan); break;
                 case SortType.hotro1:
-                    ListKH = ListKH.OrderBy(m => m.HoTro); break;
+                    ListKH = ListKH.OrderBy(m => m.kh.HoTro); break;
                 case SortType.hotro2:
-                    ListKH = ListKH.OrderByDescending(m => m.HoTro); break;
+                    ListKH = ListKH.OrderByDescending(m => m.kh.HoTro); break;
             }
             var count = ListKH.Count();
             var numpage = (count - 1) / 10 + 1;
@@ -339,7 +341,6 @@ namespace vsmartsell_test1.Controllers
         [Authorize(Roles = "Admin,CanEdit,User")]
         public ActionResult index()
         {
-            var count = db.DSKhachHang.Count(m => m.Archive == false);
             ViewBag.ReturnUrl = Url.Action("index");
             return View();
         }
@@ -387,7 +388,7 @@ namespace vsmartsell_test1.Controllers
             }
             var listgoi = from m in db.DSGia
                           orderby m.LoaiGoi
-                          select m.LoaiGoi;
+                          select m;
             ViewBag.listgoi = listgoi;
             ViewBag.makh = id;
             return View(khachhang);
@@ -396,7 +397,7 @@ namespace vsmartsell_test1.Controllers
         // POST: /Vsmartsell/Details/5 , edit in details
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult details([Bind(Include = "MaKH,TenKH,Phone,Email,LoaiKH,LoaiGoi,GiaGoi,NgayDangKy,NgayHetHan,TenCH,DiaChi,HoTro,Archive,Note,Viewid")] KhachHang khachhang)
+        public ActionResult details([Bind(Include = "MaKH,TenKH,Phone,Email,LoaiKH,MaGoi,GiaGoi,NgayDangKy,NgayHetHan,TenCH,DiaChi,HoTro,Archive,Note,Viewid")] KhachHang khachhang)
         {
             if (ModelState.IsValid)
             {
@@ -407,7 +408,7 @@ namespace vsmartsell_test1.Controllers
             }
             var listgoi = from m in db.DSGia
                           orderby m.LoaiGoi
-                          select m.LoaiGoi;
+                          select m;
             ViewBag.listgoi = listgoi;
             ViewBag.makh = khachhang.MaKH;
             return View(khachhang);
@@ -419,10 +420,7 @@ namespace vsmartsell_test1.Controllers
         {
             var listgoi = from m in db.DSGia
                           orderby m.LoaiGoi
-                          select m.LoaiGoi;
-            var ListKH = from n in db.DSKhachHang
-                         select n.LoaiKH;
-            ViewBag.ListKH = ListKH;
+                          select m;
             ViewBag.listgoi = listgoi;
             return View("details");
         }
@@ -432,7 +430,7 @@ namespace vsmartsell_test1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult create([Bind(Include = "MaKH,TenKH,Phone,Email,LoaiKH,LoaiGoi,NgayDangKy,NgayHetHan,TenCH,DiaChi,HoTro,Archive,Note,Viewid")] KhachHang khachhang)
+        public ActionResult create([Bind(Include = "MaKH,TenKH,Phone,Email,LoaiKH,MaGoi,GiaGoi,NgayDangKy,NgayHetHan,TenCH,DiaChi,HoTro,Archive,Note,Viewid")] KhachHang khachhang)
         {
             if (ModelState.IsValid)
             {
@@ -443,7 +441,7 @@ namespace vsmartsell_test1.Controllers
             }
             var listgoi = from m in db.DSGia
                           orderby m.LoaiGoi
-                          select m.LoaiGoi;
+                          select m;
             ViewBag.listgoi = listgoi;
             return View("details", khachhang);
         }

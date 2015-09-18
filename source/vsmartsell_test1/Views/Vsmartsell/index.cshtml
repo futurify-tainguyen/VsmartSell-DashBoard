@@ -138,41 +138,41 @@
 
 
                                     @*<td hidden id="{{ m.MaKH }}"></td>*@
-                                    <td hidden>{{ m.MaKH }}</td>
+                                    <td hidden>{{ m.kh.MaKH }}</td>
                                     <td>
-                                        <a href="/vsmartsell/details/{{m.MaKH}}" style="word-wrap:break-word">{{m.TenKH}}</a>
+                                        <a href="/vsmartsell/details/{{m.MaKH}}" style="word-wrap:break-word">{{m.kh.TenKH}}</a>
                                     </td>
                                     <td>
-                                        {{m.Phone}}
+                                        {{m.kh.Phone}}
                                     </td>
                                     <td hidden>
-                                        {{m.Email}}
+                                        {{m.kh.Email}}
                                     </td>
                                     <td>
-                                        {{m.LoaiKH}}
+                                        {{m.kh.LoaiKH}}
                                     </td>
                                     <td>
-                                        {{m.LoaiGoi}}
+                                        {{m.goi.LoaiGoi}}
                                     </td>
                                     <td>
-                                        {{todate(m.NgayDangKy)}}
+                                        {{todate(m.kh.NgayDangKy)}}
                                     </td>
                                     <td>
-                                        {{todate(m.NgayHetHan)}}
+                                        {{todate(m.kh.NgayHetHan)}}
                                     </td>
                                     <td>
-                                        {{m.TenCH}}
+                                        {{m.kh.TenCH}}
                                     </td>
                                     <td>
-                                        {{m.HoTro}}
+                                        {{m.kh.HoTro}}
                                     </td>
                                     <td style="width:130px;">
-                                        <a style="margin-bottom: 0px;" class="btn btn-xs btn-primary" href="/vsmartsell/details/{{m.MaKH}}">
+                                        <a style="margin-bottom: 0px;" class="btn btn-xs btn-primary" href="/vsmartsell/details/{{m.kh.MaKH}}">
                                             <i class="glyphicon glyphicon-pencil">
                                             </i> sửa
                                         </a>
                                         <button style="margin-bottom: 0px;" class="btn btn-xs btn-danger">
-                                            <p hidden value="{{m.MaKH}}"></p>
+                                            <p hidden value="{{m.kh.MaKH}}"></p>
                                             <i class="glyphicon glyphicon-trash">
                                             </i> xóa
                                         </button>
@@ -301,24 +301,24 @@
         var loadingIcon = '<div class="sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div>'
         $('#loadingicon').append(loadingIcon);
 
-        $http.get("/vsmartsell/GetListKH").success(function (response) {
-            var tam = response.ListKH.length;
+        //$http.get("/vsmartsell/GetListKH").success(function (response) {
+        //    var tam = response.ListKH.length;
 
-            $scope.pageChangeHandler = function (num) {
-                console.log('meals page changed to ' + num);
-            };
+        //    $scope.pageChangeHandler = function (num) {
+        //        console.log('meals page changed to ' + num);
+        //    };
 
 
 
-            function OtherController($scope) {
-                $scope.pageChangeHandler = function (num) {
-                    console.log('going to page ' + num);
-                };
-            }
-            var listKH = response.ListKH;
-            $scope.ListKH = listKH;
-            $('.sk-circle').remove();
-        });
+        //    function OtherController($scope) {
+        //        $scope.pageChangeHandler = function (num) {
+        //            console.log('going to page ' + num);
+        //        };
+        //    }
+        //    var listKH = response.ListKH;
+        //    $scope.ListKH = listKH;
+        //    $('.sk-circle').remove();
+        //});
 
         $scope.todate = function (strdate) {
             var newdate = new Date(parseInt(strdate.substr(6)));
@@ -364,6 +364,7 @@
                 $('#previous').attr('disabled', 'disabled');
                 $('#first').attr('disabled', 'disabled');
                 $('#1').attr('disabled', 'disabled');
+                $('.sk-circle').remove();
             });
         } else {
             //load page khi back về
@@ -454,6 +455,7 @@
                                    document.getElementById("hotro2").style.backgroundColor = 'rgb(200, 200, 200)';
                                    break;
                 }
+                $('.sk-circle').remove();
             });
         }
         // number page

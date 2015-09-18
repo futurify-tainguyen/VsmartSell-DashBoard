@@ -29,8 +29,8 @@ namespace vsmartsell_test1.Models
 
         public string LoaiKH { get; set; }
         
-        public string LoaiGoi { get; set; }
-        [ForeignKey("LoaiGoi")]
+        public int MaGoi { get; set; }
+        [ForeignKey("MaGoi")]
         public BangGia BangGia { get; set; }
 
         public decimal GiaGoi { get; set; }
@@ -84,8 +84,12 @@ namespace vsmartsell_test1.Models
     public class BangGia
     {
         [Key]
+        public int MaGoi { get; set; }
+
+        [Required]
         public string LoaiGoi { get; set; }
 
+        [Required]
         public decimal GiaTien { get; set; }
     }
 
