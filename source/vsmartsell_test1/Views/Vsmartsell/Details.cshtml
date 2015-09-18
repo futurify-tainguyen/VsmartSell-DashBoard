@@ -401,14 +401,17 @@
                                         @Html.TextBoxFor(model => model.NgayHetHan, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
                                        
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" style="margin-bottom: 20px;">
                                         <strong>Mã thông tin ( phụ ) : </strong>@Html.ValidationMessageFor(model => model.Viewid, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextBoxFor(model => model.Viewid, new { @class = "form-control" })
                                     </div>
+                                    @if (ViewBag.makh > 0)
+                                    {
                                     <div class="col-md-offset-6">
                                         <strong>Số ngày còn lại :</strong>
                                         <input class="form-control" disabled value="{{kqsongayconlai}}" />
                                     </div>
+                                    }
                                 </ul>
                             </div>
                             @if (ViewBag.makh > 0)

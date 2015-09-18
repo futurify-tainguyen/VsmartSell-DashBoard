@@ -75,14 +75,14 @@
                             <div class="col-md-12">
                                 <div class="col-md-4" ng-repeat="n in ListGiaTien">
                                     @*<button style="width:500px;height:500px"></button>*@
-                                    <div class="widget-container fluid-height" style="background-color: #F6F6F6; margin-right: 120px; margin-left: 100px; margin-bottom: 50px; margin-top: 35px; width: 350px; height: 350px">
+                                    <div class="widget-container fluid-height" style="background-color: #F6F6F6; border-style: double; border-color: #339833; margin-right: 120px; margin-left: 100px; margin-bottom: 50px; margin-top: 35px; width: 350px; height: 350px; ">
                                         <div class="col-md-12" style="font-size:30px;padding-top:50px">
                                             <strong style="margin-top:100px">Loại gói : {{n.LoaiGoi}}</strong>
                                         </div>
-                                        <div class="col-md-12" style="font-size:20px">
+                                        <div class="col-md-12" style="font-size:20px;height:150px">
                                             Giá gói  : {{n.GiaTien}}
                                         </div>
-                                        <div class="col-md-12" style="padding-top:100px;">
+                                        <div class="col-md-12" style="padding-top:30px;">
                                             <button id="" style="margin-bottom: 0px;" class="btn btn-primary" ng-click="taogoi(n.MaGoi,n.LoaiGoi,n.GiaTien)" data-toggle="modal" data-target="#myModal">
                                                 <i class="glyphicon glyphicon-pencil"></i> Sửa
                                             </button>
@@ -94,7 +94,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4" >
-                                    <div class="widget-container fluid-height" style="background-color: #F6F6F6; margin-right: 120px; margin-left: 100px; margin-bottom: 50px; margin-top: 35px; width:350px;height:350px">
+                                    <div class="widget-container fluid-height" style="border-style: double; border-color: #339833; background-color: #F6F6F6; margin-right: 120px; margin-left: 100px; margin-bottom: 50px; margin-top: 35px; width: 350px; height: 350px; ">
                                         <button id="taogoi" class="btn btn-primary-outline" style="width: 250px; height: 250px; margin-top: 50px; border-style: dashed;" data-toggle="modal" data-target="#myModal">
                                             <i class="glyphicon glyphicon-plus" style="font-size: 500%; "></i>
                                         </button> 

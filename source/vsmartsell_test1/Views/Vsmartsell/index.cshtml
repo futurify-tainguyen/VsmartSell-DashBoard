@@ -49,7 +49,7 @@
     @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
 </head>
 <div class="row">
-<div class="col-md-offset-10" style="float:right" >
+<div class="col-md-offset-10" style="float: right; margin-right: 5px; " >
     <a class="btn btn-primary" style="margin-bottom: 20px;" href="/vsmartsell/create"><i class="fa fa-user"></i>Thêm mới khách hàng</a>
 </div>
 </div>
@@ -69,9 +69,9 @@
                         <div id="dataTable1_length" class="dataTables_length"><h2>Thông tin danh sách khách hàng</h2></div>
 
                         <div class="dataTables_filter" id="dataTable1_filter">
-                            <div class="navbar-form form-inline col-md-2 hidden-xs" style="float:right">
+                            <div class="navbar-form form-inline col-md-2 hidden-xs" style="float:right;">
                                 <input id="timkiem" class="form-control"  placeholder="Tìm kiếm tên khách hàng" type="text">
-                                <button style="font-size: x-small;" id="buttontimkiem" class="btn btn-default-outline" ng-click="timkiem()"><i class="glyphicon glyphicon-search"></i></button>
+                                <button style="font-size: x-small; " id="buttontimkiem" class="btn btn-default-outline" ng-click="timkiem()"><i class="glyphicon glyphicon-search"></i></button>
                             </div>
                           
                         </div>
@@ -187,29 +187,29 @@
                         </table>
                         </div>
                         @*them phan page chia tren sever*@
-                        <div>
-                            <div class="pagination">
-                                @*<a class="btn btn-default-outline {{activePage== 1?'disabled':''}}" id="first" ng-click="firstpage()" ng-class="DisabledFirstPage">
-                                    <div><<</div>
-                                </a>
-                                <a class="btn btn-default-outline {{activePage== 1?'disabled':''}}" id="previous" ng-click="previouspage()" ng-class="DisabledPreviousPage">
-                                    <div><</div>
-                                </a>*@
-                                    <span id="page">
-                                        @*@for (var i = 1; i <= ViewBag.numpage; i++)
-                                        {
-                                            <a class="btn btn-default-outline {{activePage==@(i)?'disabled':''}}" ng-click="selectpage(@i)" value="@i" id="@i">@i</a>
-                                        }*@
-                                    </span>
-                                    @*<a class="btn btn-default-outline {{activePage==@(ViewBag.numpage)?'disabled':''}}" id="next" ng-click="nextpage()" ng-class="DisabledNextPage">
-                                        <div>></div>
-                                    </a>
-                                    <a class="btn btn-default-outline {{activePage==@(ViewBag.numpage)?'disabled':''}}" id="last" ng-click="lastpage(@ViewBag.numpage)" ng-class="DisabledLastPage">
-                                        <div>>></div>
-                                    </a>*@
+                    <div style="margin-left: 15px;">
+                        <div class="pagination">
+                            @*<a class="btn btn-default-outline {{activePage== 1?'disabled':''}}" id="first" ng-click="firstpage()" ng-class="DisabledFirstPage">
+                    <div><<</div>
+                </a>
+                <a class="btn btn-default-outline {{activePage== 1?'disabled':''}}" id="previous" ng-click="previouspage()" ng-class="DisabledPreviousPage">
+                    <div><</div>
+                </a>*@
+                            <span id="page">
+                                @*@for (var i = 1; i <= ViewBag.numpage; i++)
+                    {
+                        <a class="btn btn-default-outline {{activePage==@(i)?'disabled':''}}" ng-click="selectpage(@i)" value="@i" id="@i">@i</a>
+                    }*@
+                            </span>
+                            @*<a class="btn btn-default-outline {{activePage==@(ViewBag.numpage)?'disabled':''}}" id="next" ng-click="nextpage()" ng-class="DisabledNextPage">
+                    <div>></div>
+                </a>
+                <a class="btn btn-default-outline {{activePage==@(ViewBag.numpage)?'disabled':''}}" id="last" ng-click="lastpage(@ViewBag.numpage)" ng-class="DisabledLastPage">
+                    <div>>></div>
+                </a>*@
 
-                            </div>
                         </div>
+                    </div>
                     
                     </div>
                     
