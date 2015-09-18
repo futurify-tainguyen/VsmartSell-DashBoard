@@ -135,10 +135,8 @@ namespace vsmartsell_test1.Controllers
         // lay thong tin 1 khach hang
         public ActionResult GetKH(int id)
         {
-            var khachhang = from m in db.DSKhachHang
-                         where m.MaKH == id
-                         select m;
-            return Json(new { khachhang = khachhang  }, JsonRequestBehavior.AllowGet);
+            var khachhang = db.DSKhachHang.Find(id);
+            return Json(new { khachhang = khachhang }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetGiaTien(string loaigoi)

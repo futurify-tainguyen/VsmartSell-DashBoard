@@ -34,6 +34,12 @@
         .form-control {
             margin-bottom: 20px;
         }
+        #false {
+            color: red;
+        }
+        #true {
+            color: #60c560;
+        }
     </style>
     <link href="~/Scripts/style.css" rel="stylesheet" />
     <link href="~/Scripts/summernote.css" rel="stylesheet" />
@@ -58,7 +64,7 @@
                                 <a data-toggle="tab" href="#tab2"><i class="fa fa-info-circle"></i><span>Quản lý gửi mail</span></a>
                             </li>
                             <li class="col-md-4" style="text-align:center">
-                                <a data-toggle="tab" href="#tab3"><i class="fa fa-list"></i><span>Bảng 3</span></a>
+                                <a data-toggle="tab" href="#tab3"><i class="fa fa-list"></i><span>Danh sách tất cả hóa đơn</span></a>
                             </li>
                         </ul>
                     </div>
@@ -131,6 +137,7 @@
                             
                         </div>
                         <div class="tab-pane " id="tab2" style="font-size: 20px;line-height:50px">
+                            <div style="text-align:center;">Thiết lập gửi mail cho nhân viên quản lý</div>
                             <div class="container" style="max-width:inherit">
                                 <div class="col-lg-4">
                                     <table class="table table-striped">
@@ -138,7 +145,7 @@
                                             <tr>
                                                 <th hidden></th>
                                                 <th style="font-size: 20px; text-align: center;">
-                                                    Email khách hàng sắp hết hạn
+                                                    Khi có khách hàng sắp hết hạn
                                                     
                                                 </th>
                                                 <th>
@@ -207,7 +214,7 @@
                                         <thead>
                                             <tr>
                                                 <th style="font-size: 20px; text-align: center;">
-                                                    Email khách hàng đã hêt hạn                                                    
+                                                    Khi có khách hàng đã hêt hạn                                                    
                                                 </th>
                                                 <th>
                                                     <button id="dahethan" style="margin-bottom: 0px;" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal1">
@@ -237,7 +244,7 @@
                                         <thead>
                                             <tr>
                                                 <th style="font-size: 20px;text-align:center;">
-                                                    Email hóa đơn chưa thanh toán                                                    
+                                                    Khi có hóa đơn chưa thanh toán                                                    
                                                 </th>
                                                 <th>
                                                     <button id="chuathanhtoan" style="margin-bottom: 0px;" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal1">
@@ -266,7 +273,169 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="tab3" style="font-size: 20px;">
+                            Tổng số tiền đã thanh toán qua hệ thống: {{tongtiengd}}
+                            <div><br /></div>
+                            <div class="form-group">
+                                <div class="input-group col-md-3">
+                                    <input id="stringsearch" type="text" class="form-control" placeholder="Tìm kiếm tên người tạo">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" onclick="searchname()"> <i class="glyphicon glyphicon-search"></i> </button>
+                                    </span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-md-4" style="font-size:16px; padding-top:6px;" for="sel1">Lọc hóa đơn:</label>
+                                    <select class="form-control" style="width:auto;" id="sel1">
+                                        <option value="-1">Tất cả</option>
+                                        <option value="1">Đã thanh toán</option>
+                                        <option value="0">Chưa thanh toán</option>
+                                    </select>
+                                </div>
+                            </div>
 
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="sort-table" id="magd" style="font-size: 20px;">
+                                            Mã hóa đơn
+                                        </th>
+                                        <th class="sort-table" id="tao" style="font-size: 20px;">
+                                            Ngày tạo
+                                        </th>
+                                        <th class="sort-table" id="tien" style="font-size: 20px;">
+                                            Số tiền trả
+                                        </th>
+                                        <th class="sort-table" id="ten" style="font-size: 20px;">
+                                            Người tạo
+                                        </th>
+                                        <th class="sort-table" id="het" style="font-size: 20px;">
+                                            Ngày hết hạn
+                                        </th>
+                                        <th style="font-size: 20px;">
+                                            Tình trạng
+                                        </th>
+                                        <th style="font-size: 20px;">
+                                            Thao tác
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="m in List10GD">
+                                        <td>
+                                            {{m.gds.MaGD}}
+                                        </td>
+                                        <td>
+                                            {{todate(m.gds.NgayGD)}}
+                                        </td>
+                                        <td>
+                                            {{m.gds.SoTien}}
+                                        </td>
+                                        <td>
+                                            {{m.name}}
+                                        </td>
+                                        <td class="hidden-xs">
+                                            {{todate(m.gds.NgayHetHan)  }}
+                                        </td>
+                                        <td id="{{m.gds.Paid}}">
+                                            {{message(m.gds.Paid)}}
+                                        </td>
+                                        <td><button style="margin-bottom: 0px; font-size: 13px; padding-top: 4px; padding-bottom: 4px;" class="btn btn-primary" data-toggle="modal" data-target="#chitietgdModal" ng-click="info(m.gds.MaGD)"><i class="glyphicon glyphicon-pencil"></i> Chi tiết</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="pagination" id="page">
+                            </div>
+
+                            <!-- Trigger the modal with a button for danh sach hoa don -->
+                            <div class="modal fade" id="chitietgdModal" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                                            <h3 class="modal-title"><strong>Chi tiết hóa đơn</strong> <span style="float:right;">Mã số : {{infogd.gds.MaGD}}</span></h3>
+                                            Khách hàng :<b> {{tenkhachhang}}</b>
+                                        </div>
+                                        <div class="modal-footer" style="margin-top:0px">
+                                            <div class="col-md-10" style="width:490px">
+                                                <div class="form-group col-md-12">
+                                                    <label class="control-label col-md-4"><strong>Ngày tạo</strong></label>
+                                                    <div class="col-md-8">
+                                                        <input disabled class="form-control" id="" placeholder="" type="text" value="{{todate(infogd.gds.NgayGD)}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label class="control-label col-md-4"><strong>Người tạo</strong></label>
+                                                    <div class="col-md-8">
+                                                        <input disabled class="form-control" id="" placeholder="" type="text" value="{{infogd.name}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label class="control-label col-md-4"><strong>Thời hạn</strong></label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input disabled id="" type="text" class="form-control" value="{{infogd.gds.ThoiHan}}"><span class="input-group-addon"> tháng</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label class="control-label col-md-4"><strong>Ngày hết hạn</strong></label>
+                                                    <div class="col-md-8">
+                                                        <input disabled id="" type="text" class="form-control" value="{{todate(infogd.gds.NgayHetHan)}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label class="control-label col-md-4"><strong>Cước phí</strong></label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input disabled id="" type="text" class="form-control" value="{{infogd.gds.CuocPhi}}"><span class="input-group-addon">/tháng</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label class="control-label col-md-4"><strong>Thành tiền</strong></label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input disabled class="form-control" id="" type="text" value="{{infogd.gds.ThoiHan*infogd.gds.CuocPhi}}"><span id="clickthanhtien" class="input-group-addon">VNĐ</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label class="control-label col-md-4"><strong>Tiền giảm</strong></label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input disabled class="form-control" id="" type="text" value="{{infogd.gds.TienGiam}}"><span class="input-group-addon">VNĐ</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label class="control-label col-md-4" for="disabledInput"><strong>Tổng tiền</strong></label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input disabled class="form-control" id="" placeholder="" type="text" value="{{infogd.gds.SoTien}}"><span class="input-group-addon">VNĐ</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label class="control-label col-md-4"><strong>Ghi chú</strong></label>
+                                                    <div class="col-md-8">
+                                                        <input disabled class="form-control" id="" placeholder="" type="text" value="{{infogd.gds.Note}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-8" style="float:right">
+                                                @*<button type="button" id="thanhtoan" class="btn btn-success">
+                                                    <i class="fa fa-plus"></i>
+                                                    <span class="">Thanh toán</span>
+                                                </button>*@
+                                                <button class="btn btn-danger" id="huythanhtoan" data-dismiss="modal">
+                                                    <i class="fa fa-trash-o"></i>Thoát
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -488,8 +657,101 @@
 
             }
 
-
-
+            /*-----khu vuc function cua danh sach hoa don-----*/
+            //hien danh sach hoa don, khoi tao
+            var page = 1; var sorttype = "magd2"; var search = ""; var filter = -1; //cac bien khoi tao
+            //get danh sach hoa don khi vua load page
+            loadlistgd();
+            //function click for pagination buttons
+            selectpage = function (obj) {
+                page = obj;
+                loadlistgd();
+            }
+            //function get danh sach 10 hoa don
+            function loadlistgd() {
+                $("#page").children().remove();
+                $http.post("/vsmartsell/GetList10GD", { id: 0, page: page, sorttype: sorttype, search: search, filter: filter }).success(function (response) {
+                    $scope.List10GD = response.List10GD;
+                    var numpage = response.numpage;
+                    $scope.tongtiengd = response.tongtien;
+                    //show pagination buttons
+                    $('#page').append('<a class="btn btn-default-outline" id="first" onclick="selectpage(1)" value="1" > << </a>');
+                    $('#page').append('<a class="btn btn-default-outline" id="prev" onclick="selectpage(' + (page - 1) + ')" > < </a> ');
+                    if (page == 1) { $("#prev").attr('disabled', true); }
+                    for (var i = 1; i <= numpage; i++) {
+                        var buttonpage = '<a class="btn btn-default-outline" onclick="selectpage(' + i + ')" value="' + i + '" id="pagebutton" >' + i + '</a>';
+                        $('#page').append(buttonpage);
+                    }
+                    $('#page').append(' <a class="btn btn-default-outline" id="next" onclick="selectpage(' + (page + 1) + ')" > > </a>');
+                    if (page == numpage) { $("#next").attr('disabled', true); }
+                    $('#page').append('<a class="btn btn-default-outline" id="last" onclick="selectpage(' + numpage + ')" value="' + numpage + '" > >> </a>');
+                    $('#page').children("[value=" + page + "]").attr('disabled', true);
+                });
+            }
+            //function sort
+            $('.sort-table').click(function () {
+                if ($('.sorttable_asc').length > 0) {
+                    if ($(this).children('.sorttable_asc').length > 0) {
+                        $('.sorttable_asc').remove();
+                        $(this).append('<span class="sorttable_desc" id="2">▴</span>');
+                        sorttype = $(this).attr('id') + $(this).children('.sorttable_desc').attr('id');
+                    }
+                    else {
+                        $('.sorttable_asc').remove();
+                        $(this).append('<span class="sorttable_asc" id="1">▾</span>');
+                        sorttype = $(this).attr('id') + $(this).children('.sorttable_asc').attr('id');
+                    }
+                }
+                else {
+                    $('.sorttable_desc').remove();
+                    $(this).append('<span class="sorttable_asc" id="1">▾</span>');
+                    sorttype = $(this).attr('id') + $(this).children('.sorttable_asc').attr('id');
+                }
+                loadlistgd();
+            });
+            //function search ten nguoi tao hoa don
+            searchname = function () {
+                search = $('#stringsearch').val();
+                loadlistgd();
+            }
+            //function filter tinh trang hoa don
+            $('#sel1').change(filterpaid);
+            function filterpaid() {
+                page = 1;
+                filter = Number($('#sel1').val());
+                loadlistgd();
+            }
+            //set paid text
+            $scope.message = function (a) {
+                if (a == true)
+                    return "Đã thanh toán";
+                else {
+                    return "Chưa thanh toán";
+                }
+            };
+            //convert date
+            $scope.todate = function (strdate) {
+                var newdate = new Date(parseInt(strdate.substr(6)));
+                var todate = ('0' + newdate.getDate()).slice(-2) + '-' + ('0' + (newdate.getMonth() + 1)).slice(-2) + '-' + newdate.getFullYear();
+                return todate;
+            };
+            //info cua 1 lich su giao dich
+            $scope.info = function (obj) {
+                for (var i in $scope.List10GD) {
+                    if ($scope.List10GD[i].gds.MaGD == obj) {
+                        $http.get("/Vsmartsell/GetKH/" + $scope.List10GD[i].gds.MaKH + "").success(function (response) {
+                            $scope.tenkhachhang = response.khachhang.TenKH;
+                        });
+                        $scope.infogd = $scope.List10GD[i];
+                        //if ($scope.infogd.gds.Paid == true) {
+                        //    $("#thanhtoan").hide();
+                        //}
+                        //else { $("#thanhtoan").show(); }
+                        //$.session.set('magd', obj, 0);
+                        break;
+                    }
+                }
+            }
         });
     </script>
 }
