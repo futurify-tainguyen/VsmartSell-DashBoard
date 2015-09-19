@@ -33,12 +33,13 @@ namespace vsmartsell_test1.Controllers
             return Json(new { ListGD = ListGD }, JsonRequestBehavior.AllowGet);
         }
         // lay 10 lich su giao dich, id: ma khach hang (0 = all), filter: loc du lieu (-1 = all, 0 = chua thanh toan, 1 = da thanh toan)
-        public ActionResult GetList10GD(int id = 0, int page = 1, string sorttype = "magd2", string search = "", int filter = -1)
+        public ActionResult GetList10GD(int id = 0, int page = 1, string sorttype = "magd2", string searchkh = "", string search = "", int filter = -1)
         {
             var ListGD = from m in db.DSLichSuGD
+                         join n in db.DSKhachHang on m.MaKH equals n.MaKH
                          join p in db.DSNguoiDung on m.NguoiThu equals p.userid into t
                          from p in t.DefaultIfEmpty()
-                         select new { gds = m, name = p == null ? ("NULL") : (p.firstname + " " + p.lastname) };
+                         select new { gds = m, namekh = n.TenKH, name = p == null ? ("NULL") : (p.firstname + " " + p.lastname) };
             if (id > 0)
             {
                 ListGD = ListGD.Where(m => m.gds.MaKH == id);
@@ -56,6 +57,7 @@ namespace vsmartsell_test1.Controllers
                 case 1:
                     ListGD = ListGD.Where(m => m.gds.Paid == true); break;
             }
+            ListGD = ListGD.Where(m => m.namekh.Contains(searchkh));
             ListGD = ListGD.Where(m => m.name.Contains(search));
             switch (sorttype)
             {
@@ -71,6 +73,10 @@ namespace vsmartsell_test1.Controllers
                     ListGD = ListGD.OrderBy(m => m.name); break;
                 case "ten2":
                     ListGD = ListGD.OrderByDescending(m => m.name); break;
+                case "tenkh1":
+                    ListGD = ListGD.OrderBy(m => m.namekh); break;
+                case "tenkh2":
+                    ListGD = ListGD.OrderByDescending(m => m.namekh); break;
                 case "tao1":
                     ListGD = ListGD.OrderBy(m => m.gds.NgayGD); break;
                 case "tao2":
