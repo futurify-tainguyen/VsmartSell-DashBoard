@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using vsmartsell_test1.Models;
 using Microsoft.AspNet.Identity;
+using System.Globalization;
 
 namespace vsmartsell_test1.Controllers
 {
@@ -364,6 +365,7 @@ namespace vsmartsell_test1.Controllers
 
         // thay doi trang thai archive cua 1 khach hang
         [HttpPost]
+        [Authorize(Roles = "Admin,CanEdit,User")]
         public ActionResult EditArchive(int? id)
         {
             if (id == null)
@@ -412,6 +414,8 @@ namespace vsmartsell_test1.Controllers
         {
             if (ModelState.IsValid)
             {
+                khachhang.NgayDangKy = DateTime.ParseExact(khachhang.NgayDangKy.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
+                khachhang.NgayHetHan = DateTime.ParseExact(khachhang.NgayHetHan.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
                 db.Entry(khachhang).State = EntityState.Modified;
                 db.SaveChanges();
                 TempData["userMsg"] = "Chỉnh sửa thông tin khách hàng thành công.";
@@ -445,6 +449,8 @@ namespace vsmartsell_test1.Controllers
         {
             if (ModelState.IsValid)
             {
+                khachhang.NgayDangKy = DateTime.ParseExact(khachhang.NgayDangKy.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
+                khachhang.NgayHetHan = DateTime.ParseExact(khachhang.NgayHetHan.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
                 db.DSKhachHang.Add(khachhang);
                 db.SaveChanges();
                 TempData["userMsg"] = "Tạo mới khách hàng thành công.";
