@@ -388,7 +388,13 @@
                                     </div>
                                     <div class="col-md-offset-6">
                                         <strong>Ngày bắt đầu :</strong>@Html.ValidationMessageFor(model => model.NgayDangKy, String.Empty, new { @style = "color:red;font-size:14px;!important" })
-                                        @Html.TextBoxFor(model => model.NgayDangKy, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                                        <div id="" class="input-group date picker" data-date-autoclose="true" style="width:284px">
+                                            @Html.TextBoxFor(model => model.NgayDangKy, "{0:MM-dd-yyyy}", new { @class = "form-control", @type = "text", @style = "float:left" })
+                                            <span class="input-group-addon" style="">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                        
                                        
                                     </div>
                                     <div class="col-md-6">
@@ -398,9 +404,13 @@
                                     </div>
                                     <div class="col-md-offset-6">
                                         <strong>Ngày hết hạn :</strong>@Html.ValidationMessageFor(model => model.NgayHetHan, String.Empty, new { @style = "color:red;font-size:14px;!important" })
-                                        @Html.TextBoxFor(model => model.NgayHetHan, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
-                                       
-                                    </div>
+                                        <div id="" class="input-group date picker" data-date-autoclose="true" style="width:284px">
+                                            @Html.TextBoxFor(model => model.NgayHetHan, "{0:MM-dd-yyyy}", new { @class = "form-control", @type = "text", @style = "float:left" })
+                                            <span class="input-group-addon" style="">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                        </div>
                                     <div class="col-md-6" style="margin-bottom: 20px;">
                                         <strong>Mã thông tin ( phụ ) : </strong>@Html.ValidationMessageFor(model => model.Viewid, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextBoxFor(model => model.Viewid, new { @class = "form-control" })
@@ -789,6 +799,14 @@
     //    $('#tongtien').val('')
     //    $('#ghichu').val('')
     //    $("#tiengiam").val(0);
-    //})
+        //})
+
+        $('.picker').datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: 'mm/dd/yyyy',
+        });
+       
 </script>
 }
