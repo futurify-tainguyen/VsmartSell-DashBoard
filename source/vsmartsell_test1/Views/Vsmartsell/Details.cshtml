@@ -387,9 +387,9 @@
 
                                     </div>
                                     <div class="col-md-offset-6">
-                                        <strong>Ngày bắt đầu :</strong>@Html.ValidationMessageFor(model => model.NgayDangKy, String.Empty, new { @style = "color:red;font-size:14px;!important" })
+                                        <strong>Ngày bắt đầu :</strong>
                                         <div id="" class="input-group date picker" data-date-autoclose="true" style="width:284px">
-                                            @Html.TextBoxFor(model => model.NgayDangKy, "{0:MM-dd-yyyy}", new { @class = "form-control", @type = "text", @style = "float:left" })
+                                            @Html.TextBoxFor(model => model.NgayDangKy, "{0:dd-MM-yyyy}", new { @class = "form-control", @type = "text", @style = "float:left" })
                                             <span class="input-group-addon" style="">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
@@ -403,9 +403,9 @@
                                         @*<input id="giatien" type="text" class="form-control" value="{{GiaTien}}">*@
                                     </div>
                                     <div class="col-md-offset-6">
-                                        <strong>Ngày hết hạn :</strong>@Html.ValidationMessageFor(model => model.NgayHetHan, String.Empty, new { @style = "color:red;font-size:14px;!important" })
+                                        <strong>Ngày hết hạn :</strong>
                                         <div id="" class="input-group date picker" data-date-autoclose="true" style="width:284px">
-                                            @Html.TextBoxFor(model => model.NgayHetHan, "{0:MM-dd-yyyy}", new { @class = "form-control", @type = "text", @style = "float:left" })
+                                            @Html.TextBoxFor(model => model.NgayHetHan, "{0:dd-MM-yyyy}", new { @class = "form-control", @type = "text", @style = "float:left" })
                                             <span class="input-group-addon" style="">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
@@ -805,7 +805,7 @@
             keyboardNavigation: false,
             forceParse: false,
             autoclose: true,
-            format: 'mm/dd/yyyy',
+            format: 'dd-mm-yyyy',
         });
        
 </script>
