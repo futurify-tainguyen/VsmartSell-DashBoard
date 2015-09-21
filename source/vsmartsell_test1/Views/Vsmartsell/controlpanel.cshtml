@@ -563,14 +563,16 @@
             })
             //them email sap het han (string mailtype, string name, string email)           
             $("#saphethan1").click(function () {
-                $.post("/vsmartsell/AddNoticeMail", { mailtype:"nearend",name:"test" ,email: $("#email1").val() }, function (data) {
+                $.post("/vsmartsell/AddNoticeMail", { mailtype: "nearend", name: "test", email: $("#email1").val() }, function (data) {
+                    reloademail();
                 });
-                reloademail();
-                $('#huy').trigger('click');
+                
+                $('#huy1').trigger('click');
             });
             //khi sua mat button them
             $scope.suasaphethan = function(a,b)
             {
+                debugger
                 $("#email1").val(b);
                 $("#saphethan2").show();
                 $("#saphethan1").hide();
@@ -579,8 +581,10 @@
                 //sua email sap het han (int? id, string name, string email)
                 $("#saphethan2").click(function () {
                     $.post("/vsmartsell/EditNoticeMail", { id: a, name: "test", email: $("#email1").val() }, function (data) {
+                        debugger
+                        reloademail();
                     });
-                    reloademail();
+                    
                     $('#huy1').trigger('click');
                 });
             }
@@ -598,7 +602,8 @@
             //khi them mat button edit
             $('#dahethan').click(function () {
                 $("#email1").val("");
-                $("#saphethan1").show();
+                $("#dahethan1").show();
+                $("#saphethan1").hide();
                 $("#saphethan2").hide();
                 $("#chuathanhtoan1").hide();
             })
