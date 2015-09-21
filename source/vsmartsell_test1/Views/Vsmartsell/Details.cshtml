@@ -387,8 +387,14 @@
 
                                     </div>
                                     <div class="col-md-offset-6">
-                                        <strong>Ngày bắt đầu :</strong>@Html.ValidationMessageFor(model => model.NgayDangKy, String.Empty, new { @style = "color:red;font-size:14px;!important" })
-                                        @Html.TextBoxFor(model => model.NgayDangKy, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                                        <strong>Ngày bắt đầu :</strong>
+                                        <div id="" class="input-group date picker" data-date-autoclose="true" style="width:284px">
+                                            @Html.TextBoxFor(model => model.NgayDangKy, "{0:dd-MM-yyyy}", new { @class = "form-control", @type = "text", @style = "float:left" })
+                                            <span class="input-group-addon" style="">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                        
                                        
                                     </div>
                                     <div class="col-md-6">
@@ -397,10 +403,14 @@
                                         @*<input id="giatien" type="text" class="form-control" value="{{GiaTien}}">*@
                                     </div>
                                     <div class="col-md-offset-6">
-                                        <strong>Ngày hết hạn :</strong>@Html.ValidationMessageFor(model => model.NgayHetHan, String.Empty, new { @style = "color:red;font-size:14px;!important" })
-                                        @Html.TextBoxFor(model => model.NgayHetHan, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
-                                       
-                                    </div>
+                                        <strong>Ngày hết hạn :</strong>
+                                        <div id="" class="input-group date picker" data-date-autoclose="true" style="width:284px">
+                                            @Html.TextBoxFor(model => model.NgayHetHan, "{0:dd-MM-yyyy}", new { @class = "form-control", @type = "text", @style = "float:left" })
+                                            <span class="input-group-addon" style="">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                        </div>
                                     <div class="col-md-6" style="margin-bottom: 20px;">
                                         <strong>Mã thông tin ( phụ ) : </strong>@Html.ValidationMessageFor(model => model.Viewid, String.Empty, new { @style = "color:red;font-size:14px;!important" })
                                         @Html.TextBoxFor(model => model.Viewid, new { @class = "form-control" })
@@ -423,8 +433,8 @@
                                     <div><br /></div>
                                     <div class="form-group">
                                         <div class="input-group col-md-3">
-                                            <input id="stringsearch" type="text" class="form-control" placeholder="Tìm kiếm tên người tạo">
-                                            <span class="input-group-btn">
+                                            <input id="stringsearch" style="float:left" type="text" class="form-control" placeholder="Tìm kiếm tên người tạo">
+                                            <span class="input-group-btn" style="float:left">
                                                 <button class="btn btn-default" type="button" onclick="searchname()"> <i class="glyphicon glyphicon-search"></i> </button>
                                             </span>
                                         </div>
@@ -789,6 +799,14 @@
     //    $('#tongtien').val('')
     //    $('#ghichu').val('')
     //    $("#tiengiam").val(0);
-    //})
+        //})
+
+        $('.picker').datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+        });
+       
 </script>
 }
