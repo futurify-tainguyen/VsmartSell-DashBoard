@@ -414,8 +414,8 @@ namespace vsmartsell_test1.Controllers
         {
             if (ModelState.IsValid)
             {
-                khachhang.NgayDangKy = DateTime.ParseExact(khachhang.NgayDangKy.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
-                khachhang.NgayHetHan = DateTime.ParseExact(khachhang.NgayHetHan.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
+                khachhang.NgayDangKy = DateTime.ParseExact(khachhang.NgayDangKy.ToString("MM/dd/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
+                khachhang.NgayHetHan = DateTime.ParseExact(khachhang.NgayHetHan.ToString("MM/dd/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
                 db.Entry(khachhang).State = EntityState.Modified;
                 db.SaveChanges();
                 TempData["userMsg"] = "Chỉnh sửa thông tin khách hàng thành công.";
@@ -449,8 +449,8 @@ namespace vsmartsell_test1.Controllers
         {
             if (ModelState.IsValid)
             {
-                khachhang.NgayDangKy = DateTime.ParseExact(khachhang.NgayDangKy.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
-                khachhang.NgayHetHan = DateTime.ParseExact(khachhang.NgayHetHan.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
+                khachhang.NgayDangKy = DateTime.ParseExact(khachhang.NgayDangKy.ToString("MM/dd/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
+                khachhang.NgayHetHan = DateTime.ParseExact(khachhang.NgayHetHan.ToString("MM/dd/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
                 db.DSKhachHang.Add(khachhang);
                 db.SaveChanges();
                 TempData["userMsg"] = "Tạo mới khách hàng thành công.";
