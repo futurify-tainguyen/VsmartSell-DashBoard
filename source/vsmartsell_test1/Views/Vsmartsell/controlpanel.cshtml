@@ -284,12 +284,18 @@
                             <div><br /></div>
                             <div class="form-group">
                                 <div class="input-group col-md-3">
+                                    <input id="stringsearchkh" type="text" class="form-control" placeholder="Tìm kiếm tên khách hàng">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" onclick="searchnamekh()"> <i class="glyphicon glyphicon-search"></i> </button>
+                                    </span>
+                                </div>
+                                <div class="input-group col-md-3">
                                     <input id="stringsearch" type="text" class="form-control" placeholder="Tìm kiếm tên người tạo">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button" onclick="searchname()"> <i class="glyphicon glyphicon-search"></i> </button>
                                     </span>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label class="col-md-4" style="font-size:16px; padding-top:6px;" for="sel1">Lọc hóa đơn:</label>
                                     <select class="form-control" style="width:auto;" id="sel1">
                                         <option value="-1">Tất cả</option>
@@ -305,17 +311,20 @@
                                         <th class="sort-table" id="magd" style="font-size: 20px;">
                                             Mã hóa đơn
                                         </th>
-                                        <th class="sort-table" id="tao" style="font-size: 20px;">
-                                            Ngày tạo
-                                        </th>
-                                        <th class="sort-table" id="tien" style="font-size: 20px;">
-                                            Số tiền trả
+                                        <th class="sort-table" id="tenkh" style="font-size: 20px;">
+                                            Khách hàng
                                         </th>
                                         <th class="sort-table" id="ten" style="font-size: 20px;">
                                             Người tạo
                                         </th>
+                                        <th class="sort-table" id="tao" style="font-size: 20px;">
+                                            Ngày tạo
+                                        </th>
                                         <th class="sort-table" id="het" style="font-size: 20px;">
                                             Ngày hết hạn
+                                        </th>
+                                        <th class="sort-table" id="tien" style="font-size: 20px;">
+                                            Số tiền trả
                                         </th>
                                         <th style="font-size: 20px;">
                                             Tình trạng
@@ -331,16 +340,19 @@
                                             {{m.gds.MaGD}}
                                         </td>
                                         <td>
-                                            {{todate(m.gds.NgayGD)}}
-                                        </td>
-                                        <td>
-                                            {{m.gds.SoTien}}
+                                            {{m.namekh}}
                                         </td>
                                         <td>
                                             {{m.name}}
                                         </td>
+                                        <td>
+                                            {{todate(m.gds.NgayGD)}}
+                                        </td>
                                         <td class="hidden-xs">
-                                            {{todate(m.gds.NgayHetHan)  }}
+                                            {{todate(m.gds.NgayHetHan)}}
+                                        </td>
+                                        <td>
+                                            {{m.gds.SoTien}}
                                         </td>
                                         <td id="{{m.gds.Paid}}">
                                             {{message(m.gds.Paid)}}
@@ -360,7 +372,7 @@
                                         <div class="modal-header">
                                             @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
                                             <h3 class="modal-title"><strong>Chi tiết hóa đơn</strong> <span style="float:right;">Mã số : {{infogd.gds.MaGD}}</span></h3>
-                                            Khách hàng :<b> {{tenkhachhang}}</b>
+                                            Khách hàng :<b> {{infogd.namekh}}</b>
                                         </div>
                                         <div class="modal-footer" style="margin-top:0px">
                                             <div class="col-md-10" style="width:490px">
@@ -666,7 +678,7 @@
 
             /*-----khu vuc function cua danh sach hoa don-----*/
             //hien danh sach hoa don, khoi tao
-            var page = 1; var sorttype = "magd2"; var search = ""; var filter = -1; //cac bien khoi tao
+            var page = 1; var sorttype = "magd2"; var search = ""; var searchkh = ""; var filter = -1; //cac bien khoi tao
             //get danh sach hoa don khi vua load page
             loadlistgd();
             //function click for pagination buttons
@@ -677,7 +689,7 @@
             //function get danh sach 10 hoa don
             function loadlistgd() {
                 $("#page").children().remove();
-                $http.post("/vsmartsell/GetList10GD", { id: 0, page: page, sorttype: sorttype, search: search, filter: filter }).success(function (response) {
+                $http.post("/vsmartsell/GetList10GD", { id: 0, page: page, sorttype: sorttype, searchkh: searchkh, search: search, filter: filter }).success(function (response) {
                     $scope.List10GD = response.List10GD;
                     var numpage = response.numpage;
                     $scope.tongtiengd = response.tongtien;
@@ -721,6 +733,10 @@
                 search = $('#stringsearch').val();
                 loadlistgd();
             }
+            searchnamekh = function () {
+                searchkh = $('#stringsearchkh').val();
+                loadlistgd();
+            }
             //function filter tinh trang hoa don
             $('#sel1').change(filterpaid);
             function filterpaid() {
@@ -746,9 +762,6 @@
             $scope.info = function (obj) {
                 for (var i in $scope.List10GD) {
                     if ($scope.List10GD[i].gds.MaGD == obj) {
-                        $http.get("/Vsmartsell/GetKH/" + $scope.List10GD[i].gds.MaKH + "").success(function (response) {
-                            $scope.tenkhachhang = response.khachhang.TenKH;
-                        });
                         $scope.infogd = $scope.List10GD[i];
                         //if ($scope.infogd.gds.Paid == true) {
                         //    $("#thanhtoan").hide();
