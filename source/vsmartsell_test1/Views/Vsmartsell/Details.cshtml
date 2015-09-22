@@ -339,7 +339,14 @@
                                     </div>
                                     <div class="col-md-offset-6">
                                         <strong>Loại khách hàng :</strong>@Html.ValidationMessageFor(model => model.LoaiKH, String.Empty, new { @style = "color:red;font-size:14px;!important" })
-                                        @Html.TextBoxFor(model => model.LoaiKH, new { @class = "form-control" })
+                                        @*@Html.TextBoxFor(model => model.LoaiKH, new { @class = "form-control" })*@
+                                        @Html.EnumDropDownListFor(model => model.LoaiKH, new { @class = "form-control" })
+                                        @*<select id="LoaiKH" name="LoaiKH" class="form-control">
+                                            <option value="0">Loại 1</option>
+                                            <option value="1">Loại 2</option>
+                                            <option value="2">Loại 3</option>
+                                            <option value="3">Loại 4</option>
+                                        </select>*@
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Email :</strong>@Html.ValidationMessageFor(model => model.Email, String.Empty, new { @style = "color:red;font-size:14px;!important" })
@@ -387,9 +394,9 @@
 
                                     </div>
                                     <div class="col-md-offset-6">
-                                        <strong>Ngày bắt đầu :</strong>
+                                        <strong>Ngày đăng ký :</strong>
                                         <div id="" class="input-group date picker" data-date-autoclose="true" style="width:284px">
-                                            @Html.TextBoxFor(model => model.NgayDangKy, "{0:dd-MM-yyyy}", new { @class = "form-control", @type = "text", @style = "float:left" })
+                                            <input readonly class="form-control" data-val="true" data-val-required=" Ngày đăng ký không được để trống." id="StrNgayDangKy" name="StrNgayDangKy" style="float:left" type="text" value="@Model.NgayDangKy.ToString("dd-MM-yyyy")">
                                             <span class="input-group-addon" style="">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
@@ -405,7 +412,7 @@
                                     <div class="col-md-offset-6">
                                         <strong>Ngày hết hạn :</strong>
                                         <div id="" class="input-group date picker" data-date-autoclose="true" style="width:284px">
-                                            @Html.TextBoxFor(model => model.NgayHetHan, "{0:dd-MM-yyyy}", new { @class = "form-control", @type = "text", @style = "float:left" })
+                                            <input readonly class="form-control" data-val="true" data-val-required=" Ngày hết hạn không được để trống." id="StrNgayHetHan" name="StrNgayHetHan" style="float:left" type="text" value="@Model.NgayHetHan.ToString("dd-MM-yyyy")">
                                             <span class="input-group-addon" style="">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
@@ -438,8 +445,8 @@
                                                 <button class="btn btn-default" type="button" onclick="searchname()"> <i class="glyphicon glyphicon-search"></i> </button>
                                             </span>
                                         </div>
-                                        <div class="col-md-4">
-                                            <label class="col-md-4" style="font-size:16px; padding-top:6px;" for="sel1">Lọc hóa đơn:</label>
+                                        <div class="col-md-4" style="margin-left:24px;">
+                                            <label class="col-md-4" style="font-size:16px; padding-top:6px; text-align:right;" for="sel1">Lọc hóa đơn:</label>
                                             <select class="form-control" style="width:auto;" id="sel1">
                                                 <option value="-1">Tất cả</option>
                                                 <option value="1">Đã thanh toán</option>
@@ -606,9 +613,9 @@
         };
         //songayconlai
         var hientai= new Date()
-        var ngay = $("#NgayHetHan").val().substring(8, 10);
-        var thang = $("#NgayHetHan").val().substring(5, 7);
-        var nam = $("#NgayHetHan").val().substring(0, 4);
+        var ngay = $("#StrNgayHetHan").val().substring(0, 2);
+        var thang = $("#StrNgayHetHan").val().substring(3, 5);
+        var nam = $("#StrNgayHetHan").val().substring(6, 10);
         var updatedate = thang + '/' + ngay + '/' + nam;
         var datehethan = new Date(updatedate);
         datehethan = datehethan.setDate(datehethan.getDate());

@@ -146,3 +146,4 @@ C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.pdb
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.banggia_add_magoi.resources
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.banggia_add_magoi.resources
+C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.UpdateKhachHangTable.resources

@@ -27,7 +27,7 @@ namespace vsmartsell_test1.Models
             ErrorMessage = " Email không hợp lệ (vd: abc@email.com).")]
         public string Email { get; set; }
 
-        public string LoaiKH { get; set; }
+        public LoaiKhachHang LoaiKH { get; set; }
         
         public int MaGoi { get; set; }
         [ForeignKey("MaGoi")]
@@ -35,7 +35,7 @@ namespace vsmartsell_test1.Models
 
         public decimal GiaGoi { get; set; }
 
-        [Required(ErrorMessage = " Ngày bắt đầu không được để trống.")]
+        [Required(ErrorMessage = " Ngày đăng ký không được để trống.")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime NgayDangKy { get; set; }
@@ -54,6 +54,18 @@ namespace vsmartsell_test1.Models
         public string Note { get; set; }
         //public ICollection<LichSuGD> DSLichSuGD { get; set; }
         public string Viewid { get; set; }
+    }
+
+    public enum LoaiKhachHang
+    {
+        [Display(Name="Loại 1")]
+        Loai1,
+        [Display(Name = "Loại 2")]
+        Loai2,
+        [Display(Name = "Loại 3")]
+        Loai3,
+        [Display(Name = "Loại 4")]
+        Loai4
     }
 
     public class LichSuGD

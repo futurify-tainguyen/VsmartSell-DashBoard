@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.gaviewid = "106032405";
+    ViewBag.gaviewid = "108230560";//"106032405";
 }
 
 <style>
@@ -149,7 +149,7 @@
                                         {{m.kh.Email}}
                                     </td>
                                     <td>
-                                        {{m.kh.LoaiKH}}
+                                        {{showloaikh(m.kh.LoaiKH)}}
                                     </td>
                                     <td>
                                         {{m.goi.LoaiGoi}}
@@ -227,9 +227,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 <script src="~/Scripts/jquery.session.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-
-    });
+    document.getElementById("trangchu").style.color = "blue";
     $('#timkiem').val($.session.get("timkiem"));
     var app = angular.module("IndexApp", [])
     app.filter('offset', function () {
@@ -319,6 +317,17 @@
         //    $scope.ListKH = listKH;
         //    $('.sk-circle').remove();
         //});
+
+        $scope.showloaikh = function (obj) {
+            var a = "";
+            switch (obj) {
+                case 1: a = "Loại 1"; break;
+                case 2: a = "Loại 2"; break;
+                case 3: a = "Loại 3"; break;
+                case 4: a = "Loại 4"; break;
+            }
+            return a;
+        };
 
         $scope.todate = function (strdate) {
             var newdate = new Date(parseInt(strdate.substr(6)));
