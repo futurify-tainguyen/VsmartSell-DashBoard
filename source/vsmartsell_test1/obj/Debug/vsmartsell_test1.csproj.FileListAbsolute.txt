@@ -71,6 +71,8 @@ C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\Micro
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.pdb
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.noticemail_remove_require_name.resources
 C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.ignore_accent_userfullname.resources
+C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.banggia_add_magoi.resources
+C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.UpdateKhachHangTable.resources
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\vsmartsell_test1.dll.config
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\vsmartsell_test1.dll
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\vsmartsell_test1.pdb
@@ -104,11 +106,11 @@ C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\Entit
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\EntityFramework.SqlServer.xml
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\System.Web.Helpers.xml
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\System.Web.Mvc.xml
-C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\System.Web.Optimization.xml
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\System.Web.Razor.xml
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\System.Web.WebPages.xml
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\System.Web.WebPages.Deployment.xml
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\System.Web.WebPages.Razor.xml
+C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\System.Web.Optimization.xml
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\Newtonsoft.Json.xml
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\Antlr3.Runtime.pdb
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\bin\Microsoft.AspNet.Identity.Core.xml
@@ -141,9 +143,8 @@ C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.noticemail_add.resources
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.noticemail_remove_require_name.resources
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.ignore_accent_userfullname.resources
+C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.banggia_add_magoi.resources
+C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.UpdateKhachHangTable.resources
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.csproj.GenerateResource.Cache
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.dll
 C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.pdb
-C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.banggia_add_magoi.resources
-C:\Users\Pro_64\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.banggia_add_magoi.resources
-C:\Users\nguyen\Documents\VsmartSell-DashBoard\source\vsmartsell_test1\obj\Debug\vsmartsell_test1.Migrations.UpdateKhachHangTable.resources

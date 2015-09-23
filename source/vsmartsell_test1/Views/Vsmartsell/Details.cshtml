@@ -628,6 +628,7 @@
             // int makh, DateTime ngaygd, DateTime ngayhethan, decimal sotien, string nguoithu, int thoihan, decimal cuocphi, decimal tiengiam, string note, bool paid
             var paid = confirm("Có chắc là muốn tạo hóa đơn chứ ?");
             if (paid == true) {
+                debugger
                 var note = $('#ghichu').val();
                 var tiengiam = $('#tiengiam').val();
                 var cuocphi = $('#cuocphi').val();
@@ -635,9 +636,9 @@
                 var nguoithu = $('#nhanvienthutien').val();
                 var sotien = $('#tongtien').val();
                 //date hethan
-                var nam = parseInt($('#NgayHetHan').val().substring(0, 4));
-                var thang = parseInt($('#NgayHetHan').val().substring(5, 7));
-                var ngay = parseInt($('#NgayHetHan').val().substring(8, 10));
+                var nam = parseInt($('#StrNgayHetHan').val().substring(6, 10));
+                var thang = parseInt($('#StrNgayHetHan').val().substring(3, 5));
+                var ngay = parseInt($('#StrNgayHetHan').val().substring(0, 2));
                 var giahan = parseInt(thoihan);
                 var newngay = ngay;
                 var newthang = thang + giahan;
@@ -646,14 +647,15 @@
                 var thang1 = $('#ngaythanhtoan').val().substring(3, 5);
                 var ngay1 = $('#ngaythanhtoan').val().substring(0, 2);
                 var ngaygd = thang1 + '/' + ngay1 + '/' + nam1;
-                var old_ngayhethan = new Date($("#NgayHetHan").val());
+                var old_ngayhethan = new Date($('#StrNgayHetHan').val().substring(6, 10) +'/'+ $('#StrNgayHetHan').val().substring(3, 5) +'/ss'+ $('#StrNgayHetHan').val().substring(0, 2));
                 old_ngayhethan = old_ngayhethan.setMonth(old_ngayhethan.getMonth() + giahan);
                 var new_ngayhethan = new Date(old_ngayhethan);
                 var ngayhethan = new_ngayhethan.getFullYear() + '/' + ('0' + (new_ngayhethan.getMonth() + 1)).slice(-2) + '/' + ('0' + new_ngayhethan.getDate()).slice(-2);
 
                 var makh = Number($('#MaKH').val())
-
+                debugger
                 $.post("/vsmartsell/UpdateHistory", { makh: makh, ngaygd: ngaygd, ngayhethan: ngayhethan, sotien: sotien, nguoithu: nguoithu, thoihan: thoihan, cuocphi: cuocphi, tiengiam: tiengiam, note: note, paid: false }, function (data) {
+                    debugger
                     page = 1; sorttype = "magd2"; search = ""; filter = -1; //reload list10gd sau khi tao hoa don
                     loadlistgd();
                 });
