@@ -171,7 +171,7 @@
                                             <i class="glyphicon glyphicon-pencil">
                                             </i> sửa
                                         </a>
-                                        <button style="margin-bottom: 0px;" class="btn btn-xs btn-danger">
+                                        <button style="margin-bottom: 0px;" class="btn btn-xs btn-danger" ng-click="xoakh(m.kh.MaKH)">
                                             <p hidden value="{{m.kh.MaKH}}"></p>
                                             <i class="glyphicon glyphicon-trash">
                                             </i> xóa
@@ -240,83 +240,10 @@
     app.controller('indexcontrol', function ($scope, $http) {
 
 
-        @*$scope.itemsPerPage = 10;
-        $scope.currentPage = 0;
-        $scope.items = [];
-
-        for (var i = 0; i < 50; i++) {
-            $scope.items.push({
-                id: i, name: "name " + i, description: "description " + i
-            });
-        }
-
-        $scope.prevPage = function () {
-            if ($scope.currentPage > 0) {
-                $scope.currentPage--;
-            }
-        };
-
-        $scope.prevPageDisabled = function () {
-            return $scope.currentPage === 0 ? "disabled" : "";
-        };
-
-        $scope.pageCount = function () {
-            return Math.ceil($scope.items.length / $scope.itemsPerPage) - 1;
-        };
-
-        $scope.nextPage = function () {
-            if ($scope.currentPage < $scope.pageCount() - 1) {
-                $scope.currentPage++;
-            }
-        };
-
-        $scope.nextPageDisabled = function () {
-            return $scope.currentPage === $scope.pageCount() - 1 ? "disabled" : "";
-        };
-
-        $scope.lastPage = function () {
-            $scope.currentPage = parseInt(@ViewBag.numpage) - 1;
-        };
-
-        $scope.lastPageDisabled = function () {
-            return $scope.currentPage === parseInt(@ViewBag.numpage)-1 ? "disabled" : "";
-        };
-
-        $scope.firstPage = function () {
-            $scope.currentPage = 0;
-        };
-
-        $scope.numPage = function (i) {
-            $scope.currentPage = i-1;
-        };
-
-        $scope.numPageDisabled = function (i) {
-            return $scope.currentPage === i-1 ? "disabled" : "";
-        };
-        $scope.firstPageDisabled = function () {
-            return $scope.currentPage === 0 ? "disabled" : "";
-        };*@
+       
         var loadingIcon = '<div class="sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div>'
         $('#loadingicon').append(loadingIcon);
 
-        //$http.get("/vsmartsell/GetListKH").success(function (response) {
-        //    var tam = response.ListKH.length;
-
-        //    $scope.pageChangeHandler = function (num) {
-        //        console.log('meals page changed to ' + num);
-        //    };
-
-
-
-        //    function OtherController($scope) {
-        //        $scope.pageChangeHandler = function (num) {
-        //            console.log('going to page ' + num);
-        //        };
-        //    }
-        //    var listKH = response.ListKH;
-        //    $scope.ListKH = listKH;
-        //    $('.sk-circle').remove();
-        //});
 
         $scope.showloaikh = function (obj) {
             var a = "";
@@ -334,17 +261,18 @@
             var todate = ('0' + newdate.getDate()).slice(-2) + '-' + ('0' + (newdate.getMonth() + 1)).slice(-2) + '-' + newdate.getFullYear();
             return todate;
         };
-
-        $('body').on('click', '.btn-danger', function () {
+        //xoa khachhang
+     
+        $scope.xoakh = function (a) {
             var strconfirm = confirm("Are you sure you want to delete?");
             if (strconfirm == true) {
-                var tam = parseInt($(this).find('p').attr('value'));
-                $.post("/vsmartsell/EditArchive", { id: tam }, function (data) {
-                    if (data)
-                    { location.reload() }
-                });
-            }
-        })      
+                    $.post("/vsmartsell/EditArchive", { id: a }, function (data) {
+                    });
+                    $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: $.session.get("sorttype"), search: $.session.get("timkiem") }).success(function (response) {
+                        $scope.List10KH = response.List10KH;
+                    });
+                }
+        };
         if ($.session.get('nowpage') == null) {
             //load page tra tu dong ve page 1
             $http.post("/vsmartsell/GetList10KH", { id: 1 }).success(function (response) {
