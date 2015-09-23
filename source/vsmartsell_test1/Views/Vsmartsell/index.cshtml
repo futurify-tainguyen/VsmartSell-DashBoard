@@ -266,13 +266,17 @@
         $scope.xoakh = function (a) {
             var strconfirm = confirm("Are you sure you want to delete?");
             if (strconfirm == true) {
-                    $.post("/vsmartsell/EditArchive", { id: a }, function (data) {
+                $.post("/vsmartsell/EditArchive", { id: a }, function (data) {
+                    reloadindex();
                     });
-                    $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: $.session.get("sorttype"), search: $.session.get("timkiem") }).success(function (response) {
-                        $scope.List10KH = response.List10KH;
-                    });
+                    
                 }
         };
+        reloadindex = function () {
+            $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: $.session.get("sorttype"), search: $.session.get("timkiem") }).success(function (response) {
+                $scope.List10KH = response.List10KH;
+            });
+        }
         if ($.session.get('nowpage') == null) {
             //load page tra tu dong ve page 1
             $http.post("/vsmartsell/GetList10KH", { id: 1 }).success(function (response) {
