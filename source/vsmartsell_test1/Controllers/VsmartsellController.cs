@@ -439,7 +439,7 @@ namespace vsmartsell_test1.Controllers
                           orderby m.LoaiGoi
                           select m;
             ViewBag.listgoi = listgoi;
-            return View("details", new KhachHang());
+            return View("details", new KhachHang { NgayDangKy = DateTime.Now, NgayHetHan = DateTime.Now});
         }
 
         // POST: /Vsmartsell/Create
