@@ -647,7 +647,7 @@
                 var thang1 = $('#ngaythanhtoan').val().substring(3, 5);
                 var ngay1 = $('#ngaythanhtoan').val().substring(0, 2);
                 var ngaygd = thang1 + '/' + ngay1 + '/' + nam1;
-                var old_ngayhethan = new Date($('#StrNgayHetHan').val().substring(6, 10) +'/'+ $('#StrNgayHetHan').val().substring(3, 5) +'/ss'+ $('#StrNgayHetHan').val().substring(0, 2));
+                var old_ngayhethan = new Date($('#StrNgayHetHan').val().substring(6, 10) +'/'+ $('#StrNgayHetHan').val().substring(3, 5) +'/'+ $('#StrNgayHetHan').val().substring(0, 2));
                 old_ngayhethan = old_ngayhethan.setMonth(old_ngayhethan.getMonth() + giahan);
                 var new_ngayhethan = new Date(old_ngayhethan);
                 var ngayhethan = new_ngayhethan.getFullYear() + '/' + ('0' + (new_ngayhethan.getMonth() + 1)).slice(-2) + '/' + ('0' + new_ngayhethan.getDate()).slice(-2);
