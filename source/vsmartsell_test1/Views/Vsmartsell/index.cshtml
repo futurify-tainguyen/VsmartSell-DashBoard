@@ -275,6 +275,32 @@
         reloadindex = function () {
             $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: $.session.get("sorttype"), search: $.session.get("timkiem") }).success(function (response) {
                 $scope.List10KH = response.List10KH;
+                if(response.List10KH.length==0)
+                {
+                    $.session.set('nowpage', Number($.session.get('nowpage')) - 1);
+                    $http.post("/vsmartsell/GetList10KH", { id: Number($.session.get('nowpage')), sorttype: $.session.get("sorttype"), search: $.session.get("timkiem") }).success(function (response) {
+                        $scope.List10KH = response.List10KH;
+                        $('#page').find('a').remove();
+                        var buttonpageprevious = '<a class="btn btn-default-outline" id="first" onclick="firstpage()"><div><<</div></a>'
+                        $('#page').append(buttonpageprevious);
+                        var buttonpagefirst = '<a class="btn btn-default-outline" id="previous" onclick="previouspage(1)"><div><</div></a>'
+                        $('#page').append(buttonpagefirst);
+                        //append so page
+                        for (var i = 1; i <= response.numpage; i++) {
+                            if (i == response.numpage) {
+                                var buttonpage = '  <a  class="btn btn-default-outline" onclick="selectpage1(' + i + ')" value="' + i + '" id="' + i + '" disabled>' + i + '</a>'
+                            }
+                            else {
+                                var buttonpage = '  <a class="btn btn-default-outline" onclick="selectpage1(' + i + ')" value="' + i + '" id="' + i + '" >' + i + '</a>'
+                            }
+                            $('#page').append(buttonpage);
+                        }
+                        var buttonpagenext = '<a class="btn btn-default-outline" id="next" onclick="nextpage()" ><div>></div></a>'
+                        $('#page').append(buttonpagenext);
+                        var buttonpagelast = '<a class="btn btn-default-outline" id="last" onclick="lastpage(' + response.numpage + ')"><div>>></div></a>'
+                        $('#page').append(buttonpagelast);
+                    });
+                }
             });
         }
         if ($.session.get('nowpage') == null) {
