@@ -299,6 +299,8 @@
                         $('#page').append(buttonpagenext);
                         var buttonpagelast = '<a class="btn btn-default-outline" id="last" onclick="lastpage(' + response.numpage + ')"><div>>></div></a>'
                         $('#page').append(buttonpagelast);
+                        $('#next').attr('disabled', 'disabled');
+                        $('#last').attr('disabled', 'disabled');
                     });
                 }
             });
